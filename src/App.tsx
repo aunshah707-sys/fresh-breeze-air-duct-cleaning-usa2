@@ -96,8 +96,8 @@ export default function App() {
     openQuoteModal(undefined, location);
   };
 
-  const handleClaimPromo = () => {
-    setAppliedPromo('40% OFF Promotion');
+  const handleClaimPromo = (couponCode?: string) => {
+    setAppliedPromo(couponCode || 'FRESHOCT');
     openQuoteModal();
   };
 

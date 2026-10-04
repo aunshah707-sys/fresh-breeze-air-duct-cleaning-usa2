@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { 
   Send, 
   CheckCircle2, 
@@ -8,13 +8,23 @@ import {
   Phone, 
   Mail, 
   Wrench, 
-  MessageSquare,
-  Sparkles,
-  RotateCcw,
-  Clock,
-  AlertCircle,
-  X
+  MessageSquare, 
+  Sparkles, 
+  RotateCcw, 
+  Clock, 
+  AlertCircle, 
+  X,
+  Tag,
+  ShieldCheck
 } from 'lucide-react';
+import { useCountdown } from '../utils/useCountdown';
+import { 
+  getServiceRegularPrice, 
+  PROMO_COUPON_CODE, 
+  EXPIRED_MESSAGE,
+  PricingResult,
+  calculatePricing 
+} from '../../lib/pricing';
 
 interface FreeQuoteFormProps {
   initialService?: string;
@@ -50,19 +60,130 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [quoteReferenceId, setQuoteReferenceId] = useState('');
+  const [submittedPricing, setSubmittedPricing] = useState<PricingResult | null>(null);
 
-  // Update form if props change (e.g. from service card or ZIP checker)
+  // Coupon state
+  const [couponInput, setCouponInput] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
+  const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
+  const [serverPricing, setServerPricing] = useState<PricingResult | null>(null);
+
+  // Live countdown synced with America/New_York
+  const countdown = useCountdown();
+
+  // Validate coupon directly with server endpoint
+  const validateCouponWithServer = useCallback(async (codeToValidate: string, service: string) => {
+    const code = codeToValidate.trim().toUpperCase();
+    if (!code) {
+      setAppliedCoupon(null);
+      setServerPricing(null);
+      setCouponError(null);
+      return;
+    }
+
+    setIsValidatingCoupon(true);
+    setCouponError(null);
+
+    try {
+      const response = await fetch('/api/validate-coupon', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ couponCode: code, service }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Server returned an error');
+      }
+
+      const data: PricingResult = await response.json();
+      setServerPricing(data);
+
+      if (data.couponExpired) {
+        setAppliedCoupon(null);
+        setCouponError(EXPIRED_MESSAGE);
+      } else if (data.couponValid) {
+        setAppliedCoupon(data.couponCode || code);
+        setCouponError(null);
+      } else {
+        setAppliedCoupon(null);
+        setCouponError(data.message || 'Invalid coupon code.');
+      }
+    } catch {
+      // In case of network glitch, use strict fallback validator
+      const fallback = calculatePricing(service, code, Date.now());
+      setServerPricing(fallback);
+      if (fallback.couponExpired) {
+        setAppliedCoupon(null);
+        setCouponError(EXPIRED_MESSAGE);
+      } else if (fallback.couponValid) {
+        setAppliedCoupon(fallback.couponCode || code);
+        setCouponError(null);
+      } else {
+        setAppliedCoupon(null);
+        setCouponError(fallback.message || 'Invalid coupon code.');
+      }
+    } finally {
+      setIsValidatingCoupon(false);
+    }
+  }, []);
+
+  // Update service if prop changes
   useEffect(() => {
     if (initialService) {
       setFormData((prev) => ({ ...prev, serviceNeeded: initialService }));
     }
   }, [initialService]);
 
+  // Update location if prop changes
   useEffect(() => {
     if (initialLocation) {
       setFormData((prev) => ({ ...prev, cityState: initialLocation }));
     }
   }, [initialLocation]);
+
+  // Auto-apply or validate coupon when appliedPromo prop is provided
+  useEffect(() => {
+    if (appliedPromo) {
+      const code = appliedPromo.toUpperCase().includes('FRESHOCT') || appliedPromo.includes('40%')
+        ? PROMO_COUPON_CODE
+        : appliedPromo.toUpperCase();
+
+      setCouponInput(code);
+      validateCouponWithServer(code, formData.serviceNeeded);
+    }
+  }, [appliedPromo, formData.serviceNeeded, validateCouponWithServer]);
+
+  // Revalidate pricing when service selection changes if coupon is applied
+  useEffect(() => {
+    if (appliedCoupon) {
+      validateCouponWithServer(appliedCoupon, formData.serviceNeeded);
+    }
+  }, [formData.serviceNeeded, appliedCoupon, validateCouponWithServer]);
+
+  // If countdown fires expiry while user is viewing the page, strictly expire the coupon
+  useEffect(() => {
+    if (countdown.isExpired && appliedCoupon) {
+      setAppliedCoupon(null);
+      setCouponError(EXPIRED_MESSAGE);
+      setServerPricing(calculatePricing(formData.serviceNeeded, '', Date.now()));
+    }
+  }, [countdown.isExpired, appliedCoupon, formData.serviceNeeded]);
+
+  const handleApplyCoupon = () => {
+    if (!couponInput.trim()) return;
+    validateCouponWithServer(couponInput, formData.serviceNeeded);
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponInput('');
+    setCouponError(null);
+    setServerPricing(null);
+    if (onClearPromo) {
+      onClearPromo();
+    }
+  };
 
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
@@ -110,10 +231,11 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
           phone: formData.phone.trim(),
           email: formData.email.trim(),
           cityState: formData.cityState.trim(),
-          serviceNeeded: appliedPromo ? `${formData.serviceNeeded} (${appliedPromo})` : formData.serviceNeeded,
+          serviceNeeded: formData.serviceNeeded,
           preferredDate: formData.preferredDate || undefined,
           message: formData.message.trim() || undefined,
           quoteReferenceId: generatedId,
+          couponCode: appliedCoupon || undefined,
         }),
       });
 
@@ -121,6 +243,9 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
       if (response.ok && result.success) {
         setQuoteReferenceId(result.quoteReferenceId || generatedId);
+        if (result.pricing) {
+          setSubmittedPricing(result.pricing);
+        }
         setIsSubmitted(true);
       } else {
         setSubmitError(
@@ -138,6 +263,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
   const handleReset = () => {
     setIsSubmitted(false);
     setSubmitError(null);
+    setSubmittedPricing(null);
     setFormData({
       name: '',
       phone: '',
@@ -149,6 +275,13 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
     });
     setErrors({});
   };
+
+  // Compute active prices
+  const baseRegularPrice = getServiceRegularPrice(formData.serviceNeeded);
+  const currentRegularPrice = serverPricing?.regularPrice ?? baseRegularPrice;
+  const isDiscountActive = Boolean(appliedCoupon && serverPricing?.couponValid && !serverPricing?.couponExpired && !countdown.isExpired);
+  const currentDiscountAmount = isDiscountActive && serverPricing ? serverPricing.discountAmount : 0;
+  const currentFinalPrice = isDiscountActive && serverPricing ? serverPricing.finalPrice : currentRegularPrice;
 
   const formContent = (
     <div className={isModal ? "p-6 sm:p-7 space-y-5" : ""}>
@@ -171,13 +304,58 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
             We have received your quote request for <strong className="text-slate-900">{formData.serviceNeeded}</strong> in <strong className="text-slate-900">{formData.cityState}</strong>.
           </p>
 
+          {/* Pricing Confirmation Box */}
+          <div className="mt-6 max-w-md mx-auto bg-white rounded-2xl p-5 border border-slate-200 shadow-xs text-left space-y-3">
+            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between">
+              <span>Server-Approved Pricing Breakdown</span>
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            </h4>
+
+            {submittedPricing && submittedPricing.couponValid ? (
+              <div className="space-y-1.5 text-xs sm:text-sm">
+                <div className="flex justify-between text-slate-500">
+                  <span>Regular Price</span>
+                  <span className="line-through">${submittedPricing.regularPrice.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-emerald-700 font-semibold">
+                  <span>October Discount (40%)</span>
+                  <span>-${submittedPricing.discountAmount.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-slate-900 font-extrabold text-sm sm:text-base pt-1.5 border-t border-slate-200">
+                  <span>Your Price</span>
+                  <span className="text-emerald-700 text-lg font-black font-display">
+                    ${submittedPricing.finalPrice.toFixed(2)}
+                  </span>
+                </div>
+                <div className="pt-1 text-[11px] text-emerald-700 flex items-center gap-1 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Promo code {submittedPricing.couponCode} applied successfully!</span>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-1.5 text-xs sm:text-sm">
+                <div className="flex justify-between text-slate-900 font-bold text-sm sm:text-base">
+                  <span>Regular Price</span>
+                  <span className="text-slate-900 font-display font-bold">
+                    ${(submittedPricing?.regularPrice ?? currentRegularPrice).toFixed(2)}
+                  </span>
+                </div>
+                {submittedPricing?.couponExpired && (
+                  <p className="text-[11px] text-rose-700 font-medium">
+                    Note: {EXPIRED_MESSAGE} Regular price applies.
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+
           {/* What happens next box */}
-          <div className="mt-8 max-w-md mx-auto bg-slate-50 rounded-2xl p-6 border border-slate-200/80 text-left space-y-4">
+          <div className="mt-6 max-w-md mx-auto bg-slate-50 rounded-2xl p-5 border border-slate-200/80 text-left space-y-3">
             <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
               <Clock className="w-4 h-4 text-sky-600" />
               What Happens Next?
             </h4>
-            <div className="space-y-3 text-xs text-slate-600">
+            <div className="space-y-2.5 text-xs text-slate-600">
               <div className="flex items-start gap-2.5">
                 <span className="w-5 h-5 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center justify-center shrink-0 text-[11px]">1</span>
                 <p>Our coordinator checks local technician routes in your area.</p>
@@ -216,212 +394,312 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
       ) : (
         /* The High-Converting Quote Form */
         <form onSubmit={handleSubmit} className={isModal ? "space-y-5" : "p-6 sm:p-10 space-y-6"}>
-                {appliedPromo && (
-                  <div className="p-4 rounded-2xl bg-linear-to-r from-emerald-50 via-emerald-100/60 to-sky-50 border-2 border-emerald-500/40 flex items-center justify-between gap-3 text-xs sm:text-sm text-emerald-950 animate-in fade-in shadow-xs">
-                    <div className="flex items-center gap-2.5 flex-wrap">
-                      <span className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-extrabold text-xs tracking-wider shadow-xs">
-                        40% OFF
-                      </span>
-                      <span className="font-bold">
-                        Special Offer Applied: 40% OFF Promotion is locked into your quote!
-                      </span>
-                    </div>
-                    {onClearPromo && (
-                      <button
-                        type="button"
-                        onClick={onClearPromo}
-                        className="text-slate-400 hover:text-slate-700 p-1 text-xs font-bold"
-                        title="Remove promotion"
-                      >
-                        ✕
-                      </button>
-                    )}
-                  </div>
-                )}
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+            {/* Name */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <User className="w-3.5 h-3.5 text-sky-600" />
+                Full Name *
+              </label>
+              <input
+                type="text"
+                name="name"
+                required
+                placeholder="e.g. John Miller"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 ${
+                  errors.name
+                    ? 'border-red-300 focus:ring-red-400 bg-red-50/30'
+                    : 'border-slate-300 focus:ring-sky-500 focus:border-transparent'
+                }`}
+              />
+              {errors.name && (
+                <p className="mt-1 text-xs text-red-600">{errors.name}</p>
+              )}
+            </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
-                  {/* Name */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                      <User className="w-3.5 h-3.5 text-sky-600" />
-                      Full Name *
-                    </label>
+            {/* Phone Number */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-sky-600" />
+                Phone Number *
+              </label>
+              <input
+                type="tel"
+                name="phone"
+                required
+                placeholder="(555) 123-4567"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 ${
+                  errors.phone
+                    ? 'border-red-300 focus:ring-red-400 bg-red-50/30'
+                    : 'border-slate-300 focus:ring-sky-500 focus:border-transparent'
+                }`}
+              />
+              {errors.phone && (
+                <p className="mt-1 text-xs text-red-600">{errors.phone}</p>
+              )}
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-sky-600" />
+                Email Address *
+              </label>
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="john@example.com"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 ${
+                  errors.email
+                    ? 'border-red-300 focus:ring-red-400 bg-red-50/30'
+                    : 'border-slate-300 focus:ring-sky-500 focus:border-transparent'
+                }`}
+              />
+              {errors.email && (
+                <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+              )}
+            </div>
+
+            {/* City / State */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-sky-600" />
+                City / State or ZIP *
+              </label>
+              <input
+                type="text"
+                name="cityState"
+                required
+                placeholder="e.g. Austin, TX or 78701"
+                value={formData.cityState}
+                onChange={(e) => setFormData({ ...formData, cityState: e.target.value })}
+                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 ${
+                  errors.cityState
+                    ? 'border-red-300 focus:ring-red-400 bg-red-50/30'
+                    : 'border-slate-300 focus:ring-sky-500 focus:border-transparent'
+                }`}
+              />
+              {errors.cityState && (
+                <p className="mt-1 text-xs text-red-600">{errors.cityState}</p>
+              )}
+            </div>
+
+            {/* Service Needed Dropdown */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Wrench className="w-3.5 h-3.5 text-sky-600" />
+                Service Needed *
+              </label>
+              <select
+                value={formData.serviceNeeded}
+                onChange={(e) => setFormData({ ...formData, serviceNeeded: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-slate-50/50 font-medium text-slate-800"
+              >
+                <option value="Air Duct Cleaning">Air Duct Cleaning ($249)</option>
+                <option value="Dryer Vent Cleaning">Dryer Vent Cleaning ($249)</option>
+                <option value="Chimney Cleaning">Chimney Cleaning ($279)</option>
+                <option value="HVAC Cleaning">HVAC Cleaning ($249)</option>
+                <option value="Other">Other ($249)</option>
+              </select>
+            </div>
+
+            {/* Preferred Date */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-sky-600" />
+                Preferred Date
+              </label>
+              <input
+                type="date"
+                name="preferredDate"
+                value={formData.preferredDate}
+                onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-slate-50/50 text-slate-700"
+              >
+              </input>
+            </div>
+          </div>
+
+          {/* Pricing & Coupon Section */}
+          <div className="rounded-2xl border border-slate-200/90 bg-slate-50/80 p-4 sm:p-5 space-y-4">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <span className="text-xs font-bold text-slate-700 uppercase tracking-wider block">
+                  Upfront Pricing &amp; Promotion
+                </span>
+                <span className="text-[11px] text-slate-500">
+                  Verified residential pricing for {formData.serviceNeeded}
+                </span>
+              </div>
+
+              {/* Live Countdown Badge */}
+              <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${
+                countdown.isExpired 
+                  ? 'bg-rose-100 text-rose-800 border border-rose-200' 
+                  : 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+              }`}>
+                <Clock className="w-3.5 h-3.5" />
+                <span>
+                  {countdown.isExpired ? 'Offer Expired' : `October Special: ${countdown.formatted}`}
+                </span>
+              </div>
+            </div>
+
+            {/* Coupon Code Input & Status */}
+            <div className="space-y-2">
+              {!appliedCoupon ? (
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <div className="relative grow">
+                    <Tag className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
-                      name="name"
-                      required
-                      placeholder="e.g. John Miller"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 ${
-                        errors.name
-                          ? 'border-red-300 focus:ring-red-400 bg-red-50/30'
-                          : 'border-slate-300 focus:ring-sky-500 focus:border-transparent'
-                      }`}
-                    />
-                    {errors.name && (
-                      <p className="mt-1 text-xs text-red-600">{errors.name}</p>
-                    )}
-                  </div>
-
-                  {/* Phone Number */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                      <Phone className="w-3.5 h-3.5 text-sky-600" />
-                      Phone Number *
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      required
-                      placeholder="(555) 123-4567"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 ${
-                        errors.phone
-                          ? 'border-red-300 focus:ring-red-400 bg-red-50/30'
-                          : 'border-slate-300 focus:ring-sky-500 focus:border-transparent'
-                      }`}
-                    />
-                    {errors.phone && (
-                      <p className="mt-1 text-xs text-red-600">{errors.phone}</p>
-                    )}
-                  </div>
-
-                  {/* Email */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                      <Mail className="w-3.5 h-3.5 text-sky-600" />
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      placeholder="john@example.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 ${
-                        errors.email
-                          ? 'border-red-300 focus:ring-red-400 bg-red-50/30'
-                          : 'border-slate-300 focus:ring-sky-500 focus:border-transparent'
-                      }`}
-                    />
-                    {errors.email && (
-                      <p className="mt-1 text-xs text-red-600">{errors.email}</p>
-                    )}
-                  </div>
-
-                  {/* City / State */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-sky-600" />
-                      City / State or ZIP *
-                    </label>
-                    <input
-                      type="text"
-                      name="cityState"
-                      required
-                      placeholder="e.g. Austin, TX or 78701"
-                      value={formData.cityState}
-                      onChange={(e) => setFormData({ ...formData, cityState: e.target.value })}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 ${
-                        errors.cityState
-                          ? 'border-red-300 focus:ring-red-400 bg-red-50/30'
-                          : 'border-slate-300 focus:ring-sky-500 focus:border-transparent'
-                      }`}
-                    />
-                    {errors.cityState && (
-                      <p className="mt-1 text-xs text-red-600">{errors.cityState}</p>
-                    )}
-                  </div>
-
-                  {/* Service Needed Dropdown */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                      <Wrench className="w-3.5 h-3.5 text-sky-600" />
-                      Service Needed *
-                    </label>
-                    <select
-                      value={formData.serviceNeeded}
-                      onChange={(e) => setFormData({ ...formData, serviceNeeded: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-slate-50/50 font-medium text-slate-800"
-                    >
-                      <option value="Air Duct Cleaning">Air Duct Cleaning</option>
-                      <option value="Dryer Vent Cleaning">Dryer Vent Cleaning</option>
-                      <option value="HVAC Cleaning">HVAC Cleaning</option>
-                      <option value="Chimney Cleaning">Chimney Cleaning</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </div>
-
-                  {/* Preferred Date */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-sky-600" />
-                      Preferred Date
-                    </label>
-                    <input
-                      type="date"
-                      name="preferredDate"
-                      value={formData.preferredDate}
-                      onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-slate-50/50 text-slate-700"
+                      placeholder="Have a coupon code? (e.g. FRESHOCT)"
+                      value={couponInput}
+                      onChange={(e) => {
+                        setCouponInput(e.target.value.toUpperCase());
+                        setCouponError(null);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleApplyCoupon();
+                        }
+                      }}
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm font-mono uppercase bg-white focus:outline-hidden focus:ring-2 focus:ring-sky-500"
                     />
                   </div>
-                </div>
-
-                {/* Message */}
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                    <MessageSquare className="w-3.5 h-3.5 text-sky-600" />
-                    Message / Home Details (Optional)
-                  </label>
-                  <textarea
-                    rows={3}
-                    placeholder="Tell us about your home (e.g. approximate square footage, number of vents, last cleaned date, or specific symptoms like dusty vents)..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-slate-50/50"
-                  />
-                </div>
-
-                {/* Submit Button */}
-                <div className="pt-2 space-y-3">
-                  {submitError && (
-                    <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-center gap-2.5 animate-in fade-in">
-                      <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
-                      <span>{submitError}</span>
-                    </div>
-                  )}
-
                   <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-4 px-6 rounded-xl bg-linear-to-r from-sky-600 via-sky-700 to-emerald-600 hover:from-sky-700 hover:to-emerald-700 text-white font-extrabold text-base shadow-[0_8px_20px_rgba(2,132,199,0.25)] hover:shadow-[0_12px_28px_rgba(2,132,199,0.35)] hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75"
+                    type="button"
+                    onClick={handleApplyCoupon}
+                    disabled={isValidatingCoupon || !couponInput.trim()}
+                    className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 disabled:opacity-50 text-white text-xs sm:text-sm font-bold transition-colors cursor-pointer shrink-0"
                   >
-                    {isSubmitting ? (
-                      <span className="flex items-center gap-2">
-                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>Processing Your Request...</span>
-                      </span>
-                    ) : (
-                      <>
-                        <span>REQUEST MY FREE QUOTE</span>
-                        <Send className="w-4 h-4" />
-                      </>
-                    )}
+                    {isValidatingCoupon ? 'Checking...' : 'Apply Code'}
                   </button>
-                  <div className="flex items-center justify-center gap-4 mt-3 text-[11px] text-slate-400 font-medium">
-                    <span>🔒 100% Privacy Protected</span>
-                    <span>·</span>
-                    <span>No Obligation</span>
-                    <span>·</span>
-                    <span>Fast Response</span>
-                  </div>
                 </div>
-              </form>
+              ) : (
+                <div className="flex items-center justify-between p-3 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-950 text-xs sm:text-sm animate-in fade-in">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <div>
+                      <span className="font-extrabold font-mono text-emerald-900 bg-emerald-200/80 px-2 py-0.5 rounded text-xs mr-2 border border-emerald-300">
+                        {appliedCoupon}
+                      </span>
+                      <span className="font-semibold text-emerald-900">
+                        October Special — 40% OFF Applied!
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleRemoveCoupon}
+                    className="text-slate-400 hover:text-slate-700 text-xs font-bold px-2.5 py-1 hover:bg-emerald-100 rounded-lg cursor-pointer transition-colors"
+                    title="Remove coupon"
+                  >
+                    Remove
+                  </button>
+                </div>
+              )}
+
+              {/* Error display (e.g. October offer has expired) */}
+              {couponError && (
+                <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2 animate-in fade-in">
+                  <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                  <span className="font-medium">{couponError}</span>
+                </div>
+              )}
+            </div>
+
+            {/* Strict Pricing Display */}
+            <div className="pt-2 border-t border-slate-200/80 space-y-1.5 text-xs sm:text-sm">
+              {appliedCoupon && isDiscountActive ? (
+                <>
+                  <div className="flex items-center justify-between text-slate-500">
+                    <span>Regular Price</span>
+                    <span className="line-through">${currentRegularPrice.toFixed(2)}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-emerald-700 font-semibold">
+                    <span>October Discount (40%)</span>
+                    <span>-${currentDiscountAmount.toFixed(2)}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-slate-900 font-extrabold text-sm sm:text-base pt-1.5 border-t border-dashed border-slate-300">
+                    <span>Your Price</span>
+                    <span className="text-emerald-700 text-lg sm:text-xl font-display font-black">
+                      ${currentFinalPrice.toFixed(2)}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                /* Before applying the coupon, show ONLY the regular price */
+                <div className="flex items-center justify-between text-slate-900 font-bold text-sm sm:text-base">
+                  <span>Regular Price</span>
+                  <span className="text-slate-900 text-base sm:text-lg font-display font-bold">
+                    ${currentRegularPrice.toFixed(2)}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Message */}
+          <div>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <MessageSquare className="w-3.5 h-3.5 text-sky-600" />
+              Message / Home Details (Optional)
+            </label>
+            <textarea
+              rows={3}
+              placeholder="Tell us about your home (e.g. approximate square footage, number of vents, last cleaned date, or specific symptoms like dusty vents)..."
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-slate-50/50"
+            />
+          </div>
+
+          {/* Submit Button */}
+          <div className="pt-2 space-y-3">
+            {submitError && (
+              <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-center gap-2.5 animate-in fade-in">
+                <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+                <span>{submitError}</span>
+              </div>
             )}
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full py-4 px-6 rounded-xl bg-linear-to-r from-sky-600 via-sky-700 to-emerald-600 hover:from-sky-700 hover:to-emerald-700 text-white font-extrabold text-base shadow-[0_8px_20px_rgba(2,132,199,0.25)] hover:shadow-[0_12px_28px_rgba(2,132,199,0.35)] hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75"
+            >
+              {isSubmitting ? (
+                <span className="flex items-center gap-2">
+                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span>Processing Your Request...</span>
+                </span>
+              ) : (
+                <>
+                  <span>REQUEST MY FREE QUOTE</span>
+                  <Send className="w-4 h-4" />
+                </>
+              )}
+            </button>
+            <div className="flex items-center justify-center gap-4 mt-3 text-[11px] text-slate-400 font-medium">
+              <span>🔒 100% Privacy Protected</span>
+              <span>·</span>
+              <span>No Obligation</span>
+              <span>·</span>
+              <span>Fast Response</span>
+            </div>
+          </div>
+        </form>
+      )}
     </div>
   );
 
@@ -439,7 +717,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
           aria-modal="true"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Header - EXACT SAME AS CALLMODAL */}
+          {/* Header */}
           <div className="bg-linear-to-r from-sky-600/92 via-sky-700/92 to-emerald-700/92 backdrop-blur-md px-6 py-5 text-white relative shrink-0 border-b border-white/20 shadow-xs">
             {onClose && (
               <button 

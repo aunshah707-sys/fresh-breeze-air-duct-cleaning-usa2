@@ -11,6 +11,8 @@ export interface EmailNotificationPayload {
   message?: string;
   requestType: 'Callback' | 'Free Quote';
   quoteReferenceId?: string;
+  couponCode?: string;
+  pricingBreakdown?: string;
 }
 
 export async function sendEmailNotification(data: EmailNotificationPayload) {
@@ -55,31 +57,38 @@ export async function sendEmailNotification(data: EmailNotificationPayload) {
     throw new Error(`EmailJS credentials not configured (Missing: ${missing.join(', ')} in environment)`);
   }
 
-  // Build template parameters with all submitted form fields and common aliases
-  const templateParams: Record<string, string> = {
-    to_email: RECIPIENT_EMAIL,
-    recipient_email: RECIPIENT_EMAIL,
-    from_name: fullName,
-    name: fullName,
-    user_name: fullName,
-    customer_name: fullName,
-    from_email: email,
-    user_email: email,
-    email: email,
-    reply_to: email,
-    phone: phone,
-    user_phone: phone,
-    service: serviceNeeded,
-    service_needed: serviceNeeded,
-    city_state: cityState || 'Not specified',
-    location: cityState || 'Not specified',
-    preferred_date: preferredDate || 'Flexible / As soon as possible',
-    preferred_time: preferredTime || 'Flexible / As soon as possible',
-    message: message && message.trim() ? message.trim() : 'No additional message provided',
-    request_type: requestType,
-    quote_reference_id: quoteReferenceId || 'N/A',
-    subject: subject,
-  };
+    const formattedMessage = [
+      message && message.trim() ? message.trim() : 'No additional message provided',
+      data.pricingBreakdown ? `\n[Server Pricing Breakdown]\n${data.pricingBreakdown}` : '',
+    ].filter(Boolean).join('\n');
+
+    const templateParams: Record<string, string> = {
+      to_email: RECIPIENT_EMAIL,
+      recipient_email: RECIPIENT_EMAIL,
+      from_name: fullName,
+      name: fullName,
+      user_name: fullName,
+      customer_name: fullName,
+      from_email: email,
+      user_email: email,
+      email: email,
+      reply_to: email,
+      phone: phone,
+      user_phone: phone,
+      service: serviceNeeded,
+      service_needed: serviceNeeded,
+      city_state: cityState || 'Not specified',
+      location: cityState || 'Not specified',
+      preferred_date: preferredDate || 'Flexible / As soon as possible',
+      preferred_time: preferredTime || 'Flexible / As soon as possible',
+      message: formattedMessage,
+      request_type: requestType,
+      quote_reference_id: quoteReferenceId || 'N/A',
+      coupon_code: data.couponCode || 'None',
+      pricing: data.pricingBreakdown || 'Standard upfront estimate upon inspection',
+      pricing_breakdown: data.pricingBreakdown || '',
+      subject: subject,
+    };
 
   const emailJsPayload: Record<string, any> = {
     service_id: serviceId,

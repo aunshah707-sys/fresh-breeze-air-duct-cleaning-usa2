@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Phone, Clock, ShieldCheck, X, CheckCircle2, AlertCircle, Send, User, Mail, Wrench, MessageSquare } from 'lucide-react';
+import { useCountdown } from '../utils/useCountdown';
+import { EXPIRED_MESSAGE } from '../../lib/pricing';
 
 interface CallModalProps {
   isOpen: boolean;
@@ -28,6 +30,7 @@ export const CallModal: React.FC<CallModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const countdown = useCountdown();
 
   if (!isOpen) return null;
 
@@ -161,26 +164,45 @@ export const CallModal: React.FC<CallModalProps> = ({
             /* The Callback Form */
             <form onSubmit={handleSubmit} className="space-y-4">
               {appliedPromo && (
-                <div className="p-3 rounded-xl bg-linear-to-r from-emerald-50/90 via-emerald-100/80 to-sky-50/90 backdrop-blur-xs border border-emerald-400/80 flex items-center justify-between gap-2.5 text-xs text-emerald-950 animate-in fade-in shadow-xs">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded-md bg-emerald-600 text-white font-extrabold text-[11px] uppercase tracking-wider shadow-xs">
-                      40% OFF
-                    </span>
-                    <span className="font-bold">
-                      Special Offer: {appliedPromo} Applied!
-                    </span>
+                countdown.isExpired ? (
+                  <div className="p-3 rounded-xl bg-rose-50/90 backdrop-blur-xs border border-rose-200 flex items-center justify-between gap-2.5 text-xs text-rose-800 animate-in fade-in shadow-xs">
+                    <div className="flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                      <span className="font-medium">{EXPIRED_MESSAGE}</span>
+                    </div>
+                    {onClearPromo && (
+                      <button
+                        type="button"
+                        onClick={onClearPromo}
+                        className="text-rose-400 hover:text-rose-700 p-0.5 text-xs font-bold cursor-pointer"
+                        title="Dismiss"
+                      >
+                        ✕
+                      </button>
+                    )}
                   </div>
-                  {onClearPromo && (
-                    <button
-                      type="button"
-                      onClick={onClearPromo}
-                      className="text-slate-400 hover:text-slate-700 p-0.5 text-xs font-bold cursor-pointer"
-                      title="Remove promotion"
-                    >
-                      ✕
-                    </button>
-                  )}
-                </div>
+                ) : (
+                  <div className="p-3 rounded-xl bg-linear-to-r from-emerald-50/90 via-emerald-100/80 to-sky-50/90 backdrop-blur-xs border border-emerald-400/80 flex items-center justify-between gap-2.5 text-xs text-emerald-950 animate-in fade-in shadow-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded-md bg-emerald-600 text-white font-extrabold text-[11px] uppercase tracking-wider shadow-xs">
+                        40% OFF
+                      </span>
+                      <span className="font-bold">
+                        Special Offer: {appliedPromo} Applied!
+                      </span>
+                    </div>
+                    {onClearPromo && (
+                      <button
+                        type="button"
+                        onClick={onClearPromo}
+                        className="text-slate-400 hover:text-slate-700 p-0.5 text-xs font-bold cursor-pointer"
+                        title="Remove promotion"
+                      >
+                        ✕
+                      </button>
+                    )}
+                  </div>
+                )
               )}
 
               {errorMessage && (
