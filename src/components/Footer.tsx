@@ -14,6 +14,7 @@ interface FooterProps {
   onOpenCall: () => void;
   onOpenPrivacyPolicy: () => void;
   onOpenTerms: () => void;
+  onNavigateToService?: (serviceSlug: string) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ 
@@ -21,6 +22,7 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenCall, 
   onOpenPrivacyPolicy,
   onOpenTerms,
+  onNavigateToService,
 }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -133,22 +135,58 @@ export const Footer: React.FC<FooterProps> = ({
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-400">
               <li>
-                <a href="#services" className="hover:text-sky-300 transition-colors">
+                <a 
+                  href="/services/air-duct-cleaning" 
+                  onClick={(e) => {
+                    if (onNavigateToService) {
+                      e.preventDefault();
+                      onNavigateToService('air-duct-cleaning');
+                    }
+                  }}
+                  className="hover:text-sky-300 transition-colors"
+                >
                   Air Duct Cleaning
                 </a>
               </li>
               <li>
-                <a href="#services" className="hover:text-sky-300 transition-colors">
+                <a 
+                  href="/services/dryer-vent-cleaning" 
+                  onClick={(e) => {
+                    if (onNavigateToService) {
+                      e.preventDefault();
+                      onNavigateToService('dryer-vent-cleaning');
+                    }
+                  }}
+                  className="hover:text-sky-300 transition-colors"
+                >
                   Dryer Vent Cleaning
                 </a>
               </li>
               <li>
-                <a href="#services" className="hover:text-sky-300 transition-colors">
+                <a 
+                  href="/services/hvac-cleaning" 
+                  onClick={(e) => {
+                    if (onNavigateToService) {
+                      e.preventDefault();
+                      onNavigateToService('hvac-cleaning');
+                    }
+                  }}
+                  className="hover:text-sky-300 transition-colors"
+                >
                   HVAC Cleaning
                 </a>
               </li>
               <li>
-                <a href="#services" className="hover:text-sky-300 transition-colors">
+                <a 
+                  href="/services/chimney-cleaning" 
+                  onClick={(e) => {
+                    if (onNavigateToService) {
+                      e.preventDefault();
+                      onNavigateToService('chimney-cleaning');
+                    }
+                  }}
+                  className="hover:text-sky-300 transition-colors"
+                >
                   Chimney Cleaning
                 </a>
               </li>

@@ -1,0 +1,8 @@
+# robots.txt for Fresh Breeze Air Duct Cleaning USA
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /.netlify/
+
+# Sitemap location
+Sitemap: https://freshbreezeairductcleaning.com/sitemap.xml

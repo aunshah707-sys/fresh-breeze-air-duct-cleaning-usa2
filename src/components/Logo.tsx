@@ -66,12 +66,14 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 'md', variant
 
   return (
     <div className={`inline-flex items-center ${className}`}>
-      <img
-        src={officialLogo}
-        alt="Fresh Breeze Air Duct Cleaning USA logo"
-        onError={() => setImageError(true)}
-        className={`${heightClasses[size]} w-auto object-contain shrink-0`}
-      />
+      <div className="inline-flex items-center justify-center dark:bg-white dark:px-2.5 dark:py-1 dark:rounded-xl dark:shadow-xs dark:border dark:border-white/20 transition-all">
+        <img
+          src={officialLogo}
+          alt="Fresh Breeze Air Duct Cleaning USA logo"
+          onError={() => setImageError(true)}
+          className={`${heightClasses[size]} w-auto object-contain shrink-0`}
+        />
+      </div>
     </div>
   );
 };

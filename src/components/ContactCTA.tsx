@@ -8,7 +8,7 @@ interface ContactCTAProps {
 
 export const ContactCTA: React.FC<ContactCTAProps> = ({ onOpenQuote }) => {
   return (
-    <section className="relative py-16 sm:py-20 bg-linear-to-b from-white via-sky-50/50 to-slate-900 overflow-hidden">
+    <section className="relative py-16 sm:py-20 bg-linear-to-b from-white via-sky-50/50 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 overflow-hidden transition-colors duration-200">
       {/* Decorative gradient blur */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-72 bg-gradient-to-r from-sky-400/10 via-emerald-400/15 to-sky-500/10 blur-3xl pointer-events-none" />
 

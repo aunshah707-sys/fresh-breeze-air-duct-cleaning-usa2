@@ -54,19 +54,19 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenQuote }) => {
   ];
 
   return (
-    <section id="why-us" className="py-16 sm:py-24 bg-slate-50/70 border-y border-slate-100 relative">
+    <section id="why-us" className="py-16 sm:py-24 bg-slate-50/70 dark:bg-slate-900/50 border-y border-slate-100 dark:border-slate-800 relative transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-sky-700 uppercase tracking-widest mb-2.5">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-sky-700 dark:text-sky-400 uppercase tracking-widest mb-2.5">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
             <span>Factual Service Standards</span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-display text-balance">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display text-balance">
             Why Homeowners Choose Fresh Breeze
           </h2>
-          <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed">
+          <p className="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
             We focus on what matters most: cleaner air, thorough workmanship, and dependable customer service.
           </p>
         </div>
@@ -78,20 +78,20 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenQuote }) => {
             return (
               <div
                 key={idx}
-                className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-[0_4px_16px_rgba(15,23,42,0.04)] hover:shadow-[0_16px_36px_-10px_rgba(2,132,199,0.16)] hover:-translate-y-1.5 hover:border-sky-300 transition-all duration-300 flex flex-col group"
+                className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200/90 dark:border-slate-800 shadow-[0_4px_16px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:shadow-[0_16px_36px_-10px_rgba(2,132,199,0.16)] hover:-translate-y-1.5 hover:border-sky-300 dark:hover:border-sky-500/50 transition-all duration-300 flex flex-col group"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center text-sky-700 transition-transform group-hover:scale-105">
+                  <div className="w-12 h-12 rounded-xl bg-sky-50 dark:bg-sky-950/70 border border-sky-100 dark:border-sky-900/60 flex items-center justify-center text-sky-700 dark:text-sky-300 transition-transform group-hover:scale-105">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <span className="text-emerald-600 font-bold text-lg">✓</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold text-lg">✓</span>
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 font-display">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display">
                   {pt.title}
                 </h3>
 
-                <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed grow">
+                <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed grow">
                   {pt.description}
                 </p>
               </div>

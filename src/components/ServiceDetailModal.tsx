@@ -143,18 +143,18 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
 
   const getIcon = () => {
     switch (service.iconName) {
-      case 'Wind': return <Wind className="w-5 h-5 text-sky-600" />;
-      case 'Flame': return <Flame className="w-5 h-5 text-amber-500" />;
-      case 'Cpu': return <Cpu className="w-5 h-5 text-emerald-600" />;
-      case 'Sparkles': return <Sparkles className="w-5 h-5 text-sky-600" />;
-      default: return <Wind className="w-5 h-5 text-sky-600" />;
+      case 'Wind': return <Wind className="w-5 h-5 text-sky-600 dark:text-sky-400" />;
+      case 'Flame': return <Flame className="w-5 h-5 text-amber-500 dark:text-amber-400" />;
+      case 'Cpu': return <Cpu className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />;
+      case 'Sparkles': return <Sparkles className="w-5 h-5 text-sky-600 dark:text-sky-400" />;
+      default: return <Wind className="w-5 h-5 text-sky-600 dark:text-sky-400" />;
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs overflow-y-auto">
       <div 
-        className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200"
+        className="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200 text-left"
         role="dialog"
         aria-modal="true"
       >
@@ -177,7 +177,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
 
           <div className="absolute bottom-4 left-6 right-6">
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="w-8 h-8 rounded-lg bg-white/90 flex items-center justify-center shadow-xs">
+              <span className="w-8 h-8 rounded-lg bg-white/90 dark:bg-slate-900/90 flex items-center justify-center shadow-xs">
                 {getIcon()}
               </span>
               <span className="text-emerald-400 text-xs font-bold uppercase tracking-wider">
@@ -197,7 +197,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
               Service Overview
             </h4>
-            <p className="text-sm text-slate-700 leading-relaxed">
+            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
               {service.description}
             </p>
           </div>
@@ -205,12 +205,12 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
           {/* What's Included */}
           <div>
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-              <CheckCircle className="w-4 h-4 text-emerald-600" />
+              <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span>What Is Included</span>
             </h4>
-            <div className="grid grid-cols-1 gap-2.5 bg-slate-50 p-4 rounded-xl border border-slate-100">
+            <div className="grid grid-cols-1 gap-2.5 bg-slate-50 dark:bg-slate-800/60 p-4 rounded-xl border border-slate-100 dark:border-slate-700/80">
               {service.whatIncluded.map((item, idx) => (
-                <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-700">
+                <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-200">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
                   <span>{item}</span>
                 </div>
@@ -224,9 +224,9 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
               <ShieldAlert className="w-4 h-4 text-amber-500" />
               <span>Signs It May Be Time For Cleaning</span>
             </h4>
-            <div className="grid grid-cols-1 gap-2 bg-amber-50/40 p-4 rounded-xl border border-amber-100/60">
+            <div className="grid grid-cols-1 gap-2 bg-amber-50/40 dark:bg-amber-950/30 p-4 rounded-xl border border-amber-100/60 dark:border-amber-900/40">
               {service.warningSigns.map((item, idx) => (
-                <div key={idx} className="flex items-start gap-2 text-xs text-slate-700">
+                <div key={idx} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-200">
                   <span className="text-amber-500 font-bold">•</span>
                   <span>{item}</span>
                 </div>
@@ -241,8 +241,8 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {service.homeownerBenefits.map((item, idx) => (
-                <div key={idx} className="p-3 bg-sky-50/40 rounded-xl border border-sky-100 text-xs text-slate-700 leading-relaxed">
-                  <span className="font-semibold text-sky-800 block mb-1">Benefit {idx + 1}</span>
+                <div key={idx} className="p-3 bg-sky-50/40 dark:bg-sky-950/40 rounded-xl border border-sky-100 dark:border-sky-900/60 text-xs text-slate-700 dark:text-slate-200 leading-relaxed">
+                  <span className="font-semibold text-sky-800 dark:text-sky-300 block mb-1">Benefit {idx + 1}</span>
                   {item}
                 </div>
               ))}
@@ -251,14 +251,14 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
         </div>
 
         {/* Modal Footer CTA */}
-        <div className="p-4 sm:p-5 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-slate-500 text-center sm:text-left">
+        <div className="p-4 sm:p-5 bg-slate-50 dark:bg-slate-850 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
             Free, no-obligation quotes for residential homeowners.
           </p>
           <div className="flex items-center gap-2.5 w-full sm:w-auto">
             <button
               onClick={onClose}
-              className="w-1/2 sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-100 transition-colors"
+              className="w-1/2 sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
             >
               Close
             </button>
@@ -267,7 +267,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
                 onClose();
                 onSelectForQuote(service.title);
               }}
-              className="w-1/2 sm:w-auto px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 active:scale-[0.98] text-white text-xs font-bold shadow-sm transition-all flex items-center justify-center gap-1.5"
+              className="w-1/2 sm:w-auto px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 active:scale-[0.98] text-white text-xs font-bold shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <span>Get Free Quote</span>
               <ArrowRight className="w-3.5 h-3.5" />

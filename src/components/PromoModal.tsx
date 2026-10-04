@@ -61,14 +61,14 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/45 backdrop-blur-md transition-opacity duration-300 animate-in fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/50 backdrop-blur-md transition-opacity duration-300 animate-in fade-in"
       role="dialog"
       aria-modal="true"
       aria-label="October Special — 40% OFF"
       onClick={handleClose}
     >
       <div 
-        className="relative w-full max-w-md sm:max-w-lg bg-white/92 backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(2,132,199,0.3),0_0_0_1px_rgba(255,255,255,0.9)_inset] border border-white/80 overflow-hidden transform transition-all duration-300 animate-in zoom-in-95 scale-100 text-left"
+        className="relative w-full max-w-md sm:max-w-lg bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(2,132,199,0.3),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)] border border-white/80 dark:border-slate-800 overflow-hidden transform transition-all duration-300 animate-in zoom-in-95 scale-100 text-left"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Subtle decorative background breeze & airflow pattern */}
@@ -136,16 +136,16 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
         </div>
 
         {/* Card Body */}
-        <div className="relative bg-white pt-5 pb-6 sm:pb-7 px-6 sm:px-8 mt-3 rounded-t-3xl shadow-[0_-8px_20px_rgba(0,0,0,0.06)] space-y-4">
+        <div className="relative bg-white dark:bg-slate-900 pt-5 pb-6 sm:pb-7 px-6 sm:px-8 mt-3 rounded-t-3xl shadow-[0_-8px_20px_rgba(0,0,0,0.06)] space-y-4">
           
           {/* Live Countdown Display */}
           <div className={`p-3.5 rounded-2xl border text-center transition-all ${
             countdown.isExpired 
-              ? 'bg-rose-50 border-rose-200 text-rose-800' 
-              : 'bg-slate-50 border-slate-200/90 text-slate-800'
+              ? 'bg-rose-50 dark:bg-rose-950/60 border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300' 
+              : 'bg-slate-50 dark:bg-slate-850 border-slate-200/90 dark:border-slate-800 text-slate-800 dark:text-slate-200'
           }`}>
             <div className="flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider mb-2">
-              <Clock className={`w-3.5 h-3.5 ${countdown.isExpired ? 'text-rose-600' : 'text-sky-600'}`} />
+              <Clock className={`w-3.5 h-3.5 ${countdown.isExpired ? 'text-rose-600 dark:text-rose-400' : 'text-sky-600 dark:text-sky-400'}`} />
               <span>
                 {countdown.isExpired ? 'Offer Expired' : 'October Promotion Ends In'}
               </span>
@@ -153,42 +153,42 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
 
             {countdown.isExpired ? (
               <div className="space-y-1">
-                <span className="inline-block px-3 py-1 rounded-full bg-rose-100 text-rose-800 font-extrabold text-sm sm:text-base">
+                <span className="inline-block px-3 py-1 rounded-full bg-rose-100 dark:bg-rose-900/60 text-rose-800 dark:text-rose-200 font-extrabold text-sm sm:text-base border border-rose-200 dark:border-rose-800">
                   Offer Expired
                 </span>
-                <p className="text-xs text-rose-700 font-medium">
+                <p className="text-xs text-rose-700 dark:text-rose-300 font-medium">
                   {EXPIRED_MESSAGE}
                 </p>
               </div>
             ) : (
               <div>
                 <div className="grid grid-cols-4 gap-2 max-w-xs mx-auto">
-                  <div className="bg-white rounded-xl p-2 shadow-xs border border-slate-200/80">
-                    <span className="block text-lg sm:text-xl font-black text-slate-900 font-mono">
+                  <div className="bg-white dark:bg-slate-900 rounded-xl p-2 shadow-xs border border-slate-200/80 dark:border-slate-800">
+                    <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
                       {countdown.days}
                     </span>
-                    <span className="block text-[10px] font-bold text-slate-500 uppercase">Days</span>
+                    <span className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">Days</span>
                   </div>
-                  <div className="bg-white rounded-xl p-2 shadow-xs border border-slate-200/80">
-                    <span className="block text-lg sm:text-xl font-black text-slate-900 font-mono">
+                  <div className="bg-white dark:bg-slate-900 rounded-xl p-2 shadow-xs border border-slate-200/80 dark:border-slate-800">
+                    <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
                       {String(countdown.hours).padStart(2, '0')}
                     </span>
-                    <span className="block text-[10px] font-bold text-slate-500 uppercase">Hours</span>
+                    <span className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">Hours</span>
                   </div>
-                  <div className="bg-white rounded-xl p-2 shadow-xs border border-slate-200/80">
-                    <span className="block text-lg sm:text-xl font-black text-slate-900 font-mono">
+                  <div className="bg-white dark:bg-slate-900 rounded-xl p-2 shadow-xs border border-slate-200/80 dark:border-slate-800">
+                    <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
                       {String(countdown.minutes).padStart(2, '0')}
                     </span>
-                    <span className="block text-[10px] font-bold text-slate-500 uppercase">Mins</span>
+                    <span className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">Mins</span>
                   </div>
-                  <div className="bg-white rounded-xl p-2 shadow-xs border border-slate-200/80">
-                    <span className="block text-lg sm:text-xl font-black text-sky-600 font-mono">
+                  <div className="bg-white dark:bg-slate-900 rounded-xl p-2 shadow-xs border border-slate-200/80 dark:border-slate-800">
+                    <span className="block text-lg sm:text-xl font-black text-sky-600 dark:text-sky-400 font-mono">
                       {String(countdown.seconds).padStart(2, '0')}
                     </span>
-                    <span className="block text-[10px] font-bold text-slate-500 uppercase">Secs</span>
+                    <span className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">Secs</span>
                   </div>
                 </div>
-                <p className="text-[11px] text-slate-500 mt-2">
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
                   Expires October 31, 2026 at 11:59:59 PM EDT (America/New_York)
                 </p>
               </div>
@@ -196,13 +196,13 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
           </div>
 
           {/* Value inclusions pill list */}
-          <div className="bg-sky-50/70 border border-sky-100 rounded-2xl p-3.5 space-y-2 text-xs sm:text-sm text-slate-700">
+          <div className="bg-sky-50/70 dark:bg-slate-850/80 border border-sky-100 dark:border-slate-800 rounded-2xl p-3.5 space-y-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span>Valid on Air Duct ($149.40), Dryer Vent ($149.40) &amp; Chimney ($167.40)</span>
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span>Free quote with zero obligation for homeowners</span>
             </div>
           </div>
@@ -213,7 +213,7 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
             {countdown.isExpired ? (
               <button
                 disabled
-                className="w-full py-4 px-6 rounded-2xl bg-slate-300 text-slate-500 font-extrabold text-base tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-slate-300"
+                className="w-full py-4 px-6 rounded-2xl bg-slate-300 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-extrabold text-base tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-slate-300 dark:border-slate-700"
               >
                 <span>Offer Expired</span>
               </button>
@@ -231,15 +231,15 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
             {/* Second Option: Maybe Later */}
             <button
               onClick={handleClose}
-              className="w-full py-2 text-xs sm:text-sm font-semibold text-slate-400 hover:text-slate-600 transition-colors text-center cursor-pointer"
+              className="w-full py-2 text-xs sm:text-sm font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors text-center cursor-pointer"
             >
               Maybe Later
             </button>
           </div>
 
           {/* Trust guarantee badge */}
-          <div className="pt-0.5 flex items-center justify-center gap-1.5 text-[11px] text-slate-400 text-center">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+          <div className="pt-0.5 flex items-center justify-center gap-1.5 text-[11px] text-slate-400 dark:text-slate-500 text-center">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
             <span>Honest, upfront pricing for residential homeowners across the USA</span>
           </div>
         </div>

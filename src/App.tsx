@@ -19,16 +19,83 @@ import { ServiceDetailModal } from './components/ServiceDetailModal';
 import { PromoModal } from './components/PromoModal';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsAndConditions } from './components/TermsAndConditions';
+import { ServicePage } from './components/ServicePage';
 import { Chatbot } from './components/Chatbot';
+import { updateDocumentSEO } from './utils/seo';
+
+const THEME_STORAGE_KEY = 'fresh_breeze_theme';
+
+const getInitialTheme = (): 'light' | 'dark' => {
+  if (typeof window === 'undefined') return 'light';
+  try {
+    const saved = localStorage.getItem(THEME_STORAGE_KEY);
+    if (saved === 'light' || saved === 'dark') {
+      return saved;
+    }
+    // Respect system preference only if the user has not previously selected a mode
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+  } catch (err) {
+    console.error('Failed to read theme from localStorage', err);
+  }
+  return 'light'; // Default to Light Mode for new visitors
+};
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'privacy' | 'terms'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'privacy' | 'terms' | 'service'>('home');
+  const [currentServiceSlug, setCurrentServiceSlug] = useState<string>('air-duct-cleaning');
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState<string | null>(null);
   const [selectedQuoteService, setSelectedQuoteService] = useState<string>('Air Duct Cleaning');
   const [selectedQuoteLocation, setSelectedQuoteLocation] = useState<string>('');
   const [appliedPromo, setAppliedPromo] = useState<string | null>(null);
+  const [theme, setTheme] = useState<'light' | 'dark'>(getInitialTheme);
+
+  // Sync theme class on <html> and update theme-color meta tag
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+      metaTheme.setAttribute('content', theme === 'dark' ? '#0f172a' : '#0284c7');
+    }
+  }, [theme]);
+
+  // Listen to system preference changes if user hasn't chosen an explicit mode
+  useEffect(() => {
+    if (!window.matchMedia) return;
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const handleSystemChange = (e: MediaQueryListEvent) => {
+      try {
+        const saved = localStorage.getItem(THEME_STORAGE_KEY);
+        // Only respect system preference if the user has not previously selected a mode
+        if (!saved) {
+          setTheme(e.matches ? 'dark' : 'light');
+        }
+      } catch {}
+    };
+
+    mediaQuery.addEventListener('change', handleSystemChange);
+    return () => mediaQuery.removeEventListener('change', handleSystemChange);
+  }, []);
+
+  const handleToggleTheme = () => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(nextTheme);
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+    } catch (err) {
+      console.error('Failed to save theme', err);
+    }
+  };
 
   // Sync route between URL path/hash and view
   useEffect(() => {
@@ -39,6 +106,22 @@ export default function App() {
         setCurrentView('privacy');
       } else if (path === '/terms' || path === '/terms-and-conditions' || hash === '#terms' || hash === '#terms-and-conditions') {
         setCurrentView('terms');
+      } else if (path.startsWith('/services/')) {
+        const slug = path.replace('/services/', '').replace(/\/$/, '');
+        if (slug) {
+          setCurrentServiceSlug(slug);
+          setCurrentView('service');
+        } else {
+          setCurrentView('home');
+        }
+      } else if (hash.startsWith('#services/')) {
+        const slug = hash.replace('#services/', '').replace(/\/$/, '');
+        if (slug) {
+          setCurrentServiceSlug(slug);
+          setCurrentView('service');
+        } else {
+          setCurrentView('home');
+        }
       } else {
         setCurrentView('home');
       }
@@ -53,6 +136,17 @@ export default function App() {
       window.removeEventListener('hashchange', checkRoute);
     };
   }, []);
+
+  // Update homepage SEO when on home view
+  useEffect(() => {
+    if (currentView === 'home') {
+      updateDocumentSEO({
+        title: 'Fresh Breeze Air Duct Cleaning USA | Air Duct & Vent Cleaning',
+        description: 'Fresh Breeze provides professional air duct cleaning, dryer vent cleaning, HVAC cleaning, and chimney cleaning services across the USA. Request a free quote today.',
+        canonicalPath: '/',
+      });
+    }
+  }, [currentView]);
 
   const navigateToPrivacy = () => {
     try {
@@ -70,6 +164,16 @@ export default function App() {
       window.location.hash = 'terms';
     }
     setCurrentView('terms');
+  };
+
+  const navigateToService = (serviceSlug: string) => {
+    try {
+      window.history.pushState({}, '', `/services/${serviceSlug}`);
+    } catch {
+      window.location.hash = `services/${serviceSlug}`;
+    }
+    setCurrentServiceSlug(serviceSlug);
+    setCurrentView('service');
   };
 
   const navigateToHome = () => {
@@ -104,7 +208,11 @@ export default function App() {
   // If visitor is on the dedicated Privacy Policy page
   if (currentView === 'privacy') {
     return (
-      <PrivacyPolicy onBackToHome={navigateToHome} />
+      <PrivacyPolicy 
+        onBackToHome={navigateToHome} 
+        theme={theme}
+        onToggleTheme={handleToggleTheme}
+      />
     );
   }
 
@@ -114,16 +222,59 @@ export default function App() {
       <TermsAndConditions 
         onBackToHome={navigateToHome} 
         onOpenCall={() => setIsCallModalOpen(true)}
+        theme={theme}
+        onToggleTheme={handleToggleTheme}
       />
     );
   }
 
+  // If visitor is on a dedicated Service Page
+  if (currentView === 'service') {
+    return (
+      <>
+        <ServicePage
+          serviceId={currentServiceSlug}
+          onBackToHome={navigateToHome}
+          onOpenQuote={(serviceName) => openQuoteModal(serviceName)}
+          onOpenCallback={() => setIsCallModalOpen(true)}
+          onNavigateToService={navigateToService}
+          theme={theme}
+          onToggleTheme={handleToggleTheme}
+        />
+
+        {/* Global Modals accessible from Service Page */}
+        <FreeQuoteForm
+          isModal={true}
+          isOpen={isQuoteModalOpen}
+          onClose={() => setIsQuoteModalOpen(false)}
+          initialService={selectedQuoteService}
+          initialLocation={selectedQuoteLocation}
+          appliedPromo={appliedPromo || ''}
+          onClearPromo={() => setAppliedPromo(null)}
+        />
+
+        <CallModal
+          isOpen={isCallModalOpen}
+          onClose={() => setIsCallModalOpen(false)}
+          onOpenQuote={() => {
+            setIsCallModalOpen(false);
+            openQuoteModal();
+          }}
+          appliedPromo={appliedPromo || undefined}
+          onClearPromo={() => setAppliedPromo(null)}
+        />
+      </>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-sky-100 selection:text-sky-900 flex flex-col">
+    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans selection:bg-sky-100 selection:text-sky-900 dark:selection:bg-sky-900/60 dark:selection:text-sky-200 flex flex-col transition-colors duration-200">
       {/* 1. Header Navigation */}
       <Navbar
         onOpenQuote={() => openQuoteModal()}
         onOpenCallback={() => setIsCallModalOpen(true)}
+        theme={theme}
+        onToggleTheme={handleToggleTheme}
       />
 
       <main className="grow pb-16 md:pb-0">
@@ -135,7 +286,7 @@ export default function App() {
 
         {/* 3. Our Services (Air Duct Cleaning, Dryer Vent Cleaning, HVAC Cleaning, Chimney Cleaning) */}
         <ServicesSection
-          onLearnMore={(serviceId) => setSelectedServiceId(serviceId)}
+          onLearnMore={(serviceId) => navigateToService(serviceId)}
           onSelectServiceForQuote={(serviceTitle) => openQuoteModal(serviceTitle)}
         />
 
@@ -152,6 +303,7 @@ export default function App() {
         <FAQSection
           onOpenQuote={() => openQuoteModal()}
           onOpenCall={() => setIsCallModalOpen(true)}
+          onNavigateToService={navigateToService}
         />
 
         {/* 8. Free Quote / Contact Form (Inline section for page readers) */}
@@ -172,6 +324,7 @@ export default function App() {
         onOpenCall={() => setIsCallModalOpen(true)}
         onOpenPrivacyPolicy={navigateToPrivacy}
         onOpenTerms={navigateToTerms}
+        onNavigateToService={navigateToService}
       />
 
       {/* Interactive Modals */}

@@ -288,60 +288,60 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
       {isSubmitted ? (
         /* Success Screen */
         <div className="p-8 sm:p-12 text-center animate-in fade-in zoom-in-95 duration-300">
-          <div className="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto mb-6 shadow-sm">
+          <div className="w-16 h-16 rounded-2xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mx-auto mb-6 shadow-xs border border-emerald-200 dark:border-emerald-800">
             <CheckCircle2 className="w-10 h-10" />
           </div>
 
-          <div className="inline-block px-3 py-1 bg-emerald-50 text-emerald-800 rounded-full text-xs font-semibold mb-3 border border-emerald-200">
+          <div className="inline-block px-3 py-1 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 rounded-full text-xs font-semibold mb-3 border border-emerald-200 dark:border-emerald-800">
             Quote Request ID: #{quoteReferenceId}
           </div>
 
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-display">
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-display">
             Thank You, {formData.name}!
           </h3>
 
-          <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-lg mx-auto">
-            We have received your quote request for <strong className="text-slate-900">{formData.serviceNeeded}</strong> in <strong className="text-slate-900">{formData.cityState}</strong>.
+          <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-lg mx-auto">
+            We have received your quote request for <strong className="text-slate-900 dark:text-white">{formData.serviceNeeded}</strong> in <strong className="text-slate-900 dark:text-white">{formData.cityState}</strong>.
           </p>
 
           {/* Pricing Confirmation Box */}
-          <div className="mt-6 max-w-md mx-auto bg-white rounded-2xl p-5 border border-slate-200 shadow-xs text-left space-y-3">
-            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between">
+          <div className="mt-6 max-w-md mx-auto bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-xs text-left space-y-3">
+            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center justify-between">
               <span>Server-Approved Pricing Breakdown</span>
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             </h4>
 
             {submittedPricing && submittedPricing.couponValid ? (
               <div className="space-y-1.5 text-xs sm:text-sm">
-                <div className="flex justify-between text-slate-500">
+                <div className="flex justify-between text-slate-500 dark:text-slate-400">
                   <span>Regular Price</span>
                   <span className="line-through">${submittedPricing.regularPrice.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-emerald-700 font-semibold">
+                <div className="flex justify-between text-emerald-700 dark:text-emerald-400 font-semibold">
                   <span>October Discount (40%)</span>
                   <span>-${submittedPricing.discountAmount.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-slate-900 font-extrabold text-sm sm:text-base pt-1.5 border-t border-slate-200">
+                <div className="flex justify-between text-slate-900 dark:text-white font-extrabold text-sm sm:text-base pt-1.5 border-t border-slate-200 dark:border-slate-800">
                   <span>Your Price</span>
-                  <span className="text-emerald-700 text-lg font-black font-display">
+                  <span className="text-emerald-700 dark:text-emerald-400 text-lg font-black font-display">
                     ${submittedPricing.finalPrice.toFixed(2)}
                   </span>
                 </div>
-                <div className="pt-1 text-[11px] text-emerald-700 flex items-center gap-1 font-medium">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                <div className="pt-1 text-[11px] text-emerald-700 dark:text-emerald-300 flex items-center gap-1 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                   <span>Promo code {submittedPricing.couponCode} applied successfully!</span>
                 </div>
               </div>
             ) : (
               <div className="space-y-1.5 text-xs sm:text-sm">
-                <div className="flex justify-between text-slate-900 font-bold text-sm sm:text-base">
+                <div className="flex justify-between text-slate-900 dark:text-white font-bold text-sm sm:text-base">
                   <span>Regular Price</span>
-                  <span className="text-slate-900 font-display font-bold">
+                  <span className="text-slate-900 dark:text-white font-display font-bold">
                     ${(submittedPricing?.regularPrice ?? currentRegularPrice).toFixed(2)}
                   </span>
                 </div>
                 {submittedPricing?.couponExpired && (
-                  <p className="text-[11px] text-rose-700 font-medium">
+                  <p className="text-[11px] text-rose-700 dark:text-rose-400 font-medium">
                     Note: {EXPIRED_MESSAGE} Regular price applies.
                   </p>
                 )}
@@ -350,22 +350,22 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
           </div>
 
           {/* What happens next box */}
-          <div className="mt-6 max-w-md mx-auto bg-slate-50 rounded-2xl p-5 border border-slate-200/80 text-left space-y-3">
-            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-              <Clock className="w-4 h-4 text-sky-600" />
+          <div className="mt-6 max-w-md mx-auto bg-slate-50 dark:bg-slate-850 rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800 text-left space-y-3">
+            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+              <Clock className="w-4 h-4 text-sky-600 dark:text-sky-400" />
               What Happens Next?
             </h4>
-            <div className="space-y-2.5 text-xs text-slate-600">
+            <div className="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
               <div className="flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center justify-center shrink-0 text-[11px]">1</span>
+                <span className="w-5 h-5 rounded-full bg-sky-100 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 font-bold flex items-center justify-center shrink-0 text-[11px]">1</span>
                 <p>Our coordinator checks local technician routes in your area.</p>
               </div>
               <div className="flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center justify-center shrink-0 text-[11px]">2</span>
+                <span className="w-5 h-5 rounded-full bg-sky-100 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 font-bold flex items-center justify-center shrink-0 text-[11px]">2</span>
                 <p>We send you an upfront pricing breakdown and confirm your preferred time slot via email and phone ({formData.phone}).</p>
               </div>
               <div className="flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center shrink-0 text-[11px]">3</span>
+                <span className="w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 font-bold flex items-center justify-center shrink-0 text-[11px]">3</span>
                 <p>No obligation to book. Work only begins after you approve the estimate.</p>
               </div>
             </div>
@@ -376,7 +376,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-sm transition-all cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
               >
                 Close Window
               </button>
@@ -384,7 +384,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
             <button
               type="button"
               onClick={handleReset}
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Submit Another Request</span>
@@ -398,8 +398,8 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
             {/* Name */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                <User className="w-3.5 h-3.5 text-sky-600" />
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <User className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Full Name *
               </label>
               <input
@@ -409,21 +409,21 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 placeholder="e.g. John Miller"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 ${
+                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 ${
                   errors.name
-                    ? 'border-red-300 focus:ring-red-400 bg-red-50/30'
-                    : 'border-slate-300 focus:ring-sky-500 focus:border-transparent'
+                    ? 'border-red-300 dark:border-red-500/60 focus:ring-red-400 bg-red-50/30'
+                    : 'border-slate-300 dark:border-slate-700 focus:ring-sky-500 focus:border-transparent'
                 }`}
               />
               {errors.name && (
-                <p className="mt-1 text-xs text-red-600">{errors.name}</p>
+                <p className="mt-1 text-xs text-red-600 dark:text-red-400">{errors.name}</p>
               )}
             </div>
 
             {/* Phone Number */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                <Phone className="w-3.5 h-3.5 text-sky-600" />
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Phone Number *
               </label>
               <input
@@ -433,21 +433,21 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 placeholder="(555) 123-4567"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 ${
+                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 ${
                   errors.phone
-                    ? 'border-red-300 focus:ring-red-400 bg-red-50/30'
-                    : 'border-slate-300 focus:ring-sky-500 focus:border-transparent'
+                    ? 'border-red-300 dark:border-red-500/60 focus:ring-red-400 bg-red-50/30'
+                    : 'border-slate-300 dark:border-slate-700 focus:ring-sky-500 focus:border-transparent'
                 }`}
               />
               {errors.phone && (
-                <p className="mt-1 text-xs text-red-600">{errors.phone}</p>
+                <p className="mt-1 text-xs text-red-600 dark:text-red-400">{errors.phone}</p>
               )}
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                <Mail className="w-3.5 h-3.5 text-sky-600" />
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Email Address *
               </label>
               <input
@@ -457,21 +457,21 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 placeholder="john@example.com"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 ${
+                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 ${
                   errors.email
-                    ? 'border-red-300 focus:ring-red-400 bg-red-50/30'
-                    : 'border-slate-300 focus:ring-sky-500 focus:border-transparent'
+                    ? 'border-red-300 dark:border-red-500/60 focus:ring-red-400 bg-red-50/30'
+                    : 'border-slate-300 dark:border-slate-700 focus:ring-sky-500 focus:border-transparent'
                 }`}
               />
               {errors.email && (
-                <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+                <p className="mt-1 text-xs text-red-600 dark:text-red-400">{errors.email}</p>
               )}
             </div>
 
             {/* City / State */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-sky-600" />
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 City / State or ZIP *
               </label>
               <input
@@ -481,27 +481,27 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 placeholder="e.g. Austin, TX or 78701"
                 value={formData.cityState}
                 onChange={(e) => setFormData({ ...formData, cityState: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 ${
+                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-slate-50/50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 ${
                   errors.cityState
-                    ? 'border-red-300 focus:ring-red-400 bg-red-50/30'
-                    : 'border-slate-300 focus:ring-sky-500 focus:border-transparent'
+                    ? 'border-red-300 dark:border-red-500/60 focus:ring-red-400 bg-red-50/30'
+                    : 'border-slate-300 dark:border-slate-700 focus:ring-sky-500 focus:border-transparent'
                 }`}
               />
               {errors.cityState && (
-                <p className="mt-1 text-xs text-red-600">{errors.cityState}</p>
+                <p className="mt-1 text-xs text-red-600 dark:text-red-400">{errors.cityState}</p>
               )}
             </div>
 
             {/* Service Needed Dropdown */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                <Wrench className="w-3.5 h-3.5 text-sky-600" />
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Wrench className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Service Needed *
               </label>
               <select
                 value={formData.serviceNeeded}
                 onChange={(e) => setFormData({ ...formData, serviceNeeded: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-slate-50/50 font-medium text-slate-800"
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-slate-50/50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-medium"
               >
                 <option value="Air Duct Cleaning">Air Duct Cleaning ($249)</option>
                 <option value="Dryer Vent Cleaning">Dryer Vent Cleaning ($249)</option>
@@ -513,8 +513,8 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
             {/* Preferred Date */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-sky-600" />
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Preferred Date
               </label>
               <input
@@ -522,20 +522,19 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 name="preferredDate"
                 value={formData.preferredDate}
                 onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-slate-50/50 text-slate-700"
-              >
-              </input>
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-slate-50/50 dark:bg-slate-800 text-slate-700 dark:text-slate-200"
+              />
             </div>
           </div>
 
           {/* Pricing & Coupon Section */}
-          <div className="rounded-2xl border border-slate-200/90 bg-slate-50/80 p-4 sm:p-5 space-y-4">
+          <div className="rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-850/80 p-4 sm:p-5 space-y-4">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <div>
-                <span className="text-xs font-bold text-slate-700 uppercase tracking-wider block">
+                <span className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider block">
                   Upfront Pricing &amp; Promotion
                 </span>
-                <span className="text-[11px] text-slate-500">
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">
                   Verified residential pricing for {formData.serviceNeeded}
                 </span>
               </div>
@@ -543,8 +542,8 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
               {/* Live Countdown Badge */}
               <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${
                 countdown.isExpired 
-                  ? 'bg-rose-100 text-rose-800 border border-rose-200' 
-                  : 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                  ? 'bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800' 
+                  : 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
               }`}>
                 <Clock className="w-3.5 h-3.5" />
                 <span>
@@ -558,7 +557,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
               {!appliedCoupon ? (
                 <div className="flex flex-col sm:flex-row gap-2">
                   <div className="relative grow">
-                    <Tag className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <Tag className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       placeholder="Have a coupon code? (e.g. FRESHOCT)"
@@ -573,27 +572,27 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                           handleApplyCoupon();
                         }
                       }}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm font-mono uppercase bg-white focus:outline-hidden focus:ring-2 focus:ring-sky-500"
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs sm:text-sm font-mono uppercase bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-hidden focus:ring-2 focus:ring-sky-500"
                     />
                   </div>
                   <button
                     type="button"
                     onClick={handleApplyCoupon}
                     disabled={isValidatingCoupon || !couponInput.trim()}
-                    className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 disabled:opacity-50 text-white text-xs sm:text-sm font-bold transition-colors cursor-pointer shrink-0"
+                    className="px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-sky-600 hover:bg-slate-800 dark:hover:bg-sky-700 disabled:opacity-50 text-white text-xs sm:text-sm font-bold transition-colors cursor-pointer shrink-0"
                   >
                     {isValidatingCoupon ? 'Checking...' : 'Apply Code'}
                   </button>
                 </div>
               ) : (
-                <div className="flex items-center justify-between p-3 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-950 text-xs sm:text-sm animate-in fade-in">
+                <div className="flex items-center justify-between p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/70 border border-emerald-300 dark:border-emerald-800 text-emerald-950 dark:text-emerald-100 text-xs sm:text-sm animate-in fade-in">
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     <div>
-                      <span className="font-extrabold font-mono text-emerald-900 bg-emerald-200/80 px-2 py-0.5 rounded text-xs mr-2 border border-emerald-300">
+                      <span className="font-extrabold font-mono text-emerald-900 dark:text-emerald-200 bg-emerald-200/80 dark:bg-emerald-900/80 px-2 py-0.5 rounded text-xs mr-2 border border-emerald-300 dark:border-emerald-700">
                         {appliedCoupon}
                       </span>
-                      <span className="font-semibold text-emerald-900">
+                      <span className="font-semibold text-emerald-900 dark:text-emerald-200">
                         October Special — 40% OFF Applied!
                       </span>
                     </div>
@@ -601,7 +600,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                   <button
                     type="button"
                     onClick={handleRemoveCoupon}
-                    className="text-slate-400 hover:text-slate-700 text-xs font-bold px-2.5 py-1 hover:bg-emerald-100 rounded-lg cursor-pointer transition-colors"
+                    className="text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 text-xs font-bold px-2.5 py-1 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 rounded-lg cursor-pointer transition-colors"
                     title="Remove coupon"
                   >
                     Remove
@@ -611,37 +610,37 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
               {/* Error display (e.g. October offer has expired) */}
               {couponError && (
-                <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2 animate-in fade-in">
-                  <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/70 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300 text-xs flex items-center gap-2 animate-in fade-in">
+                  <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0" />
                   <span className="font-medium">{couponError}</span>
                 </div>
               )}
             </div>
 
             {/* Strict Pricing Display */}
-            <div className="pt-2 border-t border-slate-200/80 space-y-1.5 text-xs sm:text-sm">
+            <div className="pt-2 border-t border-slate-200/80 dark:border-slate-800 space-y-1.5 text-xs sm:text-sm">
               {appliedCoupon && isDiscountActive ? (
                 <>
-                  <div className="flex items-center justify-between text-slate-500">
+                  <div className="flex items-center justify-between text-slate-500 dark:text-slate-400">
                     <span>Regular Price</span>
                     <span className="line-through">${currentRegularPrice.toFixed(2)}</span>
                   </div>
-                  <div className="flex items-center justify-between text-emerald-700 font-semibold">
+                  <div className="flex items-center justify-between text-emerald-700 dark:text-emerald-400 font-semibold">
                     <span>October Discount (40%)</span>
                     <span>-${currentDiscountAmount.toFixed(2)}</span>
                   </div>
-                  <div className="flex items-center justify-between text-slate-900 font-extrabold text-sm sm:text-base pt-1.5 border-t border-dashed border-slate-300">
+                  <div className="flex items-center justify-between text-slate-900 dark:text-white font-extrabold text-sm sm:text-base pt-1.5 border-t border-dashed border-slate-300 dark:border-slate-700">
                     <span>Your Price</span>
-                    <span className="text-emerald-700 text-lg sm:text-xl font-display font-black">
+                    <span className="text-emerald-700 dark:text-emerald-400 text-lg sm:text-xl font-display font-black">
                       ${currentFinalPrice.toFixed(2)}
                     </span>
                   </div>
                 </>
               ) : (
                 /* Before applying the coupon, show ONLY the regular price */
-                <div className="flex items-center justify-between text-slate-900 font-bold text-sm sm:text-base">
+                <div className="flex items-center justify-between text-slate-900 dark:text-white font-bold text-sm sm:text-base">
                   <span>Regular Price</span>
-                  <span className="text-slate-900 text-base sm:text-lg font-display font-bold">
+                  <span className="text-slate-900 dark:text-white text-base sm:text-lg font-display font-bold">
                     ${currentRegularPrice.toFixed(2)}
                   </span>
                 </div>
@@ -651,8 +650,8 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
           {/* Message */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-              <MessageSquare className="w-3.5 h-3.5 text-sky-600" />
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <MessageSquare className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
               Message / Home Details (Optional)
             </label>
             <textarea
@@ -660,15 +659,15 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
               placeholder="Tell us about your home (e.g. approximate square footage, number of vents, last cleaned date, or specific symptoms like dusty vents)..."
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-slate-50/50"
+              className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-slate-50/50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
             />
           </div>
 
           {/* Submit Button */}
           <div className="pt-2 space-y-3">
             {submitError && (
-              <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-center gap-2.5 animate-in fade-in">
-                <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+              <div className="p-3.5 rounded-xl bg-red-50 dark:bg-red-950/70 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 text-xs flex items-center gap-2.5 animate-in fade-in">
+                <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 shrink-0" />
                 <span>{submitError}</span>
               </div>
             )}
@@ -690,7 +689,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 </>
               )}
             </button>
-            <div className="flex items-center justify-center gap-4 mt-3 text-[11px] text-slate-400 font-medium">
+            <div className="flex items-center justify-center gap-4 mt-3 text-[11px] text-slate-400 dark:text-slate-500 font-medium">
               <span>🔒 100% Privacy Protected</span>
               <span>·</span>
               <span>No Obligation</span>
@@ -708,11 +707,11 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
     return (
       <div 
-        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/40 backdrop-blur-md overflow-y-auto animate-in fade-in duration-300"
+        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/50 backdrop-blur-md overflow-y-auto animate-in fade-in duration-300"
         onClick={onClose}
       >
         <div 
-          className="relative w-full max-w-2xl bg-white/90 backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(15,23,42,0.28),0_1px_2px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.9)_inset] border border-white/70 overflow-hidden my-auto max-h-[92vh] flex flex-col transform transition-all duration-300 animate-in zoom-in-95 text-left"
+          className="relative w-full max-w-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(15,23,42,0.35),0_1px_2px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)] border border-white/70 dark:border-slate-800 overflow-hidden my-auto max-h-[92vh] flex flex-col transform transition-all duration-300 animate-in zoom-in-95 text-left"
           role="dialog"
           aria-modal="true"
           onClick={(e) => e.stopPropagation()}
@@ -749,26 +748,26 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
   }
 
   return (
-    <section id="quote-form" className="py-16 sm:py-24 bg-white relative scroll-mt-10">
+    <section id="quote-form" className="py-16 sm:py-24 bg-white dark:bg-slate-950 relative scroll-mt-10 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-12 sm:mb-14">
-            <div className="inline-flex items-center gap-2 text-xs font-bold text-sky-700 uppercase tracking-widest mb-2.5">
+            <div className="inline-flex items-center gap-2 text-xs font-bold text-sky-700 dark:text-sky-400 uppercase tracking-widest mb-2.5">
               <Sparkles className="w-4 h-4 text-emerald-500" />
               <span>Free, No-Obligation Estimate</span>
               <Sparkles className="w-4 h-4 text-emerald-500" />
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-display text-balance">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display text-balance">
               Request Your Free Air Duct Quote
             </h2>
-            <p className="mt-3.5 text-sm sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
+            <p className="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-xl mx-auto leading-relaxed">
               Complete this 30-second form. Our residential team will confirm service availability and deliver a prompt, transparent estimate.
             </p>
           </div>
 
           {/* Form Card or Success Screen */}
-          <div className="bg-white rounded-3xl border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.1),0_1px_3px_rgba(0,0,0,0.05)] overflow-hidden transition-shadow duration-300">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-[0_20px_50px_rgba(15,23,42,0.1),0_1px_3px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] overflow-hidden transition-shadow duration-300">
             {formContent}
           </div>
         </div>

@@ -103,7 +103,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
       {/* Floating Chatbot Modal Window */}
       {isOpen && (
         <div 
-          className="fixed bottom-20 md:bottom-6 right-3 sm:right-6 z-50 w-[94vw] sm:w-[380px] max-w-sm bg-white/92 backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(15,23,42,0.3),0_0_0_1px_rgba(255,255,255,0.9)_inset] border border-white/80 overflow-hidden flex flex-col max-h-[82vh] sm:max-h-[580px] transition-all duration-300 animate-in zoom-in-95 text-left"
+          className="fixed bottom-20 md:bottom-6 right-3 sm:right-6 z-50 w-[94vw] sm:w-[380px] max-w-sm bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(15,23,42,0.3),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)] border border-white/80 dark:border-slate-800 overflow-hidden flex flex-col max-h-[82vh] sm:max-h-[580px] transition-all duration-300 animate-in zoom-in-95 text-left"
           role="dialog"
           aria-label="Fresh Breeze Chat Assistant"
         >
@@ -136,7 +136,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
           </div>
 
           {/* Chat Messages Body */}
-          <div className="p-4 sm:p-5 space-y-4 overflow-y-auto grow bg-slate-50/50 text-slate-800 text-xs sm:text-sm">
+          <div className="p-4 sm:p-5 space-y-4 overflow-y-auto grow bg-slate-50/50 dark:bg-slate-950/70 text-slate-800 dark:text-slate-200 text-xs sm:text-sm">
             {messages.map((msg) => (
               <div
                 key={msg.id}
@@ -146,7 +146,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
                   className={`max-w-[85%] p-3.5 rounded-2xl leading-relaxed shadow-xs ${
                     msg.sender === 'user'
                       ? 'bg-sky-600 text-white rounded-br-xs'
-                      : 'bg-white/95 backdrop-blur-xs text-slate-800 border border-slate-200/80 rounded-bl-xs'
+                      : 'bg-white/95 dark:bg-slate-800/95 backdrop-blur-xs text-slate-800 dark:text-slate-100 border border-slate-200/80 dark:border-slate-700 rounded-bl-xs'
                   }`}
                 >
                   <p>{msg.text}</p>
@@ -155,7 +155,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
                 {/* Quick Action Options */}
                 {msg.showActions && (
                   <div className="w-full mt-3 space-y-2 animate-in fade-in duration-200">
-                    {/* PRIMARY ACTION: Instagram DM Button requested by user */}
+                    {/* PRIMARY ACTION: Instagram DM Button */}
                     <a
                       href={INSTAGRAM_DM_URL}
                       target="_blank"
@@ -174,9 +174,9 @@ export const Chatbot: React.FC<ChatbotProps> = ({
                           setIsOpen(false);
                           onOpenQuote();
                         }}
-                        className="py-2 px-2.5 rounded-xl bg-white hover:bg-sky-50 border border-slate-200 text-slate-700 hover:text-sky-700 font-bold text-[11px] shadow-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                        className="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-sky-50 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-sky-700 dark:hover:text-sky-300 font-bold text-[11px] shadow-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                       >
-                        <Sparkles className="w-3 h-3 text-sky-600" />
+                        <Sparkles className="w-3 h-3 text-sky-600 dark:text-sky-400" />
                         <span>Get Free Quote</span>
                       </button>
 
@@ -185,9 +185,9 @@ export const Chatbot: React.FC<ChatbotProps> = ({
                           setIsOpen(false);
                           onOpenCallback();
                         }}
-                        className="py-2 px-2.5 rounded-xl bg-white hover:bg-emerald-50 border border-slate-200 text-slate-700 hover:text-emerald-700 font-bold text-[11px] shadow-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                        className="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-emerald-700 dark:hover:text-emerald-300 font-bold text-[11px] shadow-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                       >
-                        <Phone className="w-3 h-3 text-emerald-600" />
+                        <Phone className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                         <span>Call Request</span>
                       </button>
                     </div>
@@ -198,22 +198,22 @@ export const Chatbot: React.FC<ChatbotProps> = ({
           </div>
 
           {/* Quick FAQ Question Chips */}
-          <div className="px-4 py-2 bg-white/70 backdrop-blur-xs border-t border-slate-100 flex items-center gap-1.5 overflow-x-auto text-[11px]">
+          <div className="px-4 py-2 bg-white/70 dark:bg-slate-900/90 backdrop-blur-xs border-t border-slate-100 dark:border-slate-800 flex items-center gap-1.5 overflow-x-auto text-[11px]">
             <button
               onClick={() => handleSendMessage("What services do you offer?")}
-              className="whitespace-nowrap px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-50 text-slate-600 hover:text-sky-700 font-medium transition-colors cursor-pointer"
+              className="whitespace-nowrap px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-sky-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-sky-700 dark:hover:text-sky-300 font-medium transition-colors cursor-pointer"
             >
               Services?
             </button>
             <button
               onClick={() => handleSendMessage("How do I get an estimate?")}
-              className="whitespace-nowrap px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-50 text-slate-600 hover:text-sky-700 font-medium transition-colors cursor-pointer"
+              className="whitespace-nowrap px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-sky-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-sky-700 dark:hover:text-sky-300 font-medium transition-colors cursor-pointer"
             >
               Free Estimates?
             </button>
             <button
               onClick={() => handleSendMessage("Can I message on Instagram?")}
-              className="whitespace-nowrap px-2.5 py-1 rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 font-medium transition-colors cursor-pointer"
+              className="whitespace-nowrap px-2.5 py-1 rounded-lg bg-pink-50 dark:bg-pink-950/60 hover:bg-pink-100 dark:hover:bg-pink-900/60 text-pink-700 dark:text-pink-300 font-medium transition-colors cursor-pointer"
             >
               📸 Instagram DM?
             </button>
@@ -225,14 +225,14 @@ export const Chatbot: React.FC<ChatbotProps> = ({
               e.preventDefault();
               handleSendMessage();
             }}
-            className="p-3 bg-white/95 backdrop-blur-md border-t border-slate-200/80 flex items-center gap-2"
+            className="p-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200/80 dark:border-slate-800 flex items-center gap-2"
           >
             <input
               type="text"
               placeholder="Ask a question or type here..."
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              className="grow px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-sky-500/25 focus:border-sky-500"
+              className="grow px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white dark:focus:bg-slate-800 focus:outline-hidden focus:ring-2 focus:ring-sky-500/25 focus:border-sky-500"
             />
             <button
               type="submit"
