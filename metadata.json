@@ -1,0 +1,6 @@
+{
+  "name": "Fresh Breeze Air Duct Cleaning USA",
+  "description": "Fresh Breeze provides professional air duct cleaning, dryer vent cleaning, HVAC cleaning and chimney cleaning services for homeowners across the USA. Request a free quote today.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
