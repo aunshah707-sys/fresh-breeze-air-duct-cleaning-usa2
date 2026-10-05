@@ -25,6 +25,7 @@ import {
   PricingResult,
   calculatePricing 
 } from '../../lib/pricing';
+import { trackLeadSubmission, trackCouponApplied } from '../utils/analytics';
 
 interface FreeQuoteFormProps {
   initialService?: string;
@@ -103,8 +104,10 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
         setAppliedCoupon(null);
         setCouponError(EXPIRED_MESSAGE);
       } else if (data.couponValid) {
-        setAppliedCoupon(data.couponCode || code);
+        const validCode = data.couponCode || code;
+        setAppliedCoupon(validCode);
         setCouponError(null);
+        trackCouponApplied(validCode, service, data.discountAmount);
       } else {
         setAppliedCoupon(null);
         setCouponError(data.message || 'Invalid coupon code.');
@@ -242,11 +245,20 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
       const result = await response.json();
 
       if (response.ok && result.success) {
-        setQuoteReferenceId(result.quoteReferenceId || generatedId);
+        const refId = result.quoteReferenceId || generatedId;
+        setQuoteReferenceId(refId);
         if (result.pricing) {
           setSubmittedPricing(result.pricing);
         }
         setIsSubmitted(true);
+        trackLeadSubmission({
+          leadType: 'quote',
+          service: formData.serviceNeeded,
+          location: formData.cityState,
+          quoteId: refId,
+          hasDiscount: !!appliedCoupon,
+          value: result.pricing?.finalPrice,
+        });
       } else {
         setSubmitError(
           result.error || 'Email delivery failed. The request could not be sent to our team at this time. Please call us directly.'

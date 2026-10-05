@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Phone, Clock, ShieldCheck, X, CheckCircle2, AlertCircle, Send, User, Mail, Wrench, MessageSquare } from 'lucide-react';
 import { useCountdown } from '../utils/useCountdown';
 import { EXPIRED_MESSAGE } from '../../lib/pricing';
+import { trackLeadSubmission } from '../utils/analytics';
 
 interface CallModalProps {
   isOpen: boolean;
@@ -71,6 +72,11 @@ export const CallModal: React.FC<CallModalProps> = ({
 
       if (response.ok && result.success) {
         setSuccessMessage("Thank you! Your callback request has been received. We'll contact you shortly.");
+        trackLeadSubmission({
+          leadType: 'callback',
+          service: formData.serviceNeeded,
+          hasDiscount: !!appliedPromo,
+        });
       } else {
         setErrorMessage(result.error || "Something went wrong. Please try again or call us directly.");
       }

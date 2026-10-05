@@ -1,6 +1,7 @@
 import React from 'react';
 import { Sparkles, ArrowRight, Mail, Instagram, ShieldCheck, CheckCircle2 } from 'lucide-react';
-import { MAILTO_URL, INSTAGRAM_URL, INSTAGRAM_DM_URL } from '../utils/constants';
+import { MAILTO_URL, INSTAGRAM_URL, INSTAGRAM_DM_URL, BUSINESS_EMAIL } from '../utils/constants';
+import { trackCtaClick, trackContactClick } from '../utils/analytics';
 
 interface ContactCTAProps {
   onOpenQuote: () => void;
@@ -59,7 +60,10 @@ export const ContactCTA: React.FC<ContactCTAProps> = ({ onOpenQuote }) => {
             <div className="pt-6 grid grid-cols-1 sm:grid-cols-3 gap-3.5">
               {/* 1. GET A FREE QUOTE */}
               <button
-                onClick={onOpenQuote}
+                onClick={() => {
+                  trackCtaClick('GET A FREE QUOTE', 'ContactCTA Section');
+                  onOpenQuote();
+                }}
                 className="w-full py-4 px-5 rounded-2xl bg-linear-to-r from-sky-500 via-sky-600 to-emerald-600 hover:from-sky-600 hover:to-emerald-700 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-[0_8px_20px_rgba(2,132,199,0.35)] hover:shadow-[0_12px_28px_rgba(2,132,199,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 cursor-pointer border border-sky-400/30"
               >
                 <span>GET A FREE QUOTE</span>
@@ -69,6 +73,9 @@ export const ContactCTA: React.FC<ContactCTAProps> = ({ onOpenQuote }) => {
               {/* 2. EMAIL US */}
               <a
                 href={MAILTO_URL}
+                onClick={() => {
+                  trackContactClick('email', BUSINESS_EMAIL, 'ContactCTA Section');
+                }}
                 className="w-full py-4 px-5 rounded-2xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs sm:text-sm uppercase tracking-wider border border-white/20 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 cursor-pointer backdrop-blur-xs"
               >
                 <Mail className="w-4 h-4 text-sky-300" />
@@ -80,6 +87,9 @@ export const ContactCTA: React.FC<ContactCTAProps> = ({ onOpenQuote }) => {
                 href={INSTAGRAM_DM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  trackContactClick('instagram', 'Instagram DM', 'ContactCTA Section');
+                }}
                 aria-label="Chat with Fresh Breeze on Instagram DM"
                 className="w-full py-4 px-5 rounded-2xl bg-linear-to-r from-purple-600/30 to-pink-600/30 hover:from-purple-600/45 hover:to-pink-600/45 text-white font-bold text-xs sm:text-sm uppercase tracking-wider border border-pink-400/30 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 cursor-pointer backdrop-blur-xs"
               >

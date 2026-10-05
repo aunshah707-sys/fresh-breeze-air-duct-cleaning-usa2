@@ -12,6 +12,7 @@ import {
   Wind
 } from 'lucide-react';
 import { INSTAGRAM_DM_URL, BUSINESS_NAME } from '../utils/constants';
+import { trackEvent, trackContactClick, trackCtaClick } from '../utils/analytics';
 
 interface ChatbotProps {
   onOpenQuote: () => void;
@@ -86,7 +87,10 @@ export const Chatbot: React.FC<ChatbotProps> = ({
       <div className="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-40">
         {!isOpen && (
           <button
-            onClick={() => setIsOpen(true)}
+            onClick={() => {
+              trackEvent('chatbot_open');
+              setIsOpen(true);
+            }}
             aria-label="Open Fresh Breeze Chat Assistant"
             className="group relative flex items-center gap-2.5 px-4 py-3.5 rounded-full bg-linear-to-r from-sky-600 via-sky-700 to-emerald-600 hover:from-sky-500 hover:via-sky-600 hover:to-emerald-500 text-white font-bold text-xs sm:text-sm shadow-[0_8px_25px_rgba(2,132,199,0.35)] hover:shadow-[0_12px_32px_rgba(2,132,199,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer border border-white/20"
           >
@@ -160,6 +164,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
                       href={INSTAGRAM_DM_URL}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackContactClick('instagram', 'Instagram DM', 'Chatbot Assistant')}
                       className="w-full py-2.5 px-3.5 rounded-xl bg-linear-to-r from-purple-600 via-pink-600 to-rose-500 hover:from-purple-500 hover:via-pink-500 hover:to-rose-400 text-white font-bold text-xs shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 group cursor-pointer border border-white/20"
                     >
                       <span className="text-sm">📸</span>
@@ -171,6 +176,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
                     <div className="grid grid-cols-2 gap-2">
                       <button
                         onClick={() => {
+                          trackCtaClick('Get Free Quote', 'Chatbot Assistant');
                           setIsOpen(false);
                           onOpenQuote();
                         }}
@@ -182,6 +188,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
 
                       <button
                         onClick={() => {
+                          trackCtaClick('Call Request', 'Chatbot Assistant');
                           setIsOpen(false);
                           onOpenCallback();
                         }}

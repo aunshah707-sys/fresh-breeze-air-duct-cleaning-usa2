@@ -8,6 +8,7 @@ import {
   INSTAGRAM_URL, 
   FACEBOOK_URL 
 } from '../utils/constants';
+import { trackContactClick, trackCtaClick } from '../utils/analytics';
 
 interface FooterProps {
   onOpenQuote: () => void;
@@ -50,6 +51,7 @@ export const Footer: React.FC<FooterProps> = ({
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackContactClick('instagram', 'Instagram Profile', 'Footer')}
                 className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-gradient-to-tr hover:from-purple-600 hover:to-pink-500 text-slate-300 hover:text-white flex items-center justify-center transition-all shadow-xs"
                 aria-label="Visit Fresh Breeze on Instagram"
               >
@@ -59,6 +61,7 @@ export const Footer: React.FC<FooterProps> = ({
                 href={FACEBOOK_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackContactClick('facebook', 'Facebook Page', 'Footer')}
                 className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-[#1877F2] text-slate-300 hover:text-white flex items-center justify-center transition-all shadow-xs"
                 aria-label="Visit Fresh Breeze on Facebook"
               >
@@ -204,6 +207,7 @@ export const Footer: React.FC<FooterProps> = ({
                 <span className="text-[10px] text-slate-400 block uppercase font-medium">Business Email</span>
                 <a
                   href={MAILTO_URL}
+                  onClick={() => trackContactClick('email', BUSINESS_EMAIL, 'Footer')}
                   className="font-medium text-sky-300 hover:text-sky-200 transition-colors flex items-center gap-1.5 mt-1 break-all"
                   title="Click to email Fresh Breeze"
                 >
@@ -216,7 +220,10 @@ export const Footer: React.FC<FooterProps> = ({
               <div>
                 <span className="text-[10px] text-slate-400 block uppercase font-medium">Direct Scheduling</span>
                 <button
-                  onClick={onOpenCall}
+                  onClick={() => {
+                    trackCtaClick('REQUEST A CALLBACK', 'Footer');
+                    onOpenCall();
+                  }}
                   className="font-bold text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1.5 mt-1 cursor-pointer"
                 >
                   <Phone className="w-3.5 h-3.5 text-emerald-400" />
@@ -226,7 +233,10 @@ export const Footer: React.FC<FooterProps> = ({
 
               <div className="pt-2">
                 <button
-                  onClick={onOpenQuote}
+                  onClick={() => {
+                    trackCtaClick('GET A FREE QUOTE', 'Footer');
+                    onOpenQuote();
+                  }}
                   className="w-full py-2.5 px-3 rounded-xl bg-linear-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 text-white font-bold text-xs text-center transition-all shadow-sm cursor-pointer"
                 >
                   GET A FREE QUOTE

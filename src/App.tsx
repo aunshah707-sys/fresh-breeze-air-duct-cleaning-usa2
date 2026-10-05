@@ -22,6 +22,7 @@ import { TermsAndConditions } from './components/TermsAndConditions';
 import { ServicePage } from './components/ServicePage';
 import { Chatbot } from './components/Chatbot';
 import { updateDocumentSEO } from './utils/seo';
+import { trackPageView, trackCtaClick } from './utils/analytics';
 
 const THEME_STORAGE_KEY = 'fresh_breeze_theme';
 
@@ -148,6 +149,25 @@ export default function App() {
     }
   }, [currentView]);
 
+  // Track SPA pageviews in GA4
+  useEffect(() => {
+    let path = '/';
+    let title = 'Fresh Breeze Air Duct Cleaning USA | Air Duct & Vent Cleaning';
+
+    if (currentView === 'privacy') {
+      path = '/privacy-policy';
+      title = 'Privacy Policy | Fresh Breeze Air Duct Cleaning USA';
+    } else if (currentView === 'terms') {
+      path = '/terms';
+      title = 'Terms & Conditions | Fresh Breeze Air Duct Cleaning USA';
+    } else if (currentView === 'service') {
+      path = `/services/${currentServiceSlug}`;
+      title = `${currentServiceSlug.replace(/-/g, ' ')} | Fresh Breeze Air Duct Cleaning USA`;
+    }
+
+    trackPageView(path, title);
+  }, [currentView, currentServiceSlug]);
+
   const navigateToPrivacy = () => {
     try {
       window.history.pushState({}, '', '/privacy-policy');
@@ -193,16 +213,25 @@ export default function App() {
     if (location) {
       setSelectedQuoteLocation(location);
     }
+    trackCtaClick('Open Free Quote Modal', serviceName || location || 'General');
     setIsQuoteModalOpen(true);
   };
 
   const handleCheckZip = (location: string) => {
+    trackCtaClick('Check Zip Code Service Area', location);
     openQuoteModal(undefined, location);
   };
 
   const handleClaimPromo = (couponCode?: string) => {
-    setAppliedPromo(couponCode || 'FRESHOCT');
+    const code = couponCode || 'FRESHOCT';
+    trackCtaClick(`Claim Promo: ${code}`, 'Promo Banner/Popup');
+    setAppliedPromo(code);
     openQuoteModal();
+  };
+
+  const openCallbackModal = (source: string = 'General') => {
+    trackCtaClick('Request a Callback Modal', source);
+    setIsCallModalOpen(true);
   };
 
   // If visitor is on the dedicated Privacy Policy page
@@ -216,12 +245,12 @@ export default function App() {
     );
   }
 
-  // If visitor is on the dedicated Terms & Conditions page
+    // If visitor is on the dedicated Terms & Conditions page
   if (currentView === 'terms') {
     return (
       <TermsAndConditions 
         onBackToHome={navigateToHome} 
-        onOpenCall={() => setIsCallModalOpen(true)}
+        onOpenCall={() => openCallbackModal('Terms and Conditions Page')}
         theme={theme}
         onToggleTheme={handleToggleTheme}
       />
@@ -236,7 +265,7 @@ export default function App() {
           serviceId={currentServiceSlug}
           onBackToHome={navigateToHome}
           onOpenQuote={(serviceName) => openQuoteModal(serviceName)}
-          onOpenCallback={() => setIsCallModalOpen(true)}
+          onOpenCallback={() => openCallbackModal('Service Page')}
           onNavigateToService={navigateToService}
           theme={theme}
           onToggleTheme={handleToggleTheme}
@@ -272,7 +301,7 @@ export default function App() {
       {/* 1. Header Navigation */}
       <Navbar
         onOpenQuote={() => openQuoteModal()}
-        onOpenCallback={() => setIsCallModalOpen(true)}
+        onOpenCallback={() => openCallbackModal('Navbar')}
         theme={theme}
         onToggleTheme={handleToggleTheme}
       />
@@ -281,7 +310,7 @@ export default function App() {
         {/* 2. Hero */}
         <Hero
           onOpenQuote={() => openQuoteModal()}
-          onOpenCallback={() => setIsCallModalOpen(true)}
+          onOpenCallback={() => openCallbackModal('Hero')}
         />
 
         {/* 3. Our Services (Air Duct Cleaning, Dryer Vent Cleaning, HVAC Cleaning, Chimney Cleaning) */}
@@ -302,7 +331,7 @@ export default function App() {
         {/* 7. FAQ */}
         <FAQSection
           onOpenQuote={() => openQuoteModal()}
-          onOpenCall={() => setIsCallModalOpen(true)}
+          onOpenCall={() => openCallbackModal('FAQ Section')}
           onNavigateToService={navigateToService}
         />
 
@@ -321,7 +350,7 @@ export default function App() {
       {/* 10. Footer */}
       <Footer
         onOpenQuote={() => openQuoteModal()}
-        onOpenCall={() => setIsCallModalOpen(true)}
+        onOpenCall={() => openCallbackModal('Footer')}
         onOpenPrivacyPolicy={navigateToPrivacy}
         onOpenTerms={navigateToTerms}
         onNavigateToService={navigateToService}
@@ -364,7 +393,7 @@ export default function App() {
       {/* Floating Chatbot Assistant with Instagram DM Quick-Action */}
       <Chatbot 
         onOpenQuote={() => openQuoteModal()} 
-        onOpenCallback={() => setIsCallModalOpen(true)} 
+        onOpenCallback={() => openCallbackModal('Chatbot')} 
       />
     </div>
   );
