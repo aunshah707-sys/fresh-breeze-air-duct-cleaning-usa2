@@ -169,6 +169,23 @@ async function startServer() {
     res.json({ status: 'ok', time: new Date().toISOString() });
   });
 
+  // Direct delivery for sitemap.xml and robots.txt with strict content types
+  app.get('/sitemap.xml', (req, res) => {
+    res.setHeader('Content-Type', 'application/xml; charset=UTF-8');
+    const sitemapPath = process.env.NODE_ENV === 'production'
+      ? path.resolve(__dirname, 'dist', 'sitemap.xml')
+      : path.resolve(__dirname, 'public', 'sitemap.xml');
+    res.sendFile(sitemapPath);
+  });
+
+  app.get('/robots.txt', (req, res) => {
+    res.setHeader('Content-Type', 'text/plain; charset=UTF-8');
+    const robotsPath = process.env.NODE_ENV === 'production'
+      ? path.resolve(__dirname, 'dist', 'robots.txt')
+      : path.resolve(__dirname, 'public', 'robots.txt');
+    res.sendFile(robotsPath);
+  });
+
   // Serve public static assets (favicons, manifests, etc.)
   app.use(express.static(path.resolve(__dirname, 'public')));
 
