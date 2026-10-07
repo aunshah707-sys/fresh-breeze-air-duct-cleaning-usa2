@@ -56,6 +56,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 <img
                   src={service.image}
                   alt={service.imageAlt}
+                  loading="lazy"
+                  width={400}
+                  height={240}
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-slate-950/70 via-slate-950/20 to-transparent" />

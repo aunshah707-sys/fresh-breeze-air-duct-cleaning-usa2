@@ -27,7 +27,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onOpenCallback }) => {
 
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-5xl lg:text-[3.3rem] font-extrabold text-slate-900 dark:text-white leading-[1.12] tracking-tight font-display text-balance">
-              Cleaner Air. Healthier Home.{' '}
+              Professional Air Duct Cleaning Services{' '}
               <span className="bg-linear-to-r from-sky-600 via-sky-700 to-emerald-600 dark:from-sky-400 dark:via-sky-300 dark:to-emerald-400 bg-clip-text text-transparent">
                 Fresh Breeze.
               </span>
@@ -35,7 +35,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onOpenCallback }) => {
 
             {/* Subheadline with natural SEO keywords */}
             <h2 className="text-lg sm:text-xl font-semibold text-slate-700 dark:text-slate-200 tracking-tight">
-              Professional Air Duct Cleaning Services, Dryer Vent Cleaning, HVAC Cleaning &amp; Chimney Cleaning.
+              Cleaner Air. Healthier Home. Residential Air Duct Cleaning, Dryer Vent Cleaning, HVAC Cleaning &amp; Chimney Sweeping.
             </h2>
 
             {/* Supporting Text */}
@@ -87,7 +87,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onOpenCallback }) => {
               <div className="relative rounded-3xl overflow-hidden shadow-[0_24px_60px_-15px_rgba(2,132,199,0.25)] border-4 border-white dark:border-slate-800 bg-slate-900 aspect-16/11 sm:aspect-16/10 lg:aspect-4/3 transition-all duration-500 hover:shadow-[0_30px_70px_-15px_rgba(2,132,199,0.35)]">
                 <img
                   src={heroTechnicianImg}
-                  alt="Professional air duct cleaning technician"
+                  alt="Professional air duct cleaning technician servicing residential HVAC ventilation system"
+                  loading="eager"
+                  fetchPriority="high"
+                  width={800}
+                  height={600}
                   className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
                 />
 

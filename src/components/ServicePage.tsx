@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { Logo } from './Logo';
 import { ThemeToggle } from './ThemeToggle';
-import { updateDocumentSEO } from '../utils/seo';
+import { updateDocumentSEO, setPageStructuredData, CANONICAL_DOMAIN } from '../utils/seo';
 import { SERVICES_DATA, ServiceDetail } from './ServiceDetailModal';
 import { getServiceRegularPrice, PROMO_COUPON_CODE } from '../../lib/pricing';
 
@@ -31,10 +31,10 @@ export interface ServiceSEOInfo {
 export const SERVICE_SEO_MAP: Record<string, ServiceSEOInfo> = {
   'air-duct-cleaning': {
     slug: 'air-duct-cleaning',
-    metaTitle: 'Air Duct Cleaning Services | Fresh Breeze Air Duct Cleaning USA',
-    metaDescription: 'Professional residential air duct cleaning services to remove trapped dust, allergens, and debris from home vents. Request your free upfront quote today.',
-    h1: 'Residential Air Duct Cleaning Services',
-    heroSummary: 'Thorough, HEPA-contained air duct cleaning for single-family homes and residential living spaces. We clean every supply vent, return line, and trunk pathway.',
+    metaTitle: 'Air Duct Cleaning Services | Fresh Breeze',
+    metaDescription: 'Professional air duct cleaning services to remove dust, allergens, and debris from home supply and return vents. Improve indoor airflow with a free quote today.',
+    h1: 'Professional Air Duct Cleaning Services',
+    heroSummary: 'Comprehensive residential and commercial air duct cleaning across all supply vents and return vents to clear dust, debris, and allergens while restoring healthy indoor airflow and HVAC efficiency.',
     faqs: [
       {
         question: 'How do technicians clean residential air ducts?',
@@ -52,10 +52,10 @@ export const SERVICE_SEO_MAP: Record<string, ServiceSEOInfo> = {
   },
   'dryer-vent-cleaning': {
     slug: 'dryer-vent-cleaning',
-    metaTitle: 'Dryer Vent Cleaning Services | Fresh Breeze Air Duct Cleaning USA',
-    metaDescription: 'Professional dryer vent cleaning services to clear combustible lint, reduce fire hazards, and boost dryer airflow efficiency. Get a free quote today.',
+    metaTitle: 'Dryer Vent Cleaning Services | Fresh Breeze',
+    metaDescription: 'Professional dryer vent cleaning services to clear clogged lint, restore airflow, improve drying times, and reduce fire hazards. Request a free quote today.',
     h1: 'Professional Dryer Vent Cleaning Services',
-    heroSummary: 'Full-length mechanical lint removal from behind your dryer through to the outdoor exhaust hood, restoring safe airflow and normal drying times.',
+    heroSummary: 'Full-length mechanical lint removal from behind your clothes dryer through the entire exhaust vent run to the outdoor termination hood, eliminating blockages and dryer fire hazards.',
     faqs: [
       {
         question: 'Why does the dryer exhaust line need professional cleaning if there is a lint screen?',
@@ -73,10 +73,10 @@ export const SERVICE_SEO_MAP: Record<string, ServiceSEOInfo> = {
   },
   'hvac-cleaning': {
     slug: 'hvac-cleaning',
-    metaTitle: 'HVAC Cleaning Services | Fresh Breeze Air Duct Cleaning USA',
-    metaDescription: 'Thorough HVAC cleaning services for blower wheels, indoor coils, and air handler cabinets to restore system airflow and comfort. Get a free quote today.',
-    h1: 'Complete HVAC Cleaning Services for Homes',
-    heroSummary: 'Specialized cleaning for internal heating and cooling equipment components, including the blower wheel assembly, air handler cabinet, and evaporator coil surfaces.',
+    metaTitle: 'HVAC Cleaning Services | Fresh Breeze',
+    metaDescription: 'Comprehensive HVAC cleaning services for air handlers, blower wheels, and system coils to improve airflow and efficiency. Get your free estimate today.',
+    h1: 'Professional HVAC Cleaning Services',
+    heroSummary: 'Targeted cleaning of central heating and cooling equipment components, including the blower motor wheel, air handler cabinet, and evaporator coil surfaces for optimal airflow and efficiency.',
     faqs: [
       {
         question: 'What parts of my heating and cooling unit are cleaned?',
@@ -94,10 +94,10 @@ export const SERVICE_SEO_MAP: Record<string, ServiceSEOInfo> = {
   },
   'chimney-cleaning': {
     slug: 'chimney-cleaning',
-    metaTitle: 'Chimney Cleaning & Flue Sweeping Services | Fresh Breeze',
-    metaDescription: 'Professional chimney cleaning and fireplace flue sweep services to remove creosote buildup, soot, and exhaust obstructions. Get your free quote today.',
-    h1: 'Residential Chimney Cleaning & Flue Sweeping Services',
-    heroSummary: 'Professional fireplace and chimney sweeps to eliminate flammable creosote, soot deposits, and drafting blockages before you light your next fire.',
+    metaTitle: 'Chimney Cleaning Services | Fresh Breeze',
+    metaDescription: 'Professional chimney cleaning and fireplace flue sweep services to remove soot and creosote buildup for safer indoor heating. Request a free quote today.',
+    h1: 'Professional Chimney Cleaning Services',
+    heroSummary: 'Thorough fireplace and chimney flue sweeps to remove combustible creosote, soot deposits, and drafting blockages for safe, dependable fireplace maintenance.',
     faqs: [
       {
         question: 'What is creosote and why must it be swept from chimneys?',
@@ -147,15 +147,81 @@ export const ServicePage: React.FC<ServicePageProps> = ({
       canonicalPath: `/services/${seo.slug}`,
     });
 
+    // Inject rich Schema.org structured data (Breadcrumbs, Service, and FAQPage)
+    setPageStructuredData({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'BreadcrumbList',
+          '@id': `${CANONICAL_DOMAIN}/services/${seo.slug}#breadcrumb`,
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Home',
+              'item': `${CANONICAL_DOMAIN}/`,
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': 'Services',
+              'item': `${CANONICAL_DOMAIN}/#services`,
+            },
+            {
+              '@type': 'ListItem',
+              'position': 3,
+              'name': service.title,
+              'item': `${CANONICAL_DOMAIN}/services/${seo.slug}`,
+            },
+          ],
+        },
+        {
+          '@type': 'Service',
+          '@id': `${CANONICAL_DOMAIN}/services/${seo.slug}#service`,
+          'name': `${service.title} Services`,
+          'serviceType': service.title,
+          'description': service.description,
+          'provider': {
+            '@type': 'HomeAndConstructionBusiness',
+            '@id': `${CANONICAL_DOMAIN}/#business`,
+            'name': 'Fresh Breeze Air Duct Cleaning USA',
+          },
+          'areaServed': {
+            '@type': 'Country',
+            'name': 'United States',
+          },
+          'offers': {
+            '@type': 'Offer',
+            'price': regularPrice,
+            'priceCurrency': 'USD',
+            'availability': 'https://schema.org/InStock',
+          },
+        },
+        {
+          '@type': 'FAQPage',
+          '@id': `${CANONICAL_DOMAIN}/services/${seo.slug}#faq`,
+          'mainEntity': seo.faqs.map((faq) => ({
+            '@type': 'Question',
+            'name': faq.question,
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': faq.answer,
+            },
+          })),
+        },
+      ],
+    });
+
     return () => {
-      // Revert to homepage SEO on unmount
+      // Clean up dynamic structured data and revert to homepage SEO
+      setPageStructuredData(null);
       updateDocumentSEO({
-        title: 'Fresh Breeze Air Duct Cleaning USA | Air Duct & Vent Cleaning',
-        description: 'Fresh Breeze provides professional air duct cleaning, dryer vent cleaning, HVAC cleaning, and chimney cleaning services across the USA. Request a free quote today.',
+        title: 'Air Duct Cleaning USA | Fresh Breeze Air Duct Cleaning',
+        description: 'Professional air duct cleaning services, dryer vent cleaning, HVAC cleaning, and chimney cleaning across the USA. Request your free upfront quote today.',
         canonicalPath: '/',
       });
     };
-  }, [seo]);
+  }, [seo, service, regularPrice]);
 
   const otherServices = SERVICES_DATA.filter((s) => s.id !== service.id);
 
@@ -277,6 +343,9 @@ export const ServicePage: React.FC<ServicePageProps> = ({
                 <img
                   src={service.image}
                   alt={service.imageAlt}
+                  loading="lazy"
+                  width={640}
+                  height={480}
                   className="w-full h-full object-cover object-center"
                 />
               </div>

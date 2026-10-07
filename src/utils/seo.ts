@@ -2,6 +2,9 @@
  * Dynamic SEO & Metadata Manager for Fresh Breeze Air Duct Cleaning USA
  */
 
+export const CANONICAL_DOMAIN = 'https://freshbreezeairductcleaning.site';
+const DEFAULT_IMAGE = `${CANONICAL_DOMAIN}/og-image.jpg`;
+
 export interface SEOMetadata {
   title: string;
   description: string;
@@ -9,9 +12,6 @@ export interface SEOMetadata {
   ogType?: string;
   ogImage?: string;
 }
-
-const DEFAULT_ORIGIN = 'https://freshbreezeairductcleaning.com';
-const DEFAULT_IMAGE = `${DEFAULT_ORIGIN}/og-image.jpg`;
 
 export function updateDocumentSEO(meta: SEOMetadata) {
   if (typeof document === 'undefined') return;
@@ -29,7 +29,7 @@ export function updateDocumentSEO(meta: SEOMetadata) {
   descTag.setAttribute('content', meta.description);
 
   // 3. Update Canonical URL
-  const canonicalUrl = `${DEFAULT_ORIGIN}${meta.canonicalPath || '/'}`;
+  const canonicalUrl = `${CANONICAL_DOMAIN}${meta.canonicalPath || '/'}`;
   let canonicalTag = document.querySelector('link[rel="canonical"]');
   if (!canonicalTag) {
     canonicalTag = document.createElement('link');
@@ -54,6 +54,7 @@ export function updateDocumentSEO(meta: SEOMetadata) {
   updateMetaProperty('og:url', canonicalUrl);
   updateMetaProperty('og:type', meta.ogType || 'website');
   updateMetaProperty('og:image', meta.ogImage || DEFAULT_IMAGE);
+  updateMetaProperty('og:site_name', 'Fresh Breeze Air Duct Cleaning USA');
 
   // 5. Update Twitter Tags
   const updateMetaName = (name: string, content: string) => {
@@ -69,4 +70,26 @@ export function updateDocumentSEO(meta: SEOMetadata) {
   updateMetaName('twitter:title', meta.title);
   updateMetaName('twitter:description', meta.description);
   updateMetaName('twitter:image', meta.ogImage || DEFAULT_IMAGE);
+  updateMetaName('twitter:card', 'summary_large_image');
+}
+
+/**
+ * Injects or updates dynamic JSON-LD structured data for the current route
+ */
+export function setPageStructuredData(schema: object | null) {
+  if (typeof document === 'undefined') return;
+  const scriptId = 'dynamic-page-schema';
+  let scriptTag = document.getElementById(scriptId) as HTMLScriptElement | null;
+
+  if (schema) {
+    if (!scriptTag) {
+      scriptTag = document.createElement('script');
+      scriptTag.id = scriptId;
+      scriptTag.type = 'application/ld+json';
+      document.head.appendChild(scriptTag);
+    }
+    scriptTag.textContent = JSON.stringify(schema);
+  } else if (scriptTag) {
+    scriptTag.remove();
+  }
 }

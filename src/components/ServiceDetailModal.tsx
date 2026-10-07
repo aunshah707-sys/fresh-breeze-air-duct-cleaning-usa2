@@ -24,9 +24,9 @@ export const SERVICES_DATA: ServiceDetail[] = [
     title: 'Air Duct Cleaning',
     tagline: "Remove accumulated dust, debris, and allergens from your home's air duct system.",
     image: airDuctImg,
-    imageAlt: 'Professional air duct cleaning technician',
+    imageAlt: 'Professional air duct cleaning technician using rotary brush and HEPA negative-air vacuum equipment',
     iconName: 'Wind',
-    description: "Our residential air duct cleaning removes dust, pet hair, dirt, and particulate debris trapped throughout your home's supply and return duct branches. Using high-powered negative air extraction and rotary brush line agitation, we clean each duct run back to the central unit.",
+    description: "Our professional air duct cleaning service thoroughly cleans residential and commercial ventilation systems, removing dust, allergens, pet dander, and debris from supply vents and return vents. Using mechanical rotary brush agitation and high-powered negative-air HEPA collection equipment, we clean every duct run to restore unrestricted airflow, support HVAC efficiency, and improve indoor air quality.",
     whatIncluded: [
       'Comprehensive inspection of all accessible supply and return duct vents',
       'Rotary brush mechanical agitation to dislodge settled dust in ductwork',
@@ -51,9 +51,9 @@ export const SERVICES_DATA: ServiceDetail[] = [
     title: 'Dryer Vent Cleaning',
     tagline: 'Help improve dryer airflow and reduce lint buildup with professional dryer vent cleaning services.',
     image: dryerVentImg,
-    imageAlt: 'Professional dryer vent cleaning service',
+    imageAlt: 'Professional dryer vent cleaning service removing lint buildup from exhaust duct line',
     iconName: 'Flame',
-    description: "While lint traps catch a portion of dryer lint, fine flammable fibers bypass the screen and accumulate inside the exhaust vent line. Professional cleaning clears the entire exhaust duct from behind your clothes dryer through to the exterior outdoor termination cap.",
+    description: "While the lint screen captures larger fibers, fine combustible lint bypasses the trap and leads to a clogged dryer vent over time. Our dryer vent cleaning service clears packed lint buildup from behind the dryer through the full exhaust vent line to the outdoor exhaust hood, resolving long drying times, restoring dryer airflow efficiency, and preventing hazardous dryer vent blockages.",
     whatIncluded: [
       'Mechanical rotary rod and brush cleaning through the entire exhaust vent run',
       'High-powered vacuum extraction of packed lint along the tubing',
@@ -78,9 +78,9 @@ export const SERVICES_DATA: ServiceDetail[] = [
     title: 'HVAC Cleaning',
     tagline: 'Professional cleaning solutions designed to help keep your HVAC system and home environment cleaner.',
     image: hvacImg,
-    imageAlt: 'HVAC cleaning technician',
+    imageAlt: 'Technician performing HVAC system cleaning on blower wheel and air handler cabinet',
     iconName: 'Cpu',
-    description: "Your indoor heating and cooling equipment recirculates air continuously. Our HVAC cleaning services focus on key system components that collect fine dust and grime, including the blower motor assembly, air handler cabinet, and evaporator coil housing.",
+    description: "Central HVAC systems circulate indoor air throughout the home continuously. Our professional HVAC cleaning service targets critical internal system components that collect dust buildup and grime, including the air handler cabinet, blower motor wheel assembly, and accessible evaporator coil surfaces. Deep cleaning helps maintain system airflow, supports HVAC efficiency, and promotes cleaner indoor air.",
     whatIncluded: [
       'Surface cleaning and particulate vacuuming of the air handler cabinet',
       'Blower wheel fin inspection and dust removal',
@@ -105,9 +105,9 @@ export const SERVICES_DATA: ServiceDetail[] = [
     title: 'Chimney Cleaning',
     tagline: 'Professional chimney and fireplace flue sweeping to remove soot, creosote, and debris.',
     image: chimneyImg,
-    imageAlt: 'Professional chimney cleaning service',
+    imageAlt: 'Professional chimney sweeping service clearing creosote and soot from fireplace flue',
     iconName: 'Sparkles',
-    description: "Wood and fuel burning produces soot, ash, and flammable creosote deposits that adhere to your chimney flue walls. Our chimney sweep service safely cleans your fireplace flue, smoke chamber, and damper using specialized sweeping rods and dust-containment vacuums.",
+    description: "Wood and fuel burning generates soot, ash, and flammable creosote deposits that build up along chimney flue walls. Our chimney cleaning and fireplace flue sweep service includes thorough chimney inspection and mechanical sweeping from the firebox to the chimney cap, clearing smoke chamber soot buildup and draft blockages for safe, dependable fireplace maintenance.",
     whatIncluded: [
       'Full chimney flue mechanical sweeping from fireplace to chimney top',
       'Soot and creosote deposit removal along flue liner walls',
@@ -163,6 +163,9 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
           <img 
             src={service.image} 
             alt={service.imageAlt} 
+            loading="lazy"
+            width={600}
+            height={240}
             className="w-full h-full object-cover object-center opacity-85"
           />
           <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-900/40 to-transparent" />

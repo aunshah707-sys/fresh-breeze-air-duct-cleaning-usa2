@@ -21,7 +21,7 @@ import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsAndConditions } from './components/TermsAndConditions';
 import { ServicePage } from './components/ServicePage';
 import { Chatbot } from './components/Chatbot';
-import { updateDocumentSEO } from './utils/seo';
+import { updateDocumentSEO, setPageStructuredData } from './utils/seo';
 import { trackPageView, trackCtaClick } from './utils/analytics';
 
 const THEME_STORAGE_KEY = 'fresh_breeze_theme';
@@ -138,13 +138,62 @@ export default function App() {
     };
   }, []);
 
-  // Update homepage SEO when on home view
+  // Update view SEO when view changes
   useEffect(() => {
     if (currentView === 'home') {
       updateDocumentSEO({
-        title: 'Fresh Breeze Air Duct Cleaning USA | Air Duct & Vent Cleaning',
-        description: 'Fresh Breeze provides professional air duct cleaning, dryer vent cleaning, HVAC cleaning, and chimney cleaning services across the USA. Request a free quote today.',
+        title: 'Air Duct Cleaning USA | Fresh Breeze Air Duct Cleaning',
+        description: 'Professional air duct cleaning services, dryer vent cleaning, HVAC cleaning, and chimney cleaning across the USA. Request your free upfront quote today.',
         canonicalPath: '/',
+      });
+      setPageStructuredData(null);
+    } else if (currentView === 'privacy') {
+      updateDocumentSEO({
+        title: 'Privacy Policy | Fresh Breeze Air Duct Cleaning USA',
+        description: 'Read the Fresh Breeze Air Duct Cleaning USA Privacy Policy to learn how we protect your personal information, contact details, and quote request submissions.',
+        canonicalPath: '/privacy-policy',
+      });
+      setPageStructuredData({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': 'Home',
+            'item': 'https://freshbreezeairductcleaning.site/',
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': 'Privacy Policy',
+            'item': 'https://freshbreezeairductcleaning.site/privacy-policy',
+          },
+        ],
+      });
+    } else if (currentView === 'terms') {
+      updateDocumentSEO({
+        title: 'Terms & Conditions | Fresh Breeze Air Duct Cleaning USA',
+        description: 'Read the terms and conditions for using the Fresh Breeze Air Duct Cleaning USA website, requesting estimates, and scheduling residential cleaning services.',
+        canonicalPath: '/terms',
+      });
+      setPageStructuredData({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': 'Home',
+            'item': 'https://freshbreezeairductcleaning.site/',
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': 'Terms & Conditions',
+            'item': 'https://freshbreezeairductcleaning.site/terms',
+          },
+        ],
       });
     }
   }, [currentView]);
@@ -152,7 +201,7 @@ export default function App() {
   // Track SPA pageviews in GA4
   useEffect(() => {
     let path = '/';
-    let title = 'Fresh Breeze Air Duct Cleaning USA | Air Duct & Vent Cleaning';
+    let title = 'Air Duct Cleaning USA | Fresh Breeze Air Duct Cleaning';
 
     if (currentView === 'privacy') {
       path = '/privacy-policy';
@@ -162,7 +211,7 @@ export default function App() {
       title = 'Terms & Conditions | Fresh Breeze Air Duct Cleaning USA';
     } else if (currentView === 'service') {
       path = `/services/${currentServiceSlug}`;
-      title = `${currentServiceSlug.replace(/-/g, ' ')} | Fresh Breeze Air Duct Cleaning USA`;
+      title = `${currentServiceSlug.replace(/-/g, ' ')} | Fresh Breeze`;
     }
 
     trackPageView(path, title);
