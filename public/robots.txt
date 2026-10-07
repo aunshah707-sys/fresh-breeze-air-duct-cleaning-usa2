@@ -5,4 +5,4 @@ Disallow: /api/
 Disallow: /.netlify/
 
 # Sitemap location
-Sitemap: https://freshbreezeairductcleaning.com/sitemap.xml
+Sitemap: https://freshbreezeairductcleaning.site/sitemap.xml
