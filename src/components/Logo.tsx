@@ -12,9 +12,9 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 'md', variant
 
   // Height mappings based on size
   const heightClasses = {
-    sm: 'h-9 sm:h-10',
-    md: 'h-11 sm:h-13',
-    lg: 'h-14 sm:h-16',
+    sm: 'h-8 sm:h-10',
+    md: 'h-8 sm:h-11 md:h-12',
+    lg: 'h-12 sm:h-16',
   };
 
   const isDarkBg = variant === 'white';
@@ -52,7 +52,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 'md', variant
   if (isDarkBg) {
     return (
       <div className={`inline-flex items-center ${className}`}>
-        <div className="bg-white px-3 py-1.5 rounded-xl shadow-xs inline-flex items-center justify-center border border-white/20 hover:border-sky-400 transition-colors">
+        <div className="bg-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl shadow-xs inline-flex items-center justify-center border border-white/20 hover:border-sky-400 transition-colors">
           <img
             src={officialLogo}
             alt="Fresh Breeze Air Duct Cleaning USA logo"
@@ -66,7 +66,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 'md', variant
 
   return (
     <div className={`inline-flex items-center ${className}`}>
-      <div className="inline-flex items-center justify-center dark:bg-white dark:px-2.5 dark:py-1 dark:rounded-xl dark:shadow-xs dark:border dark:border-white/20 transition-all">
+      <div className="inline-flex items-center justify-center dark:bg-white dark:p-0.5 dark:rounded-lg sm:dark:rounded-xl dark:shadow-xs dark:border dark:border-white/20 transition-all">
         <img
           src={officialLogo}
           alt="Fresh Breeze Air Duct Cleaning USA logo"

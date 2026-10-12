@@ -68,7 +68,7 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
       onClick={handleClose}
     >
       <div 
-        className="relative w-full max-w-md sm:max-w-lg bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(2,132,199,0.3),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)] border border-white/80 dark:border-slate-800 overflow-hidden transform transition-all duration-300 animate-in zoom-in-95 scale-100 text-left"
+        className="relative w-full max-w-md sm:max-w-lg bg-white dark:bg-[#101A30] backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(2,132,199,0.3)] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.8)] border border-white/80 dark:border-slate-700/80 overflow-hidden transform transition-all duration-300 animate-in zoom-in-95 scale-100 text-left"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Subtle decorative background breeze & airflow pattern */}
@@ -136,17 +136,17 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
         </div>
 
         {/* Card Body */}
-        <div className="relative bg-white dark:bg-slate-900 pt-5 pb-6 sm:pb-7 px-6 sm:px-8 mt-3 rounded-t-3xl shadow-[0_-8px_20px_rgba(0,0,0,0.06)] space-y-4">
+        <div className="relative bg-white dark:bg-[#101A30] pt-5 pb-6 sm:pb-7 px-6 sm:px-8 mt-3 rounded-t-3xl border-t border-slate-100 dark:border-slate-800 space-y-4">
           
           {/* Live Countdown Display */}
           <div className={`p-3.5 rounded-2xl border text-center transition-all ${
             countdown.isExpired 
               ? 'bg-rose-50 dark:bg-rose-950/60 border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300' 
-              : 'bg-slate-50 dark:bg-slate-850 border-slate-200/90 dark:border-slate-800 text-slate-800 dark:text-slate-200'
+              : 'bg-slate-50 dark:bg-[#17243A] border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white'
           }`}>
             <div className="flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider mb-2">
               <Clock className={`w-3.5 h-3.5 ${countdown.isExpired ? 'text-rose-600 dark:text-rose-400' : 'text-sky-600 dark:text-sky-400'}`} />
-              <span>
+              <span className="text-slate-800 dark:text-white font-bold">
                 {countdown.isExpired ? 'Offer Expired' : 'October Promotion Ends In'}
               </span>
             </div>
@@ -163,32 +163,32 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
             ) : (
               <div>
                 <div className="grid grid-cols-4 gap-2 max-w-xs mx-auto">
-                  <div className="bg-white dark:bg-slate-900 rounded-xl p-2 shadow-xs border border-slate-200/80 dark:border-slate-800">
+                  <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
                     <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
                       {countdown.days}
                     </span>
-                    <span className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">Days</span>
+                    <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Days</span>
                   </div>
-                  <div className="bg-white dark:bg-slate-900 rounded-xl p-2 shadow-xs border border-slate-200/80 dark:border-slate-800">
+                  <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
                     <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
                       {String(countdown.hours).padStart(2, '0')}
                     </span>
-                    <span className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">Hours</span>
+                    <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Hours</span>
                   </div>
-                  <div className="bg-white dark:bg-slate-900 rounded-xl p-2 shadow-xs border border-slate-200/80 dark:border-slate-800">
+                  <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
                     <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
                       {String(countdown.minutes).padStart(2, '0')}
                     </span>
-                    <span className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">Mins</span>
+                    <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Mins</span>
                   </div>
-                  <div className="bg-white dark:bg-slate-900 rounded-xl p-2 shadow-xs border border-slate-200/80 dark:border-slate-800">
+                  <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
                     <span className="block text-lg sm:text-xl font-black text-sky-600 dark:text-sky-400 font-mono">
                       {String(countdown.seconds).padStart(2, '0')}
                     </span>
-                    <span className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">Secs</span>
+                    <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Secs</span>
                   </div>
                 </div>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
+                <p className="text-[11px] text-slate-500 dark:text-[#CBD5E1] mt-2">
                   Expires October 31, 2026 at 11:59:59 PM EDT (America/New_York)
                 </p>
               </div>
@@ -196,7 +196,7 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
           </div>
 
           {/* Value inclusions pill list */}
-          <div className="bg-sky-50/70 dark:bg-slate-850/80 border border-sky-100 dark:border-slate-800 rounded-2xl p-3.5 space-y-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+          <div className="bg-sky-50/80 dark:bg-[#17243A] border border-sky-200/70 dark:border-slate-700 rounded-2xl p-3.5 space-y-2 text-xs sm:text-sm text-slate-800 dark:text-[#CBD5E1]">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span>Valid on Air Duct ($149.40), Dryer Vent ($149.40) &amp; Chimney ($167.40)</span>
@@ -231,14 +231,14 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
             {/* Second Option: Maybe Later */}
             <button
               onClick={handleClose}
-              className="w-full py-2 text-xs sm:text-sm font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors text-center cursor-pointer"
+              className="w-full py-2 text-xs sm:text-sm font-semibold text-slate-500 dark:text-[#CBD5E1] hover:text-slate-800 dark:hover:text-white transition-colors text-center cursor-pointer"
             >
               Maybe Later
             </button>
           </div>
 
           {/* Trust guarantee badge */}
-          <div className="pt-0.5 flex items-center justify-center gap-1.5 text-[11px] text-slate-400 dark:text-slate-500 text-center">
+          <div className="pt-0.5 flex items-center justify-center gap-1.5 text-[11px] text-slate-500 dark:text-[#CBD5E1] text-center">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
             <span>Honest, upfront pricing for residential homeowners across the USA</span>
           </div>

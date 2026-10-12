@@ -9,7 +9,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onOpenCallback }) => {
   return (
-    <section id="home" className="relative pt-6 pb-12 sm:pt-10 sm:pb-20 lg:pt-14 lg:pb-24 overflow-hidden bg-linear-to-b from-sky-50/50 via-white to-white dark:from-slate-900/40 dark:via-slate-950 dark:to-slate-950 transition-colors duration-200">
+    <section id="home" className="relative pt-8 pb-12 sm:pt-10 sm:pb-20 lg:pt-14 lg:pb-24 overflow-hidden bg-linear-to-b from-sky-50/50 via-white to-white dark:from-[#101A30]/50 dark:via-slate-950 dark:to-slate-950 transition-colors duration-200">
       {/* Ambient background accents */}
       <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-sky-200/40 dark:bg-sky-600/10 blur-3xl pointer-events-none" />
       <div className="absolute top-1/2 left-0 -ml-20 w-80 h-80 rounded-full bg-emerald-100/40 dark:bg-emerald-600/10 blur-3xl pointer-events-none" />
@@ -18,11 +18,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onOpenCallback }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           {/* Left Column: Headlines & CTA */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 text-xs font-bold text-sky-800 dark:text-sky-400 tracking-wider uppercase">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Fresh Breeze Air Duct Cleaning USA</span>
-              <span className="text-slate-300 dark:text-slate-600" aria-hidden="true">·</span>
-              <span className="text-emerald-700 dark:text-emerald-400 font-semibold">Residential Air Duct Cleaning Specialists</span>
+            {/* Top Eyebrow Badges: Stacked on mobile, side-by-side on desktop */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-1 sm:gap-2 text-xs font-bold uppercase w-full">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 text-sky-800 dark:text-sky-400 text-[11px] sm:text-xs tracking-wide sm:tracking-wider whitespace-nowrap">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                <span>Fresh Breeze Air Duct Cleaning USA</span>
+              </div>
+              <span className="hidden sm:inline text-slate-300 dark:text-slate-600 select-none" aria-hidden="true">·</span>
+              <div className="inline-flex items-center text-emerald-700 dark:text-emerald-400 font-semibold text-[10.5px] sm:text-xs tracking-normal sm:tracking-wider whitespace-nowrap">
+                <span>Residential Air Duct Cleaning Specialists</span>
+              </div>
             </div>
 
             {/* Main Headline */}

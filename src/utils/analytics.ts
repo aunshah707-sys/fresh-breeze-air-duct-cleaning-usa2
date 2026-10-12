@@ -87,7 +87,7 @@ export function trackCtaClick(ctaName: string, location: string): void {
  * Track user contact actions (email, phone/callback, social messaging)
  */
 export function trackContactClick(
-  method: 'phone' | 'email' | 'instagram' | 'facebook', 
+  method: 'phone' | 'email' | 'instagram' | 'facebook' | 'whatsapp', 
   target: string, 
   source: string
 ): void {
