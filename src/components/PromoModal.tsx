@@ -72,18 +72,18 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/50 backdrop-blur-md transition-opacity duration-300 animate-in fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 bg-slate-950/50 backdrop-blur-md transition-opacity duration-300 animate-in fade-in overflow-y-auto w-full"
       role="dialog"
       aria-modal="true"
       aria-label="November Special — 40% OFF"
       onClick={handleClose}
     >
       <div 
-        className="relative w-full max-w-md sm:max-w-lg bg-white dark:bg-[#101A30] backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(2,132,199,0.3)] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.8)] border border-white/80 dark:border-slate-700/80 overflow-hidden transform transition-all duration-300 animate-in zoom-in-95 scale-100 text-left"
+        className="relative w-full max-w-[calc(100vw-1.25rem)] sm:max-w-lg bg-white dark:bg-[#101A30] backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(2,132,199,0.3)] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.8)] border border-white/80 dark:border-slate-700/80 overflow-hidden transform transition-all duration-300 animate-in zoom-in-95 scale-100 text-left my-auto max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Subtle decorative background breeze & airflow pattern */}
-        <div className="absolute top-0 right-0 left-0 h-48 bg-linear-to-br from-sky-600 via-sky-700 to-emerald-700 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 right-0 left-0 h-44 sm:h-48 bg-linear-to-br from-sky-600 via-sky-700 to-emerald-700 pointer-events-none overflow-hidden">
           {/* Airflow waves overlay */}
           <svg 
             className="absolute inset-0 w-full h-full opacity-20" 
@@ -105,39 +105,39 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
         <button
           onClick={handleClose}
           aria-label="Close promotion dialog"
-          className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/25 hover:bg-black/40 text-white flex items-center justify-center transition-colors backdrop-blur-xs cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-white"
+          className="absolute top-3.5 right-3.5 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/25 hover:bg-black/40 text-white flex items-center justify-center transition-colors backdrop-blur-xs cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-white"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
 
         {/* Header content inside the colored banner */}
-        <div className="relative pt-6 px-6 sm:px-8 text-center text-white">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-sky-100 text-xs font-bold uppercase tracking-wider shadow-inner mb-1.5 border border-white/20">
+        <div className="relative pt-5 sm:pt-6 px-4 sm:px-8 text-center text-white shrink-0">
+          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 sm:py-1 rounded-full bg-white/20 backdrop-blur-md text-sky-100 text-[11px] sm:text-xs font-bold uppercase tracking-wider shadow-inner mb-1 border border-white/20">
             <Sparkles className="w-3.5 h-3.5 text-emerald-300 animate-spin" style={{ animationDuration: '6s' }} />
             <span>NOVEMBER SPECIAL</span>
           </div>
 
           {/* Large, 3D-styled 40% OFF */}
           <div className="py-0.5">
-            <span className="block text-5xl sm:text-6xl font-black tracking-tight font-display text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)]">
+            <span className="block text-4xl sm:text-6xl font-black tracking-tight font-display text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)]">
               40% OFF
             </span>
           </div>
 
-          <p className="text-white/95 font-bold text-sm sm:text-base mt-0.5 tracking-tight drop-shadow-xs">
+          <p className="text-white/95 font-bold text-xs sm:text-base mt-0.5 tracking-tight drop-shadow-xs">
             Save 40% on Your Cleaning Service
           </p>
 
           {/* Coupon Code Pill */}
-          <div className="mt-2.5 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 text-xs text-white">
-            <span className="text-white/80 font-medium">Coupon Code:</span>
+          <div className="mt-2 inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 text-xs text-white max-w-full flex-wrap justify-center">
+            <span className="text-white/80 font-medium text-[11px] sm:text-xs">Coupon Code:</span>
             <span className="font-mono font-extrabold tracking-wider bg-white/25 px-2 py-0.5 rounded text-white text-xs sm:text-sm">
               {PROMO_COUPON_CODE}
             </span>
             <button
               onClick={handleCopyCode}
               type="button"
-              className="ml-1 p-1 hover:bg-white/20 rounded transition-colors text-white/90 hover:text-white cursor-pointer"
+              className="ml-0.5 p-1 hover:bg-white/20 rounded transition-colors text-white/90 hover:text-white cursor-pointer"
               title="Copy coupon code"
               aria-label="Copy coupon code"
             >
@@ -147,23 +147,23 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
         </div>
 
         {/* Card Body */}
-        <div className="relative bg-white dark:bg-[#101A30] pt-5 pb-6 sm:pb-7 px-6 sm:px-8 mt-3 rounded-t-3xl border-t border-slate-100 dark:border-slate-800 space-y-4">
+        <div className="relative bg-white dark:bg-[#101A30] pt-4 pb-5 sm:pb-7 px-4 sm:px-8 mt-2.5 rounded-t-3xl border-t border-slate-100 dark:border-slate-800 space-y-3.5 sm:space-y-4 overflow-y-auto grow min-w-0">
           
           {/* Live Countdown Display */}
-          <div className="p-3.5 rounded-2xl border text-center transition-all bg-slate-50 dark:bg-[#17243A] border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
-            <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider mb-2">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-[11px] font-extrabold border border-emerald-300 dark:border-emerald-700">
+          <div className="p-3 sm:p-3.5 rounded-2xl border text-center transition-all bg-slate-50 dark:bg-[#17243A] border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white w-full">
+            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-xs font-bold uppercase tracking-wider mb-2">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-[10.5px] sm:text-[11px] font-extrabold border border-emerald-300 dark:border-emerald-700">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 ACTIVE OFFER
               </span>
-              <div className="flex items-center gap-1 text-slate-800 dark:text-white font-bold">
+              <div className="flex items-center gap-1 text-slate-800 dark:text-white font-bold text-[11px] sm:text-xs">
                 <Clock className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 <span>November Promotion Ends In</span>
               </div>
             </div>
 
             <div>
-              <div className="grid grid-cols-4 gap-2 max-w-xs mx-auto">
+              <div className="grid grid-cols-4 gap-1.5 sm:gap-2 max-w-xs mx-auto">
                 <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
                   <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
                     {countdown.days}

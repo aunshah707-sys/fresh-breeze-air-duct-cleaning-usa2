@@ -107,17 +107,17 @@ export const CallModal: React.FC<CallModalProps> = ({
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-lg bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(15,23,42,0.35),0_1px_2px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)] border border-white/70 dark:border-slate-800 overflow-hidden my-auto max-h-[92vh] flex flex-col transform transition-all duration-300 animate-in zoom-in-95 text-left"
+        className="relative w-full max-w-[calc(100vw-1.25rem)] sm:max-w-lg bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-[0_24px_60px_-12px_rgba(15,23,42,0.35),0_1px_2px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)] border border-white/70 dark:border-slate-800 overflow-hidden my-auto max-h-[90vh] flex flex-col transform transition-all duration-300 animate-in zoom-in-95 text-left"
         role="dialog"
         aria-modal="true"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-linear-to-r from-sky-600/92 via-sky-700/92 to-emerald-700/92 backdrop-blur-md px-6 py-5 text-white relative shrink-0 border-b border-white/20 shadow-xs">
+        <div className="bg-linear-to-r from-sky-600/92 via-sky-700/92 to-emerald-700/92 backdrop-blur-md px-4 sm:px-6 py-4 sm:py-5 pr-12 text-white relative shrink-0 border-b border-white/20 shadow-xs">
           <button 
             onClick={onClose}
             aria-label="Close dialog"
-            className="absolute top-4 right-4 p-2 rounded-xl text-white/90 hover:text-white bg-white/10 hover:bg-white/25 backdrop-blur-xs transition-colors cursor-pointer"
+            className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 p-2 rounded-xl text-white/90 hover:text-white bg-white/10 hover:bg-white/25 backdrop-blur-xs transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -125,7 +125,7 @@ export const CallModal: React.FC<CallModalProps> = ({
             <Phone className="w-4 h-4 text-emerald-300" />
             Fresh Breeze Dispatch
           </div>
-          <h3 className="text-xl font-bold mt-1 text-white font-display">
+          <h3 className="text-lg sm:text-xl font-bold mt-1 text-white font-display">
             Request a Callback
           </h3>
           <p className="text-sky-100 text-xs mt-1">
@@ -133,7 +133,7 @@ export const CallModal: React.FC<CallModalProps> = ({
           </p>
         </div>
 
-        <div className="p-6 sm:p-7 space-y-5 overflow-y-auto bg-transparent">
+        <div className="p-4 sm:p-7 space-y-4 sm:space-y-5 overflow-y-auto bg-transparent">
           {successMessage ? (
             /* Success confirmation */
             <div className="p-6 rounded-2xl bg-emerald-50/90 dark:bg-emerald-950/60 backdrop-blur-sm border border-emerald-200 dark:border-emerald-800 text-center space-y-4 animate-in fade-in duration-200">
@@ -188,12 +188,12 @@ export const CallModal: React.FC<CallModalProps> = ({
                     )}
                   </div>
                 ) : (
-                  <div className="p-3 rounded-xl bg-linear-to-r from-emerald-50/90 via-emerald-100/80 to-sky-50/90 dark:from-emerald-950/70 dark:via-emerald-900/60 dark:to-sky-950/70 backdrop-blur-xs border border-emerald-400/80 dark:border-emerald-700 flex items-center justify-between gap-2.5 text-xs text-emerald-950 dark:text-emerald-100 animate-in fade-in shadow-xs">
-                    <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded-md bg-emerald-600 text-white font-extrabold text-[11px] uppercase tracking-wider shadow-xs">
+                  <div className="p-3 rounded-xl bg-linear-to-r from-emerald-50/90 via-emerald-100/80 to-sky-50/90 dark:from-emerald-950/70 dark:via-emerald-900/60 dark:to-sky-950/70 backdrop-blur-xs border border-emerald-400/80 dark:border-emerald-700 flex items-center justify-between gap-2 text-xs text-emerald-950 dark:text-emerald-100 animate-in fade-in shadow-xs min-w-0">
+                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 min-w-0">
+                      <span className="px-2 py-0.5 rounded-md bg-emerald-600 text-white font-extrabold text-[11px] uppercase tracking-wider shadow-xs shrink-0">
                         40% OFF
                       </span>
-                      <span className="font-bold">
+                      <span className="font-bold break-words">
                         Special Offer: {appliedPromo} Applied!
                       </span>
                     </div>
@@ -201,7 +201,7 @@ export const CallModal: React.FC<CallModalProps> = ({
                       <button
                         type="button"
                         onClick={onClearPromo}
-                        className="text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 p-0.5 text-xs font-bold cursor-pointer"
+                        className="text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 p-0.5 text-xs font-bold cursor-pointer shrink-0"
                         title="Remove promotion"
                       >
                         ✕
@@ -343,13 +343,13 @@ export const CallModal: React.FC<CallModalProps> = ({
           )}
 
           {/* Trust points */}
-          <div className="rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-xs p-3 flex items-center justify-between text-xs text-slate-600 dark:text-slate-300 border border-slate-200/70 dark:border-slate-700/70 shadow-xs">
+          <div className="rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-xs p-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-slate-600 dark:text-slate-300 border border-slate-200/70 dark:border-slate-700/70 shadow-xs">
             <div className="flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+              <Clock className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400 shrink-0" />
               <span className="font-medium">Prompt Callback</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span className="font-medium">Free, Transparent Quotes</span>
             </div>
           </div>

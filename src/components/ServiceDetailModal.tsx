@@ -152,14 +152,14 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/60 backdrop-blur-xs overflow-y-auto">
       <div 
-        className="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200 text-left"
+        className="relative w-full max-w-[calc(100vw-1.25rem)] sm:max-w-2xl max-h-[90vh] flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden my-auto animate-in fade-in zoom-in-95 duration-200 text-left"
         role="dialog"
         aria-modal="true"
       >
         {/* Modal Header Image */}
-        <div className="relative h-48 sm:h-56 bg-slate-900 overflow-hidden">
+        <div className="relative h-44 sm:h-56 bg-slate-900 overflow-hidden shrink-0">
           <img 
             src={service.image} 
             alt={service.imageAlt} 
@@ -173,28 +173,28 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
           <button 
             onClick={onClose}
             aria-label="Close dialog"
-            className="absolute top-4 right-4 p-2 rounded-full bg-black/40 text-white/90 hover:text-white hover:bg-black/60 transition-colors cursor-pointer"
+            className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 rounded-full bg-black/40 text-white/90 hover:text-white hover:bg-black/60 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
 
-          <div className="absolute bottom-4 left-6 right-6">
-            <div className="flex items-center gap-2 mb-1.5">
-              <span className="w-8 h-8 rounded-lg bg-white/90 dark:bg-slate-900/90 flex items-center justify-center shadow-xs">
+          <div className="absolute bottom-3 left-4 right-4 sm:bottom-4 sm:left-6 sm:right-6">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/90 dark:bg-slate-900/90 flex items-center justify-center shadow-xs">
                 {getIcon()}
               </span>
-              <span className="text-emerald-400 text-xs font-bold uppercase tracking-wider">
+              <span className="text-emerald-400 text-[11px] sm:text-xs font-bold uppercase tracking-wider">
                 Fresh Breeze Service
               </span>
             </div>
-            <h3 className="text-2xl font-bold text-white font-display">
+            <h3 className="text-xl sm:text-2xl font-bold text-white font-display">
               {service.title}
             </h3>
           </div>
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 sm:p-8 space-y-6 max-h-[calc(85vh-14rem)] overflow-y-auto">
+        <div className="p-4 sm:p-8 space-y-5 sm:space-y-6 overflow-y-auto">
           {/* Description */}
           <div>
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
@@ -208,10 +208,10 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
           {/* What's Included */}
           <div>
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-              <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span>What Is Included</span>
             </h4>
-            <div className="grid grid-cols-1 gap-2.5 bg-slate-50 dark:bg-slate-800/60 p-4 rounded-xl border border-slate-100 dark:border-slate-700/80">
+            <div className="grid grid-cols-1 gap-2 bg-slate-50 dark:bg-slate-800/60 p-3.5 sm:p-4 rounded-xl border border-slate-100 dark:border-slate-700/80">
               {service.whatIncluded.map((item, idx) => (
                 <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-200">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
@@ -224,10 +224,10 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
           {/* Warning Signs */}
           <div>
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-              <ShieldAlert className="w-4 h-4 text-amber-500" />
+              <ShieldAlert className="w-4 h-4 text-amber-500 shrink-0" />
               <span>Signs It May Be Time For Cleaning</span>
             </h4>
-            <div className="grid grid-cols-1 gap-2 bg-amber-50/40 dark:bg-amber-950/30 p-4 rounded-xl border border-amber-100/60 dark:border-amber-900/40">
+            <div className="grid grid-cols-1 gap-2 bg-amber-50/40 dark:bg-amber-950/30 p-3.5 sm:p-4 rounded-xl border border-amber-100/60 dark:border-amber-900/40">
               {service.warningSigns.map((item, idx) => (
                 <div key={idx} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-200">
                   <span className="text-amber-500 font-bold">•</span>
@@ -242,7 +242,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
               Homeowner Benefits
             </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
               {service.homeownerBenefits.map((item, idx) => (
                 <div key={idx} className="p-3 bg-sky-50/40 dark:bg-sky-950/40 rounded-xl border border-sky-100 dark:border-sky-900/60 text-xs text-slate-700 dark:text-slate-200 leading-relaxed">
                   <span className="font-semibold text-sky-800 dark:text-sky-300 block mb-1">Benefit {idx + 1}</span>
@@ -254,14 +254,14 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
         </div>
 
         {/* Modal Footer CTA */}
-        <div className="p-4 sm:p-5 bg-slate-50 dark:bg-slate-850 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="p-4 sm:p-5 bg-slate-50 dark:bg-slate-850 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
           <p className="text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
             Free, no-obligation quotes for residential homeowners.
           </p>
-          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+          <div className="flex items-center gap-2 sm:gap-2.5 w-full sm:w-auto">
             <button
               onClick={onClose}
-              className="w-1/2 sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
             >
               Close
             </button>
@@ -270,10 +270,10 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
                 onClose();
                 onSelectForQuote(service.title);
               }}
-              className="w-1/2 sm:w-auto px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 active:scale-[0.98] text-white text-xs font-bold shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+              className="flex-1 sm:flex-none px-4 sm:px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 active:scale-[0.98] text-white text-xs font-bold shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <span>Get Free Quote</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 shrink-0" />
             </button>
           </div>
         </div>

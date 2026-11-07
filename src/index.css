@@ -3,12 +3,48 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 
   h1, h2, h3, .font-display {
     font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    overflow-wrap: break-word;
+  }
+
+  p, span, div, a, button, input, select, textarea {
+    overflow-wrap: break-word;
+  }
+
+  img, video, canvas, svg {
+    max-width: 100%;
+    height: auto;
   }
 }
 

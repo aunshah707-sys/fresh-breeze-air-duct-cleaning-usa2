@@ -75,8 +75,8 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
   };
 
   return (
-    <section id="faq" className="py-16 sm:py-24 bg-white dark:bg-slate-950 relative transition-colors duration-200">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="py-16 sm:py-24 bg-white dark:bg-slate-950 relative w-full max-w-full overflow-hidden transition-colors duration-200">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-full">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 text-xs font-bold text-sky-700 dark:text-sky-400 uppercase tracking-widest mb-2.5">
@@ -92,13 +92,13 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
         </div>
 
         {/* FAQ Accordions */}
-        <div className="space-y-3.5">
+        <div className="space-y-3.5 w-full max-w-full">
           {FAQS.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
               <div
                 key={index}
-                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
+                className={`rounded-2xl border transition-all duration-300 overflow-hidden w-full max-w-full ${
                   isOpen
                     ? 'border-sky-300/90 dark:border-sky-500/60 bg-white dark:bg-slate-900 shadow-[0_8px_25px_rgba(2,132,199,0.1)] dark:shadow-[0_8px_25px_rgba(0,0,0,0.3)] -translate-y-0.5'
                     : 'border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900/90 shadow-xs hover:shadow-[0_4px_16px_rgba(15,23,42,0.06)] hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700'
@@ -106,10 +106,10 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
               >
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full py-4 sm:py-5 px-5 sm:px-6 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-hidden"
+                  className="w-full py-4 sm:py-5 px-4 sm:px-6 text-left flex items-center justify-between gap-3 sm:gap-4 cursor-pointer focus:outline-hidden"
                   aria-expanded={isOpen}
                 >
-                  <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 font-display">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 font-display min-w-0 pr-1">
                     {faq.question}
                   </h3>
                   <div

@@ -238,25 +238,26 @@ export const ServicePage: React.FC<ServicePageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-200 flex flex-col">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-200 flex flex-col">
       {/* Top Sticky Navigation */}
-      <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
+      <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 w-full max-w-full">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-2 sm:gap-4 min-w-0">
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
             <button
               onClick={onBackToHome}
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-sky-700 dark:hover:text-sky-400 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-sky-700 dark:hover:text-sky-400 transition-colors cursor-pointer shrink-0"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Back to Home</span>
+              <span className="hidden sm:inline">Back to Home</span>
+              <span className="sm:hidden">Back</span>
             </button>
-            <div className="hidden sm:block h-4 w-px bg-slate-200 dark:bg-slate-800" />
-            <a href="/" onClick={(e) => { e.preventDefault(); onBackToHome(); }}>
+            <div className="hidden sm:block h-4 w-px bg-slate-200 dark:bg-slate-800 shrink-0" />
+            <a href="/" onClick={(e) => { e.preventDefault(); onBackToHome(); }} className="shrink min-w-0">
               <Logo size="sm" />
             </a>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
             {theme && onToggleTheme && (
               <ThemeToggle theme={theme} onToggle={onToggleTheme} />
             )}
@@ -270,7 +271,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
             </a>
             <button
               onClick={() => onOpenQuote(service.title)}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-linear-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 shadow-sm transition-all cursor-pointer"
+              className="inline-flex items-center gap-1 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold text-white bg-linear-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 shadow-sm transition-all cursor-pointer shrink-0 whitespace-nowrap"
             >
               <span>FREE QUOTE</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -280,7 +281,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
       </header>
 
       {/* Main Service Content */}
-      <main className="grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
+      <main className="grow w-full max-w-5xl mx-auto px-3.5 sm:px-6 lg:px-8 py-6 sm:py-12 space-y-8 sm:space-y-12 overflow-hidden">
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
           <button onClick={onBackToHome} className="hover:text-sky-600 dark:hover:text-sky-400 cursor-pointer">

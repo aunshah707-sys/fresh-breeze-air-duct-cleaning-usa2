@@ -9,17 +9,17 @@ interface ContactCTAProps {
 
 export const ContactCTA: React.FC<ContactCTAProps> = ({ onOpenQuote }) => {
   return (
-    <section className="relative py-16 sm:py-20 bg-linear-to-b from-white via-sky-50/50 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 overflow-hidden transition-colors duration-200">
+    <section className="relative py-16 sm:py-20 bg-linear-to-b from-white via-sky-50/50 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 overflow-hidden w-full max-w-full transition-colors duration-200">
       {/* Decorative gradient blur */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-72 bg-gradient-to-r from-sky-400/10 via-emerald-400/15 to-sky-500/10 blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-72 bg-gradient-to-r from-sky-400/10 via-emerald-400/15 to-sky-500/10 blur-3xl pointer-events-none overflow-hidden" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="max-w-4xl mx-auto bg-linear-to-br from-slate-900 via-slate-850 to-sky-950 text-white rounded-3xl p-8 sm:p-12 md:p-14 border border-sky-400/20 shadow-[0_24px_60px_-15px_rgba(2,132,199,0.3),0_0_0_1px_rgba(255,255,255,0.08)_inset] relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative w-full max-w-full">
+        <div className="max-w-4xl mx-auto bg-linear-to-br from-slate-900 via-slate-850 to-sky-950 text-white rounded-3xl p-5 sm:p-10 md:p-14 border border-sky-400/20 shadow-[0_24px_60px_-15px_rgba(2,132,199,0.3),0_0_0_1px_rgba(255,255,255,0.08)_inset] relative overflow-hidden w-full max-w-full">
           {/* Subtle background airflow lines */}
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-sky-500/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -top-16 -right-16 sm:-top-24 sm:-right-24 w-72 sm:w-96 h-72 sm:h-96 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -bottom-16 -left-16 sm:-bottom-24 sm:-left-24 w-72 sm:w-96 h-72 sm:h-96 bg-sky-500/10 rounded-full blur-2xl pointer-events-none" />
 
-          <div className="text-center max-w-2xl mx-auto relative z-10 space-y-4">
+          <div className="text-center max-w-2xl mx-auto relative z-10 space-y-4 w-full min-w-0">
             {/* Pill */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-emerald-300 text-xs font-bold uppercase tracking-wider border border-white/10">
               <Sparkles className="w-3.5 h-3.5 text-emerald-300" />

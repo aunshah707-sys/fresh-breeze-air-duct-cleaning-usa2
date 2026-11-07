@@ -34,8 +34,8 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenQuote }) => {
   ];
 
   return (
-    <section id="how-it-works" className="py-16 sm:py-24 bg-white dark:bg-slate-950 relative overflow-hidden transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="how-it-works" className="py-16 sm:py-24 bg-white dark:bg-slate-950 relative overflow-hidden w-full max-w-full transition-colors duration-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-full">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
           <div className="inline-flex items-center gap-2 text-xs font-bold text-sky-700 dark:text-sky-400 uppercase tracking-widest mb-2.5">
@@ -52,21 +52,21 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenQuote }) => {
         </div>
 
         {/* Visual Timeline Grid */}
-        <div className="relative">
+        <div className="relative w-full max-w-full">
           {/* Desktop connecting line between cards */}
           <div className="hidden lg:block absolute top-1/2 left-[15%] right-[15%] -translate-y-8 h-0.5 bg-linear-to-r from-sky-200 via-emerald-200 to-sky-200 dark:from-sky-900/50 dark:via-emerald-900/50 dark:to-sky-900/50 -z-1" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-10 w-full max-w-full">
             {steps.map((item, idx) => {
               const Icon = item.icon;
               return (
                 <div
                   key={idx}
-                  className="relative bg-white dark:bg-slate-900 rounded-3xl p-7 sm:p-8 border border-slate-200/90 dark:border-slate-800 shadow-[0_4px_20px_rgba(15,23,42,0.05)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_45px_-12px_rgba(2,132,199,0.18)] hover:-translate-y-2 hover:border-sky-300 dark:hover:border-sky-500/50 transition-all duration-300 flex flex-col group"
+                  className="relative bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-8 border border-slate-200/90 dark:border-slate-800 shadow-[0_4px_20px_rgba(15,23,42,0.05)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_45px_-12px_rgba(2,132,199,0.18)] hover:-translate-y-2 hover:border-sky-300 dark:hover:border-sky-500/50 transition-all duration-300 flex flex-col group w-full min-w-0"
                 >
                   {/* Step Number Badge */}
                   <div className="flex items-center justify-between mb-6">
-                    <div className={`w-14 h-14 rounded-2xl border flex items-center justify-center shadow-xs transition-transform group-hover:scale-105 ${item.color}`}>
+                    <div className={`w-14 h-14 rounded-2xl border flex items-center justify-center shadow-xs transition-transform group-hover:scale-105 shrink-0 ${item.color}`}>
                       <Icon className="w-7 h-7" />
                     </div>
                     <span className="font-display font-extrabold text-3xl sm:text-4xl text-slate-200 dark:text-slate-700 group-hover:text-sky-300 dark:group-hover:text-sky-400 transition-colors">
@@ -95,13 +95,13 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenQuote }) => {
         </div>
 
         {/* Quick CTA */}
-        <div className="mt-14 text-center">
+        <div className="mt-12 sm:mt-14 text-center">
           <button
             onClick={onOpenQuote}
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-linear-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 text-white font-bold text-sm shadow-[0_8px_20px_rgba(2,132,199,0.25)] hover:shadow-[0_12px_28px_rgba(2,132,199,0.35)] hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3.5 rounded-xl bg-linear-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 text-white font-bold text-xs sm:text-sm shadow-[0_8px_20px_rgba(2,132,199,0.25)] hover:shadow-[0_12px_28px_rgba(2,132,199,0.35)] hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
           >
             <span>Start Step 1: Request Your Free Quote</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 shrink-0" />
           </button>
         </div>
       </div>

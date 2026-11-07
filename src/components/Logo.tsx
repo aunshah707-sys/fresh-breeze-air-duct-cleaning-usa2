@@ -57,7 +57,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 'md', variant
             src={officialLogo}
             alt="Fresh Breeze Air Duct Cleaning USA logo"
             onError={() => setImageError(true)}
-            className={`${heightClasses[size]} w-auto object-contain shrink-0`}
+            className={`${heightClasses[size]} w-auto max-w-full object-contain shrink-0`}
           />
         </div>
       </div>
@@ -71,7 +71,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 'md', variant
           src={officialLogo}
           alt="Fresh Breeze Air Duct Cleaning USA logo"
           onError={() => setImageError(true)}
-          className={`${heightClasses[size]} w-auto object-contain shrink-0`}
+          className={`${heightClasses[size]} w-auto max-w-full object-contain shrink-0`}
         />
       </div>
     </div>

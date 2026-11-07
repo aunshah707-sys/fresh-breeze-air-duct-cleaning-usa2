@@ -346,7 +346,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans selection:bg-sky-100 selection:text-sky-900 dark:selection:bg-sky-900/60 dark:selection:text-sky-200 flex flex-col transition-colors duration-200">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans selection:bg-sky-100 selection:text-sky-900 dark:selection:bg-sky-900/60 dark:selection:text-sky-200 flex flex-col transition-colors duration-200">
       {/* 1. Header Navigation */}
       <Navbar
         onOpenQuote={() => openQuoteModal()}
@@ -355,7 +355,7 @@ export default function App() {
         onToggleTheme={handleToggleTheme}
       />
 
-      <main className="grow pb-16 md:pb-0">
+      <main className="grow pb-24 md:pb-0 w-full max-w-full overflow-x-hidden">
         {/* 2. Hero */}
         <Hero
           onOpenQuote={() => openQuoteModal()}

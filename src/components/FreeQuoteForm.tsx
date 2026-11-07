@@ -296,12 +296,12 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
   const currentFinalPrice = isDiscountActive && serverPricing ? serverPricing.finalPrice : currentRegularPrice;
 
   const formContent = (
-    <div className={isModal ? "p-6 sm:p-7 space-y-5" : ""}>
+    <div className={isModal ? "p-4 sm:p-6 space-y-4 w-full min-w-0" : "w-full min-w-0"}>
       {isSubmitted ? (
         /* Success Screen */
-        <div className="p-8 sm:p-12 text-center animate-in fade-in zoom-in-95 duration-300">
-          <div className="w-16 h-16 rounded-2xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mx-auto mb-6 shadow-xs border border-emerald-200 dark:border-emerald-800">
-            <CheckCircle2 className="w-10 h-10" />
+        <div className="p-5 sm:p-10 md:p-12 text-center animate-in fade-in zoom-in-95 duration-300 w-full min-w-0">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mx-auto mb-5 sm:mb-6 shadow-xs border border-emerald-200 dark:border-emerald-800 shrink-0">
+            <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" />
           </div>
 
           <div className="inline-block px-3 py-1 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 rounded-full text-xs font-semibold mb-3 border border-emerald-200 dark:border-emerald-800">
@@ -405,9 +405,9 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
         </div>
       ) : (
         /* The High-Converting Quote Form */
-        <form onSubmit={handleSubmit} className={isModal ? "space-y-5" : "p-6 sm:p-10 space-y-6"}>
+        <form onSubmit={handleSubmit} className={isModal ? "space-y-4 w-full" : "p-4 sm:p-8 md:p-10 space-y-5 sm:space-y-6 w-full"}>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             {/* Name */}
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
@@ -597,14 +597,14 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                   </button>
                 </div>
               ) : (
-                <div className="flex items-center justify-between p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-300 dark:border-emerald-700 text-emerald-950 dark:text-emerald-100 text-xs sm:text-sm animate-in fade-in">
-                  <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-300 dark:border-emerald-700 text-emerald-950 dark:text-emerald-100 text-xs sm:text-sm animate-in fade-in min-w-0">
+                  <div className="flex items-center gap-2 min-w-0">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                    <div>
-                      <span className="font-extrabold font-mono text-emerald-900 dark:text-white bg-emerald-200 dark:bg-emerald-900/90 px-2 py-0.5 rounded text-xs mr-2 border border-emerald-300 dark:border-emerald-600">
+                    <div className="min-w-0 flex flex-wrap items-center gap-1.5">
+                      <span className="font-extrabold font-mono text-emerald-900 dark:text-white bg-emerald-200 dark:bg-emerald-900/90 px-2 py-0.5 rounded text-xs border border-emerald-300 dark:border-emerald-600 shrink-0">
                         {appliedCoupon}
                       </span>
-                      <span className="font-semibold text-emerald-900 dark:text-emerald-200">
+                      <span className="font-semibold text-emerald-900 dark:text-emerald-200 break-words">
                         November Special — 40% OFF Applied!
                       </span>
                     </div>
@@ -612,7 +612,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                   <button
                     type="button"
                     onClick={handleRemoveCoupon}
-                    className="text-slate-500 hover:text-slate-800 dark:text-[#CBD5E1] dark:hover:text-white text-xs font-bold px-2.5 py-1 hover:bg-emerald-100 dark:hover:bg-emerald-900/70 rounded-lg cursor-pointer transition-colors"
+                    className="text-slate-500 hover:text-slate-800 dark:text-[#CBD5E1] dark:hover:text-white text-xs font-bold px-2 py-1 hover:bg-emerald-100 dark:hover:bg-emerald-900/70 rounded-lg cursor-pointer transition-colors shrink-0 ml-auto"
                     title="Remove coupon"
                   >
                     Remove
@@ -719,22 +719,22 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
     return (
       <div 
-        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/50 backdrop-blur-md overflow-y-auto animate-in fade-in duration-300"
+        className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-slate-950/50 backdrop-blur-md overflow-y-auto animate-in fade-in duration-300 w-full"
         onClick={onClose}
       >
         <div 
-          className="relative w-full max-w-2xl bg-white dark:bg-[#101A30] backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(15,23,42,0.35),0_1px_2px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.8)] border border-slate-200 dark:border-slate-700/80 overflow-hidden my-auto max-h-[92vh] flex flex-col transform transition-all duration-300 animate-in zoom-in-95 text-left"
+          className="relative w-full max-w-[calc(100vw-1.25rem)] sm:max-w-2xl bg-white dark:bg-[#101A30] backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(15,23,42,0.35),0_1px_2px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.8)] border border-slate-200 dark:border-slate-700/80 overflow-hidden my-auto max-h-[90vh] flex flex-col transform transition-all duration-300 animate-in zoom-in-95 text-left"
           role="dialog"
           aria-modal="true"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="bg-linear-to-r from-sky-600/92 via-sky-700/92 to-emerald-700/92 backdrop-blur-md px-6 py-5 text-white relative shrink-0 border-b border-white/20 shadow-xs">
+          <div className="bg-linear-to-r from-sky-600/92 via-sky-700/92 to-emerald-700/92 backdrop-blur-md px-4 sm:px-6 py-4 sm:py-5 pr-12 text-white relative shrink-0 border-b border-white/20 shadow-xs">
             {onClose && (
               <button 
                 onClick={onClose}
                 aria-label="Close dialog"
-                className="absolute top-4 right-4 p-2 rounded-xl text-white hover:text-white bg-white/15 hover:bg-white/25 backdrop-blur-xs transition-colors cursor-pointer"
+                className="absolute top-3.5 right-3.5 p-2 rounded-xl text-white hover:text-white bg-white/15 hover:bg-white/25 backdrop-blur-xs transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -743,15 +743,15 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
               <Sparkles className="w-4 h-4 text-emerald-300" />
               Fresh Breeze Dispatch
             </div>
-            <h3 className="text-xl font-bold mt-1 text-white font-display">
+            <h3 className="text-lg sm:text-xl font-bold mt-1 text-white font-display">
               Request a Free Quote
             </h3>
-            <p className="text-sky-100 text-xs mt-1">
+            <p className="text-sky-100 text-xs mt-1 leading-relaxed">
               Complete this 30-second form. Our residential team will confirm availability and deliver a transparent estimate.
             </p>
           </div>
 
-          <div className="overflow-y-auto bg-transparent">
+          <div className="overflow-y-auto bg-transparent grow min-w-0">
             {formContent}
           </div>
         </div>
@@ -760,9 +760,9 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
   }
 
   return (
-    <section id="quote-form" className="py-16 sm:py-24 bg-white dark:bg-slate-950 relative scroll-mt-10 transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+    <section id="quote-form" className="py-16 sm:py-24 bg-white dark:bg-slate-950 relative w-full max-w-full overflow-hidden scroll-mt-10 transition-colors duration-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-full">
+        <div className="max-w-4xl mx-auto w-full max-w-full">
           {/* Section Header */}
           <div className="text-center mb-12 sm:mb-14">
             <div className="inline-flex items-center gap-2 text-xs font-bold text-sky-700 dark:text-sky-400 uppercase tracking-widest mb-2.5">
@@ -779,7 +779,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
           </div>
 
           {/* Form Card or Success Screen */}
-          <div className="bg-white dark:bg-[#101A30] rounded-3xl border border-slate-200 dark:border-slate-800 shadow-[0_20px_50px_rgba(15,23,42,0.1),0_1px_3px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden transition-shadow duration-300">
+          <div className="bg-white dark:bg-[#101A30] rounded-3xl border border-slate-200 dark:border-slate-800 shadow-[0_20px_50px_rgba(15,23,42,0.1),0_1px_3px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden transition-shadow duration-300 w-full max-w-full min-w-0">
             {formContent}
           </div>
         </div>

@@ -27,8 +27,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
   };
 
   return (
-    <section id="services" className="py-16 sm:py-24 bg-white dark:bg-slate-950 relative transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="py-16 sm:py-24 bg-white dark:bg-slate-950 relative w-full max-w-full overflow-hidden transition-colors duration-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-full">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
           <div className="inline-flex items-center gap-2 text-xs font-bold text-sky-700 dark:text-sky-400 uppercase tracking-widest mb-2.5">
@@ -44,12 +44,12 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           </p>
         </div>
 
-        {/* The 4 Main Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
+        {/* The 4 Main Services Grid (Single-column on mobile, responsive multi-column on desktop) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 w-full max-w-full">
           {SERVICES_DATA.map((service) => (
             <div
               key={service.id}
-              className="group flex flex-col bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-[0_4px_20px_rgba(15,23,42,0.06)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_45px_-12px_rgba(2,132,199,0.2)] hover:-translate-y-2 hover:border-sky-300 dark:hover:border-sky-500/50 transition-all duration-300 overflow-hidden"
+              className="group flex flex-col bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-[0_4px_20px_rgba(15,23,42,0.06)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_45px_-12px_rgba(2,132,199,0.2)] hover:-translate-y-2 hover:border-sky-300 dark:hover:border-sky-500/50 transition-all duration-300 overflow-hidden w-full min-w-0"
             >
               {/* Card Image */}
               <div className="relative h-48 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">

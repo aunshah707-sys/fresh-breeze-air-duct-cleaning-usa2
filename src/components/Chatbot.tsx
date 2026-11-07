@@ -86,7 +86,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
   return (
     <>
       {/* Floating Action Buttons Container */}
-      <div className="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-40 flex flex-col items-end gap-2.5 sm:gap-3 pointer-events-none">
+      <div className="fixed bottom-20 md:bottom-6 right-3 sm:right-6 z-40 flex flex-col items-end gap-2 sm:gap-3 pointer-events-none max-w-[calc(100vw-1.5rem)]">
         {/* Floating WhatsApp Button */}
         <a
           href="https://wa.me/17372821351"
@@ -94,7 +94,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
           rel="noopener noreferrer"
           onClick={() => trackContactClick('whatsapp', '+1 (737) 282-1351', 'Floating WhatsApp Button')}
           aria-label="Chat on WhatsApp with Fresh Breeze"
-          className="pointer-events-auto group relative flex items-center gap-2 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm shadow-[0_8px_20px_rgba(37,211,102,0.35)] hover:shadow-[0_12px_28px_rgba(37,211,102,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all border border-white/20"
+          className="pointer-events-auto group relative flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-3 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm shadow-[0_8px_20px_rgba(37,211,102,0.35)] hover:shadow-[0_12px_28px_rgba(37,211,102,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all border border-white/20 shrink-0"
         >
           <svg
             className="w-4 h-4 sm:w-5 sm:h-5 text-white shrink-0 fill-current"
@@ -114,10 +114,10 @@ export const Chatbot: React.FC<ChatbotProps> = ({
               setIsOpen(true);
             }}
             aria-label="Open Fresh Breeze Chat Assistant"
-            className="pointer-events-auto group relative flex items-center gap-2.5 px-4 py-3.5 rounded-full bg-linear-to-r from-sky-600 via-sky-700 to-emerald-600 hover:from-sky-500 hover:via-sky-600 hover:to-emerald-500 text-white font-bold text-xs sm:text-sm shadow-[0_8px_25px_rgba(2,132,199,0.35)] hover:shadow-[0_12px_32px_rgba(2,132,199,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer border border-white/20"
+            className="pointer-events-auto group relative flex items-center gap-2 px-3.5 py-3 sm:px-4 sm:py-3.5 rounded-full bg-linear-to-r from-sky-600 via-sky-700 to-emerald-600 hover:from-sky-500 hover:via-sky-600 hover:to-emerald-500 text-white font-bold text-xs sm:text-sm shadow-[0_8px_25px_rgba(2,132,199,0.35)] hover:shadow-[0_12px_32px_rgba(2,132,199,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer border border-white/20 shrink-0"
           >
             <div className="relative">
-              <MessageCircle className="w-5 h-5 text-white" />
+              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-sky-700 animate-pulse" />
             </div>
             <span className="hidden sm:inline">Need Help? Chat With Us</span>
@@ -129,7 +129,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
       {/* Floating Chatbot Modal Window */}
       {isOpen && (
         <div 
-          className="fixed bottom-20 md:bottom-6 right-3 sm:right-6 z-50 w-[94vw] sm:w-[380px] max-w-sm bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(15,23,42,0.3),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)] border border-white/80 dark:border-slate-800 overflow-hidden flex flex-col max-h-[82vh] sm:max-h-[580px] transition-all duration-300 animate-in zoom-in-95 text-left"
+          className="fixed bottom-20 md:bottom-6 left-3 right-3 sm:left-auto sm:right-6 z-50 w-auto sm:w-[380px] max-w-[calc(100vw-1.5rem)] sm:max-w-sm bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(15,23,42,0.3),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)] border border-white/80 dark:border-slate-800 overflow-hidden flex flex-col max-h-[75vh] sm:max-h-[580px] transition-all duration-300 animate-in zoom-in-95 text-left"
           role="dialog"
           aria-label="Fresh Breeze Chat Assistant"
         >
