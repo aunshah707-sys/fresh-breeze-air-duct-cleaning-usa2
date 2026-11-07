@@ -11,7 +11,7 @@ import {
   HelpCircle,
   Wind
 } from 'lucide-react';
-import { INSTAGRAM_DM_URL, BUSINESS_NAME } from '../utils/constants';
+import { INSTAGRAM_DM_URL, BUSINESS_NAME, WHATSAPP_URL, WHATSAPP_NUMBER } from '../utils/constants';
 import { trackEvent, trackContactClick, trackCtaClick } from '../utils/analytics';
 
 interface ChatbotProps {
@@ -59,7 +59,9 @@ export const Chatbot: React.FC<ChatbotProps> = ({
       let botResponse = "Thank you for reaching out! Our team is ready to help you with residential air duct, dryer vent, HVAC, and chimney cleaning.";
       const lower = text.toLowerCase();
 
-      if (lower.includes('instagram') || lower.includes('dm') || lower.includes('chat')) {
+      if (lower.includes('whatsapp')) {
+        botResponse = "You can chat with our team on WhatsApp directly at +1 (737) 282-1351! Click the floating WhatsApp button to start chatting.";
+      } else if (lower.includes('instagram') || lower.includes('dm') || lower.includes('chat')) {
         botResponse = "You can chat with our team directly on Instagram DM for instant photo sharing and questions! Click the button below to message us.";
       } else if (lower.includes('quote') || lower.includes('price') || lower.includes('cost') || lower.includes('estimate')) {
         botResponse = "We provide 100% free, upfront quotes for all services with zero obligation. You can request a quote online or message us on Instagram DM.";
@@ -87,10 +89,10 @@ export const Chatbot: React.FC<ChatbotProps> = ({
       <div className="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-40 flex flex-col items-end gap-2.5 sm:gap-3 pointer-events-none">
         {/* Floating WhatsApp Button */}
         <a
-          href="https://wa.me/14482035397"
+          href="https://wa.me/17372821351"
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackContactClick('whatsapp', '+1 (448) 203-5397', 'Floating WhatsApp Button')}
+          onClick={() => trackContactClick('whatsapp', '+1 (737) 282-1351', 'Floating WhatsApp Button')}
           aria-label="Chat on WhatsApp with Fresh Breeze"
           className="pointer-events-auto group relative flex items-center gap-2 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm shadow-[0_8px_20px_rgba(37,211,102,0.35)] hover:shadow-[0_12px_28px_rgba(37,211,102,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all border border-white/20"
         >

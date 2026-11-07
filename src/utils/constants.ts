@@ -7,6 +7,9 @@ export const SMS_PHONE = '7372821351';
 export const SMS_PHONE_FORMATTED = '(737) 282-1351';
 export const SMS_URL = 'sms:7372821351';
 
+export const WHATSAPP_NUMBER = '+1 (737) 282-1351';
+export const WHATSAPP_URL = 'https://wa.me/17372821351';
+
 export const INSTAGRAM_URL = 'https://www.instagram.com/fresh_breezeairductcleaning';
 export const INSTAGRAM_DM_URL = 'https://ig.me/m/fresh_breezeairductcleaning';
 export const FACEBOOK_URL = 'https://www.facebook.com/share/1CqUZB1LqU/?mibextid=wwXIfr';
