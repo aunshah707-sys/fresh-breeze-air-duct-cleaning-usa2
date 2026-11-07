@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Sparkles, Tag, ArrowRight, ShieldCheck, CheckCircle2, Clock, Copy, Check } from 'lucide-react';
 import { useCountdown } from '../utils/useCountdown';
-import { PROMO_COUPON_CODE, EXPIRED_MESSAGE } from '../../lib/pricing';
+import { PROMO_COUPON_CODE } from '../../lib/pricing';
 
 interface PromoModalProps {
   onClaimOffer: (couponCode?: string) => void;
@@ -41,19 +41,30 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
   };
 
   const handleClaim = () => {
-    if (countdown.isExpired) return;
     setIsOpen(false);
     onClaimOffer(PROMO_COUPON_CODE);
   };
 
-  const handleCopyCode = (e: React.MouseEvent) => {
+  const handleCopyCode = async (e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      navigator.clipboard.writeText(PROMO_COUPON_CODE);
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(PROMO_COUPON_CODE);
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = PROMO_COUPON_CODE;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // ignore
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
   };
 
@@ -64,7 +75,7 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
       className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/50 backdrop-blur-md transition-opacity duration-300 animate-in fade-in"
       role="dialog"
       aria-modal="true"
-      aria-label="October Special — 40% OFF"
+      aria-label="November Special — 40% OFF"
       onClick={handleClose}
     >
       <div 
@@ -103,7 +114,7 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
         <div className="relative pt-6 px-6 sm:px-8 text-center text-white">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-sky-100 text-xs font-bold uppercase tracking-wider shadow-inner mb-1.5 border border-white/20">
             <Sparkles className="w-3.5 h-3.5 text-emerald-300 animate-spin" style={{ animationDuration: '6s' }} />
-            <span>October Special</span>
+            <span>NOVEMBER SPECIAL</span>
           </div>
 
           {/* Large, 3D-styled 40% OFF */}
@@ -139,60 +150,49 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
         <div className="relative bg-white dark:bg-[#101A30] pt-5 pb-6 sm:pb-7 px-6 sm:px-8 mt-3 rounded-t-3xl border-t border-slate-100 dark:border-slate-800 space-y-4">
           
           {/* Live Countdown Display */}
-          <div className={`p-3.5 rounded-2xl border text-center transition-all ${
-            countdown.isExpired 
-              ? 'bg-rose-50 dark:bg-rose-950/60 border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300' 
-              : 'bg-slate-50 dark:bg-[#17243A] border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white'
-          }`}>
-            <div className="flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider mb-2">
-              <Clock className={`w-3.5 h-3.5 ${countdown.isExpired ? 'text-rose-600 dark:text-rose-400' : 'text-sky-600 dark:text-sky-400'}`} />
-              <span className="text-slate-800 dark:text-white font-bold">
-                {countdown.isExpired ? 'Offer Expired' : 'October Promotion Ends In'}
+          <div className="p-3.5 rounded-2xl border text-center transition-all bg-slate-50 dark:bg-[#17243A] border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+            <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider mb-2">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-[11px] font-extrabold border border-emerald-300 dark:border-emerald-700">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                ACTIVE OFFER
               </span>
+              <div className="flex items-center gap-1 text-slate-800 dark:text-white font-bold">
+                <Clock className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+                <span>November Promotion Ends In</span>
+              </div>
             </div>
 
-            {countdown.isExpired ? (
-              <div className="space-y-1">
-                <span className="inline-block px-3 py-1 rounded-full bg-rose-100 dark:bg-rose-900/60 text-rose-800 dark:text-rose-200 font-extrabold text-sm sm:text-base border border-rose-200 dark:border-rose-800">
-                  Offer Expired
-                </span>
-                <p className="text-xs text-rose-700 dark:text-rose-300 font-medium">
-                  {EXPIRED_MESSAGE}
-                </p>
-              </div>
-            ) : (
-              <div>
-                <div className="grid grid-cols-4 gap-2 max-w-xs mx-auto">
-                  <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
-                    <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
-                      {countdown.days}
-                    </span>
-                    <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Days</span>
-                  </div>
-                  <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
-                    <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
-                      {String(countdown.hours).padStart(2, '0')}
-                    </span>
-                    <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Hours</span>
-                  </div>
-                  <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
-                    <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
-                      {String(countdown.minutes).padStart(2, '0')}
-                    </span>
-                    <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Mins</span>
-                  </div>
-                  <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
-                    <span className="block text-lg sm:text-xl font-black text-sky-600 dark:text-sky-400 font-mono">
-                      {String(countdown.seconds).padStart(2, '0')}
-                    </span>
-                    <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Secs</span>
-                  </div>
+            <div>
+              <div className="grid grid-cols-4 gap-2 max-w-xs mx-auto">
+                <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
+                  <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
+                    {countdown.days}
+                  </span>
+                  <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Days</span>
                 </div>
-                <p className="text-[11px] text-slate-500 dark:text-[#CBD5E1] mt-2">
-                  Expires October 31, 2026 at 11:59:59 PM EDT (America/New_York)
-                </p>
+                <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
+                  <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
+                    {String(countdown.hours).padStart(2, '0')}
+                  </span>
+                  <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Hours</span>
+                </div>
+                <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
+                  <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
+                    {String(countdown.minutes).padStart(2, '0')}
+                  </span>
+                  <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Mins</span>
+                </div>
+                <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
+                  <span className="block text-lg sm:text-xl font-black text-sky-600 dark:text-sky-400 font-mono">
+                    {String(countdown.seconds).padStart(2, '0')}
+                  </span>
+                  <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Secs</span>
+                </div>
               </div>
-            )}
+              <p className="text-[11px] text-slate-500 dark:text-[#CBD5E1] mt-2">
+                Expires November 30, 2026 at 11:59:59 PM EST (America/New_York)
+              </p>
+            </div>
           </div>
 
           {/* Value inclusions pill list */}
@@ -210,23 +210,14 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
           {/* Action Buttons */}
           <div className="space-y-2.5 pt-1">
             {/* Primary Claim Button */}
-            {countdown.isExpired ? (
-              <button
-                disabled
-                className="w-full py-4 px-6 rounded-2xl bg-slate-300 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-extrabold text-base tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-slate-300 dark:border-slate-700"
-              >
-                <span>Offer Expired</span>
-              </button>
-            ) : (
-              <button
-                onClick={handleClaim}
-                className="w-full py-4 px-6 rounded-2xl bg-linear-to-r from-emerald-600 via-emerald-600 to-sky-600 hover:from-emerald-700 hover:via-emerald-700 hover:to-sky-700 active:scale-[0.99] text-white font-extrabold text-base tracking-wide shadow-lg shadow-emerald-600/25 hover:shadow-xl hover:shadow-emerald-600/30 transition-all flex items-center justify-center gap-2.5 cursor-pointer border border-emerald-500/30"
-              >
-                <Tag className="w-5 h-5 text-emerald-200" />
-                <span>CLAIM 40% OFF WITH FRESHOCT</span>
-                <ArrowRight className="w-4 h-4 text-emerald-100" />
-              </button>
-            )}
+            <button
+              onClick={handleClaim}
+              className="w-full py-4 px-6 rounded-2xl bg-linear-to-r from-emerald-600 via-emerald-600 to-sky-600 hover:from-emerald-700 hover:via-emerald-700 hover:to-sky-700 active:scale-[0.99] text-white font-extrabold text-base tracking-wide shadow-lg shadow-emerald-600/25 hover:shadow-xl hover:shadow-emerald-600/30 transition-all flex items-center justify-center gap-2.5 cursor-pointer border border-emerald-500/30"
+            >
+              <Tag className="w-5 h-5 text-emerald-200" />
+              <span>Claim Your Offer</span>
+              <ArrowRight className="w-4 h-4 text-emerald-100" />
+            </button>
 
             {/* Second Option: Maybe Later */}
             <button

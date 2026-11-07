@@ -272,7 +272,7 @@ export default function App() {
   };
 
   const handleClaimPromo = (couponCode?: string) => {
-    const code = couponCode || 'FRESHOCT';
+    const code = couponCode || 'FRESH40';
     trackCtaClick(`Claim Promo: ${code}`, 'Promo Banner/Popup');
     setAppliedPromo(code);
     openQuoteModal();

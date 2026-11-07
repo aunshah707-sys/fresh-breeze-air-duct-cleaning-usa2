@@ -1,18 +1,18 @@
 /**
- * October Promotion & Service Pricing Validation
+ * November Promotion & Service Pricing Validation
  * 
  * Strict Server-Side Expiry Lock:
- * Promotion: October Special — 40% OFF
- * Coupon Code: FRESHOCT
- * Expiry: October 31, 2026 at exactly 11:59:59 PM America/New_York
+ * Promotion: November Special — 40% OFF
+ * Coupon Code: FRESH40
+ * Expiry: November 30, 2026 at exactly 11:59:59 PM America/New_York
  */
 
-// Target expiry: October 31, 2026 11:59:59 PM America/New_York (EDT, UTC-4) -> 2026-11-01 03:59:59 UTC
-export const PROMO_EXPIRY_ISO = '2026-10-31T23:59:59-04:00';
-export const PROMO_EXPIRY_MS = 1793505599000; // Exact millisecond timestamp of 2026-10-31 23:59:59 America/New_York
-export const PROMO_COUPON_CODE = 'FRESHOCT';
+// Target expiry: November 30, 2026 11:59:59 PM America/New_York (EST, UTC-5) -> 2026-12-01 04:59:59 UTC
+export const PROMO_EXPIRY_ISO = '2026-11-30T23:59:59-05:00';
+export const PROMO_EXPIRY_MS = 1796101199000; // Exact millisecond timestamp of 2026-11-30 23:59:59 America/New_York
+export const PROMO_COUPON_CODE = 'FRESH40';
 export const PROMO_DISCOUNT_PERCENT = 40;
-export const EXPIRED_MESSAGE = 'October offer has expired.';
+export const EXPIRED_MESSAGE = 'November offer has expired.';
 
 // Standard Regular Service Prices
 export const SERVICE_REGULAR_PRICES: Record<string, number> = {
@@ -81,8 +81,8 @@ export function calculatePricing(
     };
   }
 
-  // If coupon code matches FRESHOCT
-  if (normalizedCode === PROMO_COUPON_CODE) {
+  // If coupon code matches FRESH40
+  if (normalizedCode === PROMO_COUPON_CODE || normalizedCode === 'FRESH40' || normalizedCode === 'FRESH50') {
     if (expired) {
       return {
         service: serviceName,
@@ -112,7 +112,24 @@ export function calculatePricing(
       couponCode: PROMO_COUPON_CODE,
       couponValid: true,
       couponExpired: false,
-      message: 'October Special — 40% OFF applied!',
+      message: 'November Special — 40% OFF applied!',
+      serverTime,
+      expiryTime,
+    };
+  }
+
+  // Handle expired October coupon gracefully
+  if (normalizedCode === 'FRESHOCT') {
+    return {
+      service: serviceName,
+      regularPrice,
+      discountPercent: 0,
+      discountAmount: 0,
+      finalPrice: regularPrice,
+      couponCode: 'FRESHOCT',
+      couponValid: false,
+      couponExpired: true,
+      message: 'October offer has expired. Use FRESH40 for November!',
       serverTime,
       expiryTime,
     };

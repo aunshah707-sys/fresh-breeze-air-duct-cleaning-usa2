@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Logo } from './Logo';
-import { Phone, Menu, X, ArrowRight } from 'lucide-react';
+import { Phone, Menu, X, ArrowRight, MessageSquare } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
+import { SMS_PHONE, SMS_PHONE_FORMATTED, SMS_URL } from '../utils/constants';
 
 interface NavbarProps {
   onOpenQuote: () => void;
@@ -42,11 +43,33 @@ export const Navbar: React.FC<NavbarProps> = ({
       <header
         className={`sticky top-0 z-40 w-full transition-all duration-200 ${
           isScrolled
-            ? 'bg-white/95 dark:bg-[#101A30]/95 backdrop-blur-md shadow-xs border-b border-slate-200/80 dark:border-slate-800 py-2 sm:py-2.5'
-            : 'bg-white dark:bg-[#101A30] border-b border-slate-200/80 dark:border-slate-800 py-2.5 sm:py-3'
+            ? 'bg-white/95 dark:bg-[#101A30]/95 backdrop-blur-md shadow-xs border-b border-slate-200/80 dark:border-slate-800'
+            : 'bg-white dark:bg-[#101A30] border-b border-slate-200/80 dark:border-slate-800'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        {/* Top Prominent SMS Text Us Bar (Desktop & Mobile) */}
+        <div className="bg-slate-900 dark:bg-slate-950 text-white border-b border-slate-800/80 px-3 sm:px-6 lg:px-8 py-1.5 text-xs">
+          <div className="max-w-7xl mx-auto flex items-center justify-between sm:justify-end gap-2 sm:gap-4">
+            <span className="text-slate-300 hidden sm:inline text-[11px] font-medium">
+              Questions or Fast Estimate?
+            </span>
+            <a
+              href={SMS_URL}
+              className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition-colors font-bold group"
+              aria-label={`Text us at ${SMS_PHONE}`}
+            >
+              <MessageSquare className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform shrink-0" />
+              <span className="bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-wider border border-emerald-500/30">
+                TEXT US
+              </span>
+              <span className="font-mono text-xs sm:text-sm font-extrabold tracking-wide text-white group-hover:text-emerald-300 underline-offset-2 hover:underline">
+                {SMS_PHONE_FORMATTED}
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 sm:py-2.5">
           <div className="flex items-center justify-between gap-2 sm:gap-4">
             {/* Zone 1: Logo */}
             <a href="#home" className="group shrink-0 focus-visible:outline-sky-600 rounded-lg flex items-center">
@@ -85,9 +108,22 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onToggle={onToggleTheme} 
               />
 
+              {/* Prominent "TEXT US" SMS button */}
+              <a
+                href={SMS_URL}
+                className="inline-flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-extrabold text-white bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] shadow-xs hover:shadow transition-all border border-emerald-500/30 whitespace-nowrap cursor-pointer"
+                aria-label={`Text us at ${SMS_PHONE}`}
+              >
+                <MessageSquare className="w-3.5 h-3.5 text-emerald-100 shrink-0" />
+                <span>TEXT US</span>
+                <span className="hidden md:inline font-mono font-bold text-emerald-100">
+                  {SMS_PHONE_FORMATTED}
+                </span>
+              </a>
+
               <button
                 onClick={onOpenCallback}
-                className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-sky-700 dark:hover:text-white bg-slate-50 dark:bg-slate-800/80 hover:bg-sky-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-all focus-visible:outline-sky-600 cursor-pointer"
+                className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-sky-700 dark:hover:text-white bg-slate-50 dark:bg-slate-800/80 hover:bg-sky-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-all focus-visible:outline-sky-600 cursor-pointer"
                 aria-label="Request a Callback"
               >
                 <Phone className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
@@ -96,7 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               <button
                 onClick={onOpenQuote}
-                className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold text-white bg-linear-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 active:scale-[0.98] shadow-xs sm:shadow-sm hover:shadow transition-all focus-visible:outline-sky-600 whitespace-nowrap cursor-pointer"
+                className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold text-white bg-linear-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 active:scale-[0.98] shadow-xs sm:shadow-sm hover:shadow transition-all focus-visible:outline-sky-600 whitespace-nowrap cursor-pointer"
               >
                 <span>FREE QUOTE</span>
                 <ArrowRight className="w-3.5 h-3.5 text-sky-200" />
@@ -154,6 +190,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onToggle={onToggleTheme} 
                 />
               </div>
+
+              {/* Prominent Mobile "TEXT US" SMS button */}
+              <a
+                href={SMS_URL}
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold flex items-center justify-center gap-2 shadow-xs transition-colors border border-emerald-500/30"
+                aria-label={`Text us at ${SMS_PHONE}`}
+              >
+                <MessageSquare className="w-4 h-4 text-emerald-100" />
+                <span>TEXT US: {SMS_PHONE_FORMATTED}</span>
+              </a>
 
               <button
                 onClick={() => {

@@ -148,7 +148,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
   // Auto-apply or validate coupon when appliedPromo prop is provided
   useEffect(() => {
     if (appliedPromo) {
-      const code = appliedPromo.toUpperCase().includes('FRESHOCT') || appliedPromo.includes('40%')
+      const code = appliedPromo.toUpperCase().includes('FRESH40') || appliedPromo.toUpperCase().includes('FRESH50') || appliedPromo.toUpperCase().includes('FRESHOCT') || appliedPromo.includes('40%') || appliedPromo.includes('50%')
         ? PROMO_COUPON_CODE
         : appliedPromo.toUpperCase();
 
@@ -330,7 +330,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                   <span className="line-through text-slate-500 dark:text-slate-400 font-semibold">${submittedPricing.regularPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-emerald-700 dark:text-emerald-400 font-semibold">
-                  <span>October Discount (40%)</span>
+                  <span>November Discount (40%)</span>
                   <span>-${submittedPricing.discountAmount.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-slate-900 dark:text-white font-extrabold text-sm sm:text-base pt-1.5 border-t border-slate-200 dark:border-slate-700">
@@ -559,7 +559,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
               }`}>
                 <Clock className="w-3.5 h-3.5" />
                 <span>
-                  {countdown.isExpired ? 'Offer Expired' : `October Special: ${countdown.formatted}`}
+                  {countdown.isExpired ? 'Offer Expired' : `November Special: ${countdown.formatted}`}
                 </span>
               </div>
             </div>
@@ -572,7 +572,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                     <Tag className="w-4 h-4 text-slate-400 dark:text-[#94A3B8] absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
-                      placeholder="Have a coupon code? (e.g. FRESHOCT)"
+                      placeholder="Have a coupon code? (e.g. FRESH40)"
                       value={couponInput}
                       onChange={(e) => {
                         setCouponInput(e.target.value.toUpperCase());
@@ -605,7 +605,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                         {appliedCoupon}
                       </span>
                       <span className="font-semibold text-emerald-900 dark:text-emerald-200">
-                        October Special — 40% OFF Applied!
+                        November Special — 40% OFF Applied!
                       </span>
                     </div>
                   </div>
@@ -638,7 +638,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                     <span className="line-through text-slate-500 dark:text-slate-400 font-semibold">${currentRegularPrice.toFixed(2)}</span>
                   </div>
                   <div className="flex items-center justify-between text-emerald-700 dark:text-emerald-400 font-bold">
-                    <span>October Discount (40%)</span>
+                    <span>November Discount (40%)</span>
                     <span>-${currentDiscountAmount.toFixed(2)}</span>
                   </div>
                   <div className="flex items-center justify-between text-slate-900 dark:text-white font-extrabold text-sm sm:text-base pt-1.5 border-t border-dashed border-slate-300 dark:border-slate-600">

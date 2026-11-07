@@ -40,8 +40,9 @@ export default async (req: Request) => {
 
     // Extract coupon code from payload or promo text
     let effectiveCoupon = (couponCode || '').trim();
-    if (!effectiveCoupon && /FRESHOCT/i.test(serviceNeeded)) {
-      effectiveCoupon = 'FRESHOCT';
+    if (!effectiveCoupon && /(FRESH40|FRESH50|FRESHOCT)/i.test(serviceNeeded)) {
+      const match = serviceNeeded.match(/(FRESH40|FRESH50|FRESHOCT)/i);
+      effectiveCoupon = match ? match[1].toUpperCase() : 'FRESH40';
     }
 
     // Strict server-side pricing & coupon validity check using server clock
@@ -49,9 +50,9 @@ export default async (req: Request) => {
 
     let pricingSummaryText = '';
     if (pricing.couponValid) {
-      pricingSummaryText = `Regular Price: $${pricing.regularPrice.toFixed(2)} | October Discount (40%): -$${pricing.discountAmount.toFixed(2)} (Coupon: ${pricing.couponCode}) | Final Price: $${pricing.finalPrice.toFixed(2)}`;
+      pricingSummaryText = `Regular Price: $${pricing.regularPrice.toFixed(2)} | November Discount (${pricing.discountPercent}%): -$${pricing.discountAmount.toFixed(2)} (Coupon: ${pricing.couponCode}) | Final Price: $${pricing.finalPrice.toFixed(2)}`;
     } else if (pricing.couponExpired) {
-      pricingSummaryText = `Regular Price: $${pricing.regularPrice.toFixed(2)} | Discount: $0.00 (Coupon FRESHOCT expired: ${pricing.message}) | Final Price: $${pricing.finalPrice.toFixed(2)}`;
+      pricingSummaryText = `Regular Price: $${pricing.regularPrice.toFixed(2)} | Discount: $0.00 (Coupon ${effectiveCoupon} expired: ${pricing.message}) | Final Price: $${pricing.finalPrice.toFixed(2)}`;
     } else {
       pricingSummaryText = `Regular Price: $${pricing.regularPrice.toFixed(2)} | Final Price: $${pricing.finalPrice.toFixed(2)}`;
     }

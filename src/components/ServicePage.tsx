@@ -314,7 +314,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
                 </div>
                 <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800 text-xs font-bold text-emerald-800 dark:text-emerald-300">
                   <Tag className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                  <span>October Special: 40% OFF with code {PROMO_COUPON_CODE}</span>
+                  <span>November Special: 40% OFF with code {PROMO_COUPON_CODE}</span>
                 </div>
               </div>
 
