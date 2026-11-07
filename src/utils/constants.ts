@@ -3,9 +3,9 @@
  */
 export const BUSINESS_NAME = 'Fresh Breeze Air Duct Cleaning USA';
 export const BUSINESS_EMAIL = 'freshbreezeairductcleaningusa@gmail.com';
-export const SMS_PHONE = '7372821351';
+export const SMS_PHONE = '+17372821351';
 export const SMS_PHONE_FORMATTED = '(737) 282-1351';
-export const SMS_URL = 'sms:7372821351';
+export const SMS_URL = 'sms:+17372821351';
 
 export const WHATSAPP_NUMBER = '+1 (737) 282-1351';
 export const WHATSAPP_URL = 'https://wa.me/17372821351';

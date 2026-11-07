@@ -108,27 +108,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onToggle={onToggleTheme} 
               />
 
-              {/* Prominent "TEXT US" SMS button */}
+              {/* "TEXT US" SMS button */}
               <a
                 href={SMS_URL}
-                className="inline-flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-extrabold text-white bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] shadow-xs hover:shadow transition-all border border-emerald-500/30 whitespace-nowrap cursor-pointer"
-                aria-label={`Text us at ${SMS_PHONE}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-extrabold text-white bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] shadow-xs hover:shadow transition-all border border-emerald-500/30 whitespace-nowrap cursor-pointer"
+                aria-label="Text us at (737) 282-1351"
               >
                 <MessageSquare className="w-3.5 h-3.5 text-emerald-100 shrink-0" />
-                <span>TEXT US</span>
-                <span className="hidden md:inline font-mono font-bold text-emerald-100">
+                <span>TEXT US:</span>
+                <span className="font-mono font-bold text-emerald-100">
                   {SMS_PHONE_FORMATTED}
                 </span>
               </a>
-
-              <button
-                onClick={onOpenCallback}
-                className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-sky-700 dark:hover:text-white bg-slate-50 dark:bg-slate-800/80 hover:bg-sky-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-all focus-visible:outline-sky-600 cursor-pointer"
-                aria-label="Request a Callback"
-              >
-                <Phone className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                <span className="whitespace-nowrap">REQUEST A CALLBACK</span>
-              </button>
 
               <button
                 onClick={onOpenQuote}
@@ -205,16 +196,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  onOpenCallback();
-                }}
-                className="w-full py-2.5 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <Phone className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                <span>REQUEST A CALLBACK</span>
-              </button>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
                   onOpenQuote();
                 }}
                 className="w-full py-2.5 px-4 rounded-xl bg-sky-600 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-sm cursor-pointer"
@@ -233,13 +214,13 @@ export const Navbar: React.FC<NavbarProps> = ({
         className="md:hidden fixed bottom-4 left-4 right-4 z-40 pointer-events-none animate-in fade-in slide-in-from-bottom-4 duration-500"
       >
         <div className="pointer-events-auto max-w-sm mx-auto flex items-center gap-2 p-1.5 bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-md rounded-2xl shadow-[0_12px_32px_rgba(0,0,0,0.35)] border border-sky-400/25">
-          <button
-            onClick={onOpenCallback}
-            aria-label="Request Callback by phone"
+          <a
+            href={SMS_URL}
+            aria-label="Text us at (737) 282-1351"
             className="p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl active:scale-95 flex items-center justify-center shrink-0 shadow-xs transition-transform cursor-pointer"
           >
-            <Phone className="w-4 h-4" />
-          </button>
+            <MessageSquare className="w-4 h-4 text-white" />
+          </a>
           <button
             onClick={onOpenQuote}
             className="grow py-3 px-4 bg-linear-to-r from-sky-500 via-sky-600 to-emerald-600 hover:from-sky-600 hover:to-emerald-700 text-white rounded-xl font-extrabold text-xs tracking-wider flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.99] transition-transform cursor-pointer"

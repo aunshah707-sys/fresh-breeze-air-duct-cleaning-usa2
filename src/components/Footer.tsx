@@ -1,12 +1,14 @@
 import React from 'react';
 import { Logo } from './Logo';
-import { Mail, Instagram, Facebook, ArrowUp, Phone, ShieldCheck } from 'lucide-react';
+import { Mail, Instagram, Facebook, ArrowUp, Phone, ShieldCheck, MessageSquare } from 'lucide-react';
 import { 
   BUSINESS_NAME, 
   BUSINESS_EMAIL, 
   MAILTO_URL, 
   INSTAGRAM_URL, 
-  FACEBOOK_URL 
+  FACEBOOK_URL,
+  SMS_URL,
+  SMS_PHONE_FORMATTED
 } from '../utils/constants';
 import { trackContactClick, trackCtaClick } from '../utils/analytics';
 
@@ -216,19 +218,17 @@ export const Footer: React.FC<FooterProps> = ({
                 </a>
               </div>
 
-              {/* Direct Phone Callback */}
+              {/* Direct Text Us SMS */}
               <div>
-                <span className="text-[10px] text-slate-400 block uppercase font-medium">Direct Scheduling</span>
-                <button
-                  onClick={() => {
-                    trackCtaClick('REQUEST A CALLBACK', 'Footer');
-                    onOpenCall();
-                  }}
+                <span className="text-[10px] text-slate-400 block uppercase font-medium">Text Us Directly</span>
+                <a
+                  href={SMS_URL}
                   className="font-bold text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1.5 mt-1 cursor-pointer"
+                  aria-label="Text us at (737) 282-1351"
                 >
-                  <Phone className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>REQUEST A CALLBACK</span>
-                </button>
+                  <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>TEXT US: {SMS_PHONE_FORMATTED}</span>
+                </a>
               </div>
 
               <div className="pt-2">

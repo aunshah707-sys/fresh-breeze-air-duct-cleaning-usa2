@@ -1,6 +1,7 @@
 import React from 'react';
-import { ArrowRight, Phone, ShieldCheck, Sparkles, Wind, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Phone, ShieldCheck, Sparkles, Wind, CheckCircle2, MessageSquare } from 'lucide-react';
 import heroTechnicianImg from '../assets/images/hero_air_duct_technician_1791041439373.jpg';
+import { SMS_URL, SMS_PHONE_FORMATTED } from '../utils/constants';
 
 interface HeroProps {
   onOpenQuote: () => void;
@@ -58,15 +59,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onOpenCallback }) => {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
 
-              <button
-                onClick={onOpenCallback}
+              <a
+                href={SMS_URL}
                 className="w-full sm:w-auto px-6 py-4 rounded-xl bg-white dark:bg-slate-800/90 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/90 dark:border-slate-700 text-slate-800 dark:text-slate-100 font-bold text-sm sm:text-base shadow-[0_4px_12px_rgba(15,23,42,0.06)] hover:shadow-[0_8px_20px_rgba(15,23,42,0.1)] hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+                aria-label="Text us at (737) 282-1351"
               >
                 <div className="w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-950/80 flex items-center justify-center">
-                  <Phone className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" />
+                  <MessageSquare className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" />
                 </div>
-                <span>REQUEST A CALLBACK</span>
-              </button>
+                <span>TEXT US: {SMS_PHONE_FORMATTED}</span>
+              </a>
             </div>
 
             {/* Factual Trust Line */}

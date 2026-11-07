@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronDown, HelpCircle, Phone, ArrowRight } from 'lucide-react';
+import { ChevronDown, HelpCircle, Phone, ArrowRight, MessageSquare } from 'lucide-react';
+import { SMS_URL, SMS_PHONE_FORMATTED } from '../utils/constants';
 
 interface FAQItem {
   question: string;
@@ -47,7 +48,7 @@ const FAQS: FAQItem[] = [
   {
     question: 'How do I get a free air duct cleaning quote?',
     answer:
-      'You can request a free air duct cleaning quote online anytime using our 30-second estimate form, or click "REQUEST A CALLBACK" in our header to speak with our dispatch team. All quotes are 100% free and transparent with zero sales pressure or hidden fees.',
+      'You can request a free air duct cleaning quote online anytime using our 30-second estimate form, or click "TEXT US" in our header to speak with our dispatch team. All quotes are 100% free and transparent with zero sales pressure or hidden fees.',
   },
   {
     question: 'How long does home air duct cleaning take?',
@@ -156,13 +157,14 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto shrink-0">
-            <button
-              onClick={onOpenCall}
+            <a
+              href={SMS_URL}
               className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              aria-label="Text us at (737) 282-1351"
             >
-              <Phone className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-              <span>REQUEST A CALLBACK</span>
-            </button>
+              <MessageSquare className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <span>TEXT US: {SMS_PHONE_FORMATTED}</span>
+            </a>
             <button
               onClick={onOpenQuote}
               className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold shadow-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
