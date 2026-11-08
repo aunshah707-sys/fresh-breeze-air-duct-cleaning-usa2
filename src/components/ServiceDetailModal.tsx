@@ -1,15 +1,24 @@
 import React from 'react';
 import { X, CheckCircle, ShieldAlert, ArrowRight, Wind, Flame, Cpu, Sparkles } from 'lucide-react';
-import airDuctImg from '../assets/images/service_air_duct_cleaning_1791041452109.jpg';
-import dryerVentImg from '../assets/images/service_dryer_vent_cleaning_1791041463972.jpg';
-import hvacImg from '../assets/images/hero_air_duct_technician_1791041439373.jpg';
-import chimneyImg from '../assets/images/service_chimney_cleaning_1791042480149.jpg';
+import airDuctImg from '../assets/images/service_air_duct_cleaning.webp';
+import airDuctSmImg from '../assets/images/service_air_duct_cleaning_sm.webp';
+import dryerVentImg from '../assets/images/service_dryer_vent_cleaning.webp';
+import dryerVentSmImg from '../assets/images/service_dryer_vent_cleaning_sm.webp';
+import hvacImg from '../assets/images/hero_air_duct_technician.webp';
+import hvacSmImg from '../assets/images/hero_air_duct_technician_mobile.webp';
+import chimneyImg from '../assets/images/service_chimney_cleaning.webp';
+import chimneySmImg from '../assets/images/service_chimney_cleaning_sm.webp';
 
 export interface ServiceDetail {
   id: string;
   title: string;
   tagline: string;
   image: string;
+  imageSm?: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageSmWidth?: number;
+  imageSmHeight?: number;
   imageAlt: string;
   iconName: string;
   description: string;
@@ -18,12 +27,24 @@ export interface ServiceDetail {
   homeownerBenefits: string[];
 }
 
+export const getServiceSrcSet = (service: ServiceDetail): string | undefined => {
+  if (service.imageSm && service.imageSmWidth && service.imageWidth) {
+    return `${service.imageSm} ${service.imageSmWidth}w, ${service.image} ${service.imageWidth}w`;
+  }
+  return undefined;
+};
+
 export const SERVICES_DATA: ServiceDetail[] = [
   {
     id: 'air-duct-cleaning',
     title: 'Air Duct Cleaning',
     tagline: "Remove accumulated dust, debris, and allergens from your home's air duct system.",
     image: airDuctImg,
+    imageSm: airDuctSmImg,
+    imageWidth: 800,
+    imageHeight: 597,
+    imageSmWidth: 400,
+    imageSmHeight: 299,
     imageAlt: 'Professional air duct cleaning technician using rotary brush and HEPA negative-air vacuum equipment',
     iconName: 'Wind',
     description: "Our professional air duct cleaning service thoroughly cleans residential and commercial ventilation systems, removing dust, allergens, pet dander, and debris from supply vents and return vents. Using mechanical rotary brush agitation and high-powered negative-air HEPA collection equipment, we clean every duct run to restore unrestricted airflow, support HVAC efficiency, and improve indoor air quality.",
@@ -51,6 +72,11 @@ export const SERVICES_DATA: ServiceDetail[] = [
     title: 'Dryer Vent Cleaning',
     tagline: 'Help improve dryer airflow and reduce lint buildup with professional dryer vent cleaning services.',
     image: dryerVentImg,
+    imageSm: dryerVentSmImg,
+    imageWidth: 800,
+    imageHeight: 597,
+    imageSmWidth: 400,
+    imageSmHeight: 299,
     imageAlt: 'Professional dryer vent cleaning service removing lint buildup from exhaust duct line',
     iconName: 'Flame',
     description: "While the lint screen captures larger fibers, fine combustible lint bypasses the trap and leads to a clogged dryer vent over time. Our dryer vent cleaning service clears packed lint buildup from behind the dryer through the full exhaust vent line to the outdoor exhaust hood, resolving long drying times, restoring dryer airflow efficiency, and preventing hazardous dryer vent blockages.",
@@ -78,6 +104,11 @@ export const SERVICES_DATA: ServiceDetail[] = [
     title: 'HVAC Cleaning',
     tagline: 'Professional cleaning solutions designed to help keep your HVAC system and home environment cleaner.',
     image: hvacImg,
+    imageSm: hvacSmImg,
+    imageWidth: 1200,
+    imageHeight: 670,
+    imageSmWidth: 640,
+    imageSmHeight: 357,
     imageAlt: 'Technician performing HVAC system cleaning on blower wheel and air handler cabinet',
     iconName: 'Cpu',
     description: "Central HVAC systems circulate indoor air throughout the home continuously. Our professional HVAC cleaning service targets critical internal system components that collect dust buildup and grime, including the air handler cabinet, blower motor wheel assembly, and accessible evaporator coil surfaces. Deep cleaning helps maintain system airflow, supports HVAC efficiency, and promotes cleaner indoor air.",
@@ -105,6 +136,11 @@ export const SERVICES_DATA: ServiceDetail[] = [
     title: 'Chimney Cleaning',
     tagline: 'Professional chimney and fireplace flue sweeping to remove soot, creosote, and debris.',
     image: chimneyImg,
+    imageSm: chimneySmImg,
+    imageWidth: 800,
+    imageHeight: 597,
+    imageSmWidth: 400,
+    imageSmHeight: 299,
     imageAlt: 'Professional chimney sweeping service clearing creosote and soot from fireplace flue',
     iconName: 'Sparkles',
     description: "Wood and fuel burning generates soot, ash, and flammable creosote deposits that build up along chimney flue walls. Our chimney cleaning and fireplace flue sweep service includes thorough chimney inspection and mechanical sweeping from the firebox to the chimney cap, clearing smoke chamber soot buildup and draft blockages for safe, dependable fireplace maintenance.",
@@ -162,10 +198,13 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
         <div className="relative h-44 sm:h-56 bg-slate-900 overflow-hidden shrink-0">
           <img 
             src={service.image} 
+            srcSet={getServiceSrcSet(service)}
+            sizes="(max-width: 640px) 100vw, 600px"
             alt={service.imageAlt} 
             loading="lazy"
-            width={600}
-            height={240}
+            decoding="async"
+            width={service.imageWidth}
+            height={service.imageHeight}
             className="w-full h-full object-cover object-center opacity-85"
           />
           <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-900/40 to-transparent" />

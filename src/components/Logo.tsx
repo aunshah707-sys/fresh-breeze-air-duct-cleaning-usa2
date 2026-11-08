@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import officialLogo from '../assets/images/fresh_breeze_official_logo_1791042495694.jpg';
+import officialLogo from '../assets/images/fresh_breeze_official_logo.webp';
 
 interface LogoProps {
   className?: string;
@@ -56,6 +56,10 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 'md', variant
           <img
             src={officialLogo}
             alt="Fresh Breeze Air Duct Cleaning USA logo"
+            loading="eager"
+            decoding="async"
+            width={360}
+            height={360}
             onError={() => setImageError(true)}
             className={`${heightClasses[size]} w-auto max-w-full object-contain shrink-0`}
           />
@@ -70,6 +74,10 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 'md', variant
         <img
           src={officialLogo}
           alt="Fresh Breeze Air Duct Cleaning USA logo"
+          loading="eager"
+          decoding="async"
+          width={360}
+          height={360}
           onError={() => setImageError(true)}
           className={`${heightClasses[size]} w-auto max-w-full object-contain shrink-0`}
         />

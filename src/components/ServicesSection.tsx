@@ -1,6 +1,6 @@
 import React from 'react';
 import { Wind, Flame, Cpu, Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { SERVICES_DATA } from './ServiceDetailModal';
+import { SERVICES_DATA, getServiceSrcSet } from './ServiceDetailModal';
 
 interface ServicesSectionProps {
   onLearnMore: (serviceId: string) => void;
@@ -54,11 +54,14 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               {/* Card Image */}
               <div className="relative h-48 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
                 <img
-                  src={service.image}
+                  src={service.imageSm || service.image}
+                  srcSet={getServiceSrcSet(service)}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
                   alt={service.imageAlt}
                   loading="lazy"
-                  width={400}
-                  height={240}
+                  decoding="async"
+                  width={service.imageWidth}
+                  height={service.imageHeight}
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-slate-950/70 via-slate-950/20 to-transparent" />

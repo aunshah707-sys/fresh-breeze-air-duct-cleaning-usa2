@@ -17,7 +17,7 @@ import {
 import { Logo } from './Logo';
 import { ThemeToggle } from './ThemeToggle';
 import { updateDocumentSEO, setPageStructuredData, CANONICAL_DOMAIN } from '../utils/seo';
-import { SERVICES_DATA, ServiceDetail } from './ServiceDetailModal';
+import { SERVICES_DATA, ServiceDetail, getServiceSrcSet } from './ServiceDetailModal';
 import { getServiceRegularPrice, PROMO_COUPON_CODE } from '../../lib/pricing';
 import { SMS_URL, SMS_PHONE_FORMATTED } from '../utils/constants';
 
@@ -347,10 +347,14 @@ export const ServicePage: React.FC<ServicePageProps> = ({
               <div className="relative rounded-2xl overflow-hidden shadow-md border-2 border-white dark:border-slate-800 aspect-4/3">
                 <img
                   src={service.image}
+                  srcSet={getServiceSrcSet(service)}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 640px"
                   alt={service.imageAlt}
-                  loading="lazy"
-                  width={640}
-                  height={480}
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  width={service.imageWidth}
+                  height={service.imageHeight}
                   className="w-full h-full object-cover object-center"
                 />
               </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Phone, ShieldCheck, Sparkles, Wind, CheckCircle2, MessageSquare } from 'lucide-react';
-import heroTechnicianImg from '../assets/images/hero_air_duct_technician_1791041439373.jpg';
+import heroTechnicianImg from '../assets/images/hero_air_duct_technician.webp';
+import heroTechnicianMobileImg from '../assets/images/hero_air_duct_technician_mobile.webp';
 import { SMS_URL, SMS_PHONE_FORMATTED } from '../utils/constants';
 
 interface HeroProps {
@@ -94,11 +95,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onOpenCallback }) => {
               <div className="relative rounded-3xl overflow-hidden shadow-[0_24px_60px_-15px_rgba(2,132,199,0.25)] border-4 border-white dark:border-slate-800 bg-slate-900 aspect-16/11 sm:aspect-16/10 lg:aspect-4/3 transition-all duration-500 hover:shadow-[0_30px_70px_-15px_rgba(2,132,199,0.35)]">
                 <img
                   src={heroTechnicianImg}
+                  srcSet={`${heroTechnicianMobileImg} 640w, ${heroTechnicianImg} 1200w`}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 800px"
                   alt="Professional air duct cleaning technician servicing residential HVAC ventilation system"
                   loading="eager"
                   fetchPriority="high"
-                  width={800}
-                  height={600}
+                  decoding="async"
+                  width={1200}
+                  height={670}
                   className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
                 />
 
