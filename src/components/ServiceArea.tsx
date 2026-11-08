@@ -55,7 +55,8 @@ export const ServiceArea: React.FC<ServiceAreaProps> = ({ onCheckZip }) => {
                       setCheckedResult(null);
                     }}
                     placeholder="Enter 5-Digit ZIP or City, State"
-                    className="w-full pl-10 pr-4 py-3.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-slate-50/50 dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 shadow-2xs"
+                    aria-label="Search service availability by 5-digit ZIP code or City, State"
+                    className="w-full pl-10 pr-4 py-3.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-slate-50/50 dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 shadow-2xs"
                   />
                 </div>
                 <button
@@ -74,7 +75,7 @@ export const ServiceArea: React.FC<ServiceAreaProps> = ({ onCheckZip }) => {
                 </div>
               )}
 
-              <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500">
+              <p className="mt-3 text-[11px] text-slate-600 dark:text-slate-300">
                 Residential service availability confirmed quickly with our local dispatch network.
               </p>
             </div>
@@ -85,21 +86,21 @@ export const ServiceArea: React.FC<ServiceAreaProps> = ({ onCheckZip }) => {
                 <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                 <div>
                   <h3 className="text-xs font-bold text-slate-900 dark:text-white">Residential Focus</h3>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Dedicated equipment for single-family homes &amp; condos.</p>
+                  <p className="text-[11px] text-slate-600 dark:text-slate-300">Dedicated equipment for single-family homes &amp; condos.</p>
                 </div>
               </div>
               <div className="flex items-start gap-2.5">
                 <ShieldCheck className="w-5 h-5 text-sky-600 dark:text-sky-400 shrink-0 mt-0.5" />
                 <div>
                   <h3 className="text-xs font-bold text-slate-900 dark:text-white">Upfront Scheduling</h3>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Fast coordination with local technicians in your region.</p>
+                  <p className="text-[11px] text-slate-600 dark:text-slate-300">Fast coordination with local technicians in your region.</p>
                 </div>
               </div>
               <div className="flex items-start gap-2.5">
                 <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                 <div>
                   <h3 className="text-xs font-bold text-slate-900 dark:text-white">Clear Pricing</h3>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Quotes provided in advance before work starts.</p>
+                  <p className="text-[11px] text-slate-600 dark:text-slate-300">Quotes provided in advance before work starts.</p>
                 </div>
               </div>
             </div>

@@ -193,6 +193,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
         className="relative w-full max-w-[calc(100vw-1.25rem)] sm:max-w-2xl max-h-[90vh] flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden my-auto animate-in fade-in zoom-in-95 duration-200 text-left"
         role="dialog"
         aria-modal="true"
+        aria-labelledby="service-detail-modal-title"
       >
         {/* Modal Header Image */}
         <div className="relative h-44 sm:h-56 bg-slate-900 overflow-hidden shrink-0">
@@ -226,9 +227,9 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
                 Fresh Breeze Service
               </span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold text-white font-display">
+            <h2 id="service-detail-modal-title" className="text-xl sm:text-2xl font-bold text-white font-display">
               {service.title}
-            </h3>
+            </h2>
           </div>
         </div>
 
@@ -236,9 +237,9 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
         <div className="p-4 sm:p-8 space-y-5 sm:space-y-6 overflow-y-auto">
           {/* Description */}
           <div>
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+            <h3 className="text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">
               Service Overview
-            </h4>
+            </h3>
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
               {service.description}
             </p>
@@ -246,10 +247,10 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
 
           {/* What's Included */}
           <div>
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+            <h3 className="text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-3 flex items-center gap-1.5">
               <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span>What Is Included</span>
-            </h4>
+            </h3>
             <div className="grid grid-cols-1 gap-2 bg-slate-50 dark:bg-slate-800/60 p-3.5 sm:p-4 rounded-xl border border-slate-100 dark:border-slate-700/80">
               {service.whatIncluded.map((item, idx) => (
                 <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-200">
@@ -262,10 +263,10 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
 
           {/* Warning Signs */}
           <div>
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+            <h3 className="text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-3 flex items-center gap-1.5">
               <ShieldAlert className="w-4 h-4 text-amber-500 shrink-0" />
               <span>Signs It May Be Time For Cleaning</span>
-            </h4>
+            </h3>
             <div className="grid grid-cols-1 gap-2 bg-amber-50/40 dark:bg-amber-950/30 p-3.5 sm:p-4 rounded-xl border border-amber-100/60 dark:border-amber-900/40">
               {service.warningSigns.map((item, idx) => (
                 <div key={idx} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-200">
@@ -278,9 +279,9 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
 
           {/* Homeowner Benefits */}
           <div>
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
+            <h3 className="text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-3">
               Homeowner Benefits
-            </h4>
+            </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
               {service.homeownerBenefits.map((item, idx) => (
                 <div key={idx} className="p-3 bg-sky-50/40 dark:bg-sky-950/40 rounded-xl border border-sky-100 dark:border-sky-900/60 text-xs text-slate-700 dark:text-slate-200 leading-relaxed">
@@ -294,7 +295,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
 
         {/* Modal Footer CTA */}
         <div className="p-4 sm:p-5 bg-slate-50 dark:bg-slate-850 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
-          <p className="text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
+          <p className="text-xs text-slate-600 dark:text-slate-300 text-center sm:text-left">
             Free, no-obligation quotes for residential homeowners.
           </p>
           <div className="flex items-center gap-2 sm:gap-2.5 w-full sm:w-auto">

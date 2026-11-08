@@ -74,9 +74,9 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
               Quick Links
-            </h4>
+            </h3>
             <ul className="space-y-2.5 text-xs">
               <li>
                 <a href="#home" className="hover:text-white transition-colors">
@@ -135,9 +135,9 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Services */}
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
               Services
-            </h4>
+            </h3>
             <ul className="space-y-2.5 text-xs text-slate-400">
               <li>
                 <a 
@@ -200,9 +200,9 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Contact Direct */}
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
               Contact
-            </h4>
+            </h3>
             <div className="space-y-3.5 text-xs">
               {/* Clickable Business Email */}
               <div>

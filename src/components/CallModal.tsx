@@ -110,6 +110,7 @@ export const CallModal: React.FC<CallModalProps> = ({
         className="relative w-full max-w-[calc(100vw-1.25rem)] sm:max-w-lg bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-[0_24px_60px_-12px_rgba(15,23,42,0.35),0_1px_2px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)] border border-white/70 dark:border-slate-800 overflow-hidden my-auto max-h-[90vh] flex flex-col transform transition-all duration-300 animate-in zoom-in-95 text-left"
         role="dialog"
         aria-modal="true"
+        aria-labelledby="callback-modal-title"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -121,13 +122,13 @@ export const CallModal: React.FC<CallModalProps> = ({
           >
             <X className="w-5 h-5" />
           </button>
-          <div className="flex items-center gap-2 text-sky-200 text-xs font-semibold uppercase tracking-wider">
+          <div className="flex items-center gap-2 text-sky-100 text-xs font-semibold uppercase tracking-wider">
             <Phone className="w-4 h-4 text-emerald-300" />
             Fresh Breeze Dispatch
           </div>
-          <h3 className="text-lg sm:text-xl font-bold mt-1 text-white font-display">
+          <h2 id="callback-modal-title" className="text-lg sm:text-xl font-bold mt-1 text-white font-display">
             Request a Callback
-          </h3>
+          </h2>
           <p className="text-sky-100 text-xs mt-1">
             Leave your contact details and our team will call you back promptly.
           </p>
@@ -141,9 +142,9 @@ export const CallModal: React.FC<CallModalProps> = ({
                 <CheckCircle2 className="w-8 h-8" />
               </div>
               <div>
-                <h4 className="text-base font-bold text-emerald-950 dark:text-emerald-100 font-display">
+                <h3 className="text-base font-bold text-emerald-950 dark:text-emerald-100 font-display">
                   Callback Request Submitted!
-                </h4>
+                </h3>
                 <p className="text-xs sm:text-sm text-emerald-800 dark:text-emerald-300 mt-2 font-medium leading-relaxed">
                   {successMessage}
                 </p>
@@ -180,7 +181,7 @@ export const CallModal: React.FC<CallModalProps> = ({
                       <button
                         type="button"
                         onClick={onClearPromo}
-                        className="text-rose-400 hover:text-rose-700 p-0.5 text-xs font-bold cursor-pointer"
+                        className="text-rose-700 hover:text-rose-900 dark:text-rose-300 dark:hover:text-rose-100 p-0.5 text-xs font-bold cursor-pointer"
                         title="Dismiss"
                       >
                         ✕
@@ -201,7 +202,7 @@ export const CallModal: React.FC<CallModalProps> = ({
                       <button
                         type="button"
                         onClick={onClearPromo}
-                        className="text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 p-0.5 text-xs font-bold cursor-pointer shrink-0"
+                        className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white p-0.5 text-xs font-bold cursor-pointer shrink-0"
                         title="Remove promotion"
                       >
                         ✕
@@ -220,50 +221,56 @@ export const CallModal: React.FC<CallModalProps> = ({
 
               {/* Full Name */}
               <div>
-                <label className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <label htmlFor="callback-fullName" className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                   <User className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                   Full Name *
                 </label>
                 <input 
+                  id="callback-fullName"
+                  name="fullName"
                   type="text"
                   required
                   placeholder="e.g. John Miller"
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300/80 dark:border-slate-700 bg-white/80 dark:bg-slate-800/90 backdrop-blur-xs text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white dark:focus:bg-slate-800 focus:outline-hidden focus:ring-2 focus:ring-sky-500/25 focus:border-sky-500 shadow-xs transition-all"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300/80 dark:border-slate-700 bg-white/80 dark:bg-slate-800/90 backdrop-blur-xs text-sm text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:bg-white dark:focus:bg-slate-800 focus:outline-hidden focus:ring-2 focus:ring-sky-500/25 focus:border-sky-500 shadow-xs transition-all"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {/* Phone Number */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                  <label htmlFor="callback-phone" className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                     <Phone className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                     Phone Number *
                   </label>
                   <input 
+                    id="callback-phone"
+                    name="phone"
                     type="tel"
                     required
                     placeholder="(555) 123-4567"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300/80 dark:border-slate-700 bg-white/80 dark:bg-slate-800/90 backdrop-blur-xs text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white dark:focus:bg-slate-800 focus:outline-hidden focus:ring-2 focus:ring-sky-500/25 focus:border-sky-500 shadow-xs transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300/80 dark:border-slate-700 bg-white/80 dark:bg-slate-800/90 backdrop-blur-xs text-sm text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:bg-white dark:focus:bg-slate-800 focus:outline-hidden focus:ring-2 focus:ring-sky-500/25 focus:border-sky-500 shadow-xs transition-all"
                   />
                 </div>
 
                 {/* Email Address */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                  <label htmlFor="callback-email" className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                     <Mail className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                     Email Address *
                   </label>
                   <input 
+                    id="callback-email"
+                    name="email"
                     type="email"
                     required
                     placeholder="john@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300/80 dark:border-slate-700 bg-white/80 dark:bg-slate-800/90 backdrop-blur-xs text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white dark:focus:bg-slate-800 focus:outline-hidden focus:ring-2 focus:ring-sky-500/25 focus:border-sky-500 shadow-xs transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300/80 dark:border-slate-700 bg-white/80 dark:bg-slate-800/90 backdrop-blur-xs text-sm text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:bg-white dark:focus:bg-slate-800 focus:outline-hidden focus:ring-2 focus:ring-sky-500/25 focus:border-sky-500 shadow-xs transition-all"
                   />
                 </div>
               </div>
@@ -271,11 +278,14 @@ export const CallModal: React.FC<CallModalProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {/* Service Needed Dropdown */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                  <label htmlFor="callback-serviceNeeded" className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                     <Wrench className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                     Service Needed *
                   </label>
                   <select
+                    id="callback-serviceNeeded"
+                    name="serviceNeeded"
+                    aria-label="Service Needed"
                     value={formData.serviceNeeded}
                     onChange={(e) => setFormData({ ...formData, serviceNeeded: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300/80 dark:border-slate-700 bg-white/80 dark:bg-slate-800/90 backdrop-blur-xs text-sm focus:bg-white dark:focus:bg-slate-800 focus:outline-hidden focus:ring-2 focus:ring-sky-500/25 focus:border-sky-500 font-medium text-slate-800 dark:text-slate-100 shadow-xs transition-all"
@@ -289,11 +299,14 @@ export const CallModal: React.FC<CallModalProps> = ({
 
                 {/* Preferred Callback Time */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                  <label htmlFor="callback-preferredTime" className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                     <Clock className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                     Preferred Callback Time *
                   </label>
                   <select
+                    id="callback-preferredTime"
+                    name="preferredTime"
+                    aria-label="Preferred Callback Time"
                     value={formData.preferredTime}
                     onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300/80 dark:border-slate-700 bg-white/80 dark:bg-slate-800/90 backdrop-blur-xs text-sm focus:bg-white dark:focus:bg-slate-800 focus:outline-hidden focus:ring-2 focus:ring-sky-500/25 focus:border-sky-500 font-medium text-slate-800 dark:text-slate-100 shadow-xs transition-all"
@@ -308,16 +321,18 @@ export const CallModal: React.FC<CallModalProps> = ({
 
               {/* Message */}
               <div>
-                <label className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <label htmlFor="callback-message" className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                   <MessageSquare className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                   Message
                 </label>
                 <textarea 
+                  id="callback-message"
+                  name="message"
                   rows={2}
                   placeholder="Optional details about your home or question..."
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-300/80 dark:border-slate-700 bg-white/80 dark:bg-slate-800/90 backdrop-blur-xs text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white dark:focus:bg-slate-800 focus:outline-hidden focus:ring-2 focus:ring-sky-500/25 focus:border-sky-500 shadow-xs transition-all"
+                  className="w-full px-3.5 py-2 rounded-xl border border-slate-300/80 dark:border-slate-700 bg-white/80 dark:bg-slate-800/90 backdrop-blur-xs text-sm text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:bg-white dark:focus:bg-slate-800 focus:outline-hidden focus:ring-2 focus:ring-sky-500/25 focus:border-sky-500 shadow-xs transition-all"
                 />
               </div>
 

@@ -84,7 +84,7 @@ export const TermsAndConditions: React.FC<TermsAndConditionsProps> = ({
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display">
               Terms &amp; Conditions
             </h1>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2">
               Last updated: October 2026 • {BUSINESS_NAME}
             </p>
           </div>
@@ -268,7 +268,7 @@ export const TermsAndConditions: React.FC<TermsAndConditionsProps> = ({
               <ArrowLeft className="w-4 h-4" />
               <span>Back to Home</span>
             </button>
-            <span className="text-xs text-slate-400 dark:text-slate-500">
+            <span className="text-xs text-slate-600 dark:text-slate-300">
               © {new Date().getFullYear()} {BUSINESS_NAME}
             </span>
           </div>

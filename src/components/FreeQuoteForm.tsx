@@ -295,6 +295,9 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
   const currentDiscountAmount = isDiscountActive && serverPricing ? serverPricing.discountAmount : 0;
   const currentFinalPrice = isDiscountActive && serverPricing ? serverPricing.finalPrice : currentRegularPrice;
 
+  // Unique ID prefix to prevent HTML ID collisions between inline quote form and modal quote form
+  const fieldIdPrefix = isModal ? 'quote-modal' : 'quote-inline';
+
   const formContent = (
     <div className={isModal ? "p-4 sm:p-6 space-y-4 w-full min-w-0" : "w-full min-w-0"}>
       {isSubmitted ? (
@@ -327,7 +330,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
               <div className="space-y-1.5 text-xs sm:text-sm">
                 <div className="flex justify-between text-slate-600 dark:text-[#CBD5E1]">
                   <span>Regular Price</span>
-                  <span className="line-through text-slate-500 dark:text-slate-400 font-semibold">${submittedPricing.regularPrice.toFixed(2)}</span>
+                  <span className="line-through text-slate-600 dark:text-slate-300 font-semibold">${submittedPricing.regularPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-emerald-700 dark:text-emerald-400 font-semibold">
                   <span>November Discount (40%)</span>
@@ -369,15 +372,15 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
             </h4>
             <div className="space-y-2.5 text-xs text-slate-600 dark:text-[#CBD5E1]">
               <div className="flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-full bg-sky-100 dark:bg-sky-900/80 text-sky-700 dark:text-sky-200 font-bold flex items-center justify-center shrink-0 text-[11px]">1</span>
+                <span className="w-5 h-5 rounded-full bg-sky-100 dark:bg-sky-900/80 text-sky-800 dark:text-sky-100 font-bold flex items-center justify-center shrink-0 text-[11px]">1</span>
                 <p>Our coordinator checks local technician routes in your area.</p>
               </div>
               <div className="flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-full bg-sky-100 dark:bg-sky-900/80 text-sky-700 dark:text-sky-200 font-bold flex items-center justify-center shrink-0 text-[11px]">2</span>
+                <span className="w-5 h-5 rounded-full bg-sky-100 dark:bg-sky-900/80 text-sky-800 dark:text-sky-100 font-bold flex items-center justify-center shrink-0 text-[11px]">2</span>
                 <p>We send you an upfront pricing breakdown and confirm your preferred time slot via email and phone ({formData.phone}).</p>
               </div>
               <div className="flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 font-bold flex items-center justify-center shrink-0 text-[11px]">3</span>
+                <span className="w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-100 font-bold flex items-center justify-center shrink-0 text-[11px]">3</span>
                 <p>No obligation to book. Work only begins after you approve the estimate.</p>
               </div>
             </div>
@@ -410,18 +413,19 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             {/* Name */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <label htmlFor={`${fieldIdPrefix}-name`} className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                 <User className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Full Name *
               </label>
               <input
+                id={`${fieldIdPrefix}-name`}
                 type="text"
                 name="name"
                 required
                 placeholder="e.g. John Miller"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#94A3B8] ${
+                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-[#CBD5E1] ${
                   errors.name
                     ? 'border-red-300 dark:border-red-500/80 focus:ring-red-400 bg-red-50/40 dark:bg-red-950/30'
                     : 'border-slate-300 dark:border-[#475569] focus:ring-sky-500 focus:border-transparent'
@@ -434,18 +438,19 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
             {/* Phone Number */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <label htmlFor={`${fieldIdPrefix}-phone`} className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                 <Phone className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Phone Number *
               </label>
               <input
+                id={`${fieldIdPrefix}-phone`}
                 type="tel"
                 name="phone"
                 required
                 placeholder="(555) 123-4567"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#94A3B8] ${
+                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-[#CBD5E1] ${
                   errors.phone
                     ? 'border-red-300 dark:border-red-500/80 focus:ring-red-400 bg-red-50/40 dark:bg-red-950/30'
                     : 'border-slate-300 dark:border-[#475569] focus:ring-sky-500 focus:border-transparent'
@@ -458,18 +463,19 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
             {/* Email */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <label htmlFor={`${fieldIdPrefix}-email`} className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                 <Mail className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Email Address *
               </label>
               <input
+                id={`${fieldIdPrefix}-email`}
                 type="email"
                 name="email"
                 required
                 placeholder="john@example.com"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#94A3B8] ${
+                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-[#CBD5E1] ${
                   errors.email
                     ? 'border-red-300 dark:border-red-500/80 focus:ring-red-400 bg-red-50/40 dark:bg-red-950/30'
                     : 'border-slate-300 dark:border-[#475569] focus:ring-sky-500 focus:border-transparent'
@@ -482,18 +488,19 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
             {/* City / State */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <label htmlFor={`${fieldIdPrefix}-cityState`} className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 City / State or ZIP *
               </label>
               <input
+                id={`${fieldIdPrefix}-cityState`}
                 type="text"
                 name="cityState"
                 required
                 placeholder="e.g. Austin, TX or 78701"
                 value={formData.cityState}
                 onChange={(e) => setFormData({ ...formData, cityState: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#94A3B8] ${
+                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-[#CBD5E1] ${
                   errors.cityState
                     ? 'border-red-300 dark:border-red-500/80 focus:ring-red-400 bg-red-50/40 dark:bg-red-950/30'
                     : 'border-slate-300 dark:border-[#475569] focus:ring-sky-500 focus:border-transparent'
@@ -506,11 +513,14 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
             {/* Service Needed Dropdown */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <label htmlFor={`${fieldIdPrefix}-serviceNeeded`} className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                 <Wrench className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Service Needed *
               </label>
               <select
+                id={`${fieldIdPrefix}-serviceNeeded`}
+                name="serviceNeeded"
+                aria-label="Service Needed"
                 value={formData.serviceNeeded}
                 onChange={(e) => setFormData({ ...formData, serviceNeeded: e.target.value })}
                 className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-[#475569] text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white font-medium"
@@ -525,11 +535,12 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
             {/* Preferred Date */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <label htmlFor={`${fieldIdPrefix}-preferredDate`} className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Preferred Date
               </label>
               <input
+                id={`${fieldIdPrefix}-preferredDate`}
                 type="date"
                 name="preferredDate"
                 value={formData.preferredDate}
@@ -546,7 +557,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 <span className="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider block">
                   Upfront Pricing &amp; Promotion
                 </span>
-                <span className="text-[11px] text-slate-500 dark:text-[#CBD5E1]">
+                <span className="text-[11px] text-slate-600 dark:text-[#CBD5E1]">
                   Verified residential pricing for {formData.serviceNeeded}
                 </span>
               </div>
@@ -571,7 +582,9 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                   <div className="relative grow">
                     <Tag className="w-4 h-4 text-slate-400 dark:text-[#94A3B8] absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
+                      id={`${fieldIdPrefix}-couponCode`}
                       type="text"
+                      aria-label="Promotional coupon code"
                       placeholder="Have a coupon code? (e.g. FRESH40)"
                       value={couponInput}
                       onChange={(e) => {
@@ -584,7 +597,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                           handleApplyCoupon();
                         }
                       }}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 dark:border-[#475569] text-xs sm:text-sm font-mono uppercase bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#94A3B8] focus:outline-hidden focus:ring-2 focus:ring-sky-500"
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 dark:border-[#475569] text-xs sm:text-sm font-mono uppercase bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-[#CBD5E1] focus:outline-hidden focus:ring-2 focus:ring-sky-500"
                     />
                   </div>
                   <button
@@ -612,7 +625,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                   <button
                     type="button"
                     onClick={handleRemoveCoupon}
-                    className="text-slate-500 hover:text-slate-800 dark:text-[#CBD5E1] dark:hover:text-white text-xs font-bold px-2 py-1 hover:bg-emerald-100 dark:hover:bg-emerald-900/70 rounded-lg cursor-pointer transition-colors shrink-0 ml-auto"
+                    className="text-slate-600 hover:text-slate-900 dark:text-[#CBD5E1] dark:hover:text-white text-xs font-bold px-2 py-1 hover:bg-emerald-100 dark:hover:bg-emerald-900/70 rounded-lg cursor-pointer transition-colors shrink-0 ml-auto"
                     title="Remove coupon"
                   >
                     Remove
@@ -635,7 +648,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 <>
                   <div className="flex items-center justify-between text-slate-600 dark:text-[#CBD5E1]">
                     <span>Regular Price</span>
-                    <span className="line-through text-slate-500 dark:text-slate-400 font-semibold">${currentRegularPrice.toFixed(2)}</span>
+                    <span className="line-through text-slate-600 dark:text-slate-300 font-semibold">${currentRegularPrice.toFixed(2)}</span>
                   </div>
                   <div className="flex items-center justify-between text-emerald-700 dark:text-emerald-400 font-bold">
                     <span>November Discount (40%)</span>
@@ -662,16 +675,18 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
           {/* Message */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+            <label htmlFor={`${fieldIdPrefix}-message`} className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
               <MessageSquare className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
               Message / Home Details (Optional)
             </label>
             <textarea
+              id={`${fieldIdPrefix}-message`}
+              name="message"
               rows={3}
               placeholder="Tell us about your home (e.g. approximate square footage, number of vents, last cleaned date, or specific symptoms like dusty vents)..."
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-[#475569] text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#94A3B8]"
+              className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-[#475569] text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-[#CBD5E1]"
             />
           </div>
 
@@ -701,7 +716,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 </>
               )}
             </button>
-            <div className="flex items-center justify-center gap-4 mt-3 text-[11px] text-slate-500 dark:text-[#94A3B8] font-medium">
+            <div className="flex items-center justify-center gap-4 mt-3 text-[11px] text-slate-600 dark:text-[#CBD5E1] font-medium">
               <span>🔒 100% Privacy Protected</span>
               <span>·</span>
               <span>No Obligation</span>
@@ -726,6 +741,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
           className="relative w-full max-w-[calc(100vw-1.25rem)] sm:max-w-2xl bg-white dark:bg-[#101A30] backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(15,23,42,0.35),0_1px_2px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.8)] border border-slate-200 dark:border-slate-700/80 overflow-hidden my-auto max-h-[90vh] flex flex-col transform transition-all duration-300 animate-in zoom-in-95 text-left"
           role="dialog"
           aria-modal="true"
+          aria-labelledby="quote-modal-title"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
@@ -739,13 +755,13 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 <X className="w-5 h-5" />
               </button>
             )}
-            <div className="flex items-center gap-2 text-sky-200 text-xs font-semibold uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-sky-100 text-xs font-semibold uppercase tracking-wider">
               <Sparkles className="w-4 h-4 text-emerald-300" />
               Fresh Breeze Dispatch
             </div>
-            <h3 className="text-lg sm:text-xl font-bold mt-1 text-white font-display">
+            <h2 id="quote-modal-title" className="text-lg sm:text-xl font-bold mt-1 text-white font-display">
               Request a Free Quote
-            </h3>
+            </h2>
             <p className="text-sky-100 text-xs mt-1 leading-relaxed">
               Complete this 30-second form. Our residential team will confirm availability and deliver a transparent estimate.
             </p>

@@ -258,6 +258,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
           >
             <input
               type="text"
+              aria-label="Type your message to Fresh Breeze Assistant"
               placeholder="Ask a question or type here..."
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
