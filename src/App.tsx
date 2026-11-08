@@ -355,7 +355,7 @@ export default function App() {
         onToggleTheme={handleToggleTheme}
       />
 
-      <main className="grow pb-24 md:pb-0 w-full max-w-full overflow-x-hidden">
+      <main className="grow pb-[calc(6rem+env(safe-area-inset-bottom,0px))] md:pb-0 w-full max-w-full overflow-x-hidden">
         {/* 2. Hero */}
         <Hero
           onOpenQuote={() => openQuoteModal()}
@@ -366,6 +366,7 @@ export default function App() {
         <ServicesSection
           onLearnMore={(serviceId) => navigateToService(serviceId)}
           onSelectServiceForQuote={(serviceTitle) => openQuoteModal(serviceTitle)}
+          onClaimOffer={(code) => handleClaimPromo(code)}
         />
 
         {/* 4. Why Choose Fresh Breeze */}

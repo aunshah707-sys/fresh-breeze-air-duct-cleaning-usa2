@@ -34,19 +34,18 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenQuote }) => {
   ];
 
   return (
-    <section id="how-it-works" className="py-16 sm:py-24 bg-white dark:bg-slate-950 relative overflow-hidden w-full max-w-full transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-full">
+    <section id="how-it-works" className="py-16 sm:py-24 bg-gradient-to-b from-white via-sky-50/40 to-white dark:from-slate-950 dark:via-[#091427] dark:to-slate-950 relative overflow-hidden w-full max-w-full transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-full relative z-10">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-sky-700 dark:text-sky-400 uppercase tracking-widest mb-2.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-white/90 dark:border-white/10 text-xs font-bold text-sky-700 dark:text-sky-400 uppercase tracking-widest mb-3 shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
             <span>Simple 3-Step Process</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display text-balance">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display text-balance">
             How It Works
           </h2>
-          <p className="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p className="mt-3 text-xs sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
             Getting your air ducts and dryer vent cleaned is fast, straightforward, and stress-free.
           </p>
         </div>
@@ -54,36 +53,36 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenQuote }) => {
         {/* Visual Timeline Grid */}
         <div className="relative w-full max-w-full">
           {/* Desktop connecting line between cards */}
-          <div className="hidden lg:block absolute top-1/2 left-[15%] right-[15%] -translate-y-8 h-0.5 bg-linear-to-r from-sky-200 via-emerald-200 to-sky-200 dark:from-sky-900/50 dark:via-emerald-900/50 dark:to-sky-900/50 -z-1" />
+          <div className="hidden lg:block absolute top-1/2 left-[15%] right-[15%] -translate-y-8 h-0.5 bg-gradient-to-r from-sky-200 via-emerald-200 to-sky-200 dark:from-sky-900/50 dark:via-emerald-900/50 dark:to-sky-900/50 -z-1" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-10 w-full max-w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 w-full max-w-full">
             {steps.map((item, idx) => {
               const Icon = item.icon;
               return (
                 <div
                   key={idx}
-                  className="relative bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-8 border border-slate-200/90 dark:border-slate-800 shadow-[0_4px_20px_rgba(15,23,42,0.05)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_45px_-12px_rgba(2,132,199,0.18)] hover:-translate-y-2 hover:border-sky-300 dark:hover:border-sky-500/50 transition-all duration-300 flex flex-col group w-full min-w-0"
+                  className="relative bg-white/75 dark:bg-slate-900/75 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-white/90 dark:border-white/10 shadow-[0_8px_24px_rgba(2,132,199,0.06),inset_0_1px_1px_rgba(255,255,255,0.9)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_36px_rgba(2,132,199,0.15)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col group w-full min-w-0"
                 >
                   {/* Step Number Badge */}
-                  <div className="flex items-center justify-between mb-6">
-                    <div className={`w-14 h-14 rounded-2xl border flex items-center justify-center shadow-xs transition-transform group-hover:scale-105 shrink-0 ${item.color}`}>
-                      <Icon className="w-7 h-7" />
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="w-13 h-13 rounded-2xl bg-gradient-to-br from-sky-50 to-sky-100 dark:from-slate-800 dark:to-slate-800/80 border border-sky-100 dark:border-slate-700 flex items-center justify-center text-sky-600 dark:text-sky-300 shadow-2xs transition-transform group-hover:scale-105 shrink-0">
+                      <Icon className="w-6 h-6" />
                     </div>
-                    <span className="font-display font-extrabold text-3xl sm:text-4xl text-slate-200 dark:text-slate-700 group-hover:text-sky-300 dark:group-hover:text-sky-400 transition-colors">
+                    <span className="font-display font-extrabold text-3xl sm:text-4xl text-sky-200 dark:text-slate-700 group-hover:text-sky-400 dark:group-hover:text-sky-300 transition-colors">
                       {item.step}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white font-display">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white font-display">
                     {item.title}
                   </h3>
 
-                  <p className="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed grow">
+                  <p className="mt-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed grow">
                     {item.desc}
                   </p>
 
-                  <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
-                    <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
+                  <div className="mt-5 pt-3.5 border-t border-slate-100 dark:border-slate-800/80">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                       <span>{item.highlight}</span>
                     </div>
@@ -95,13 +94,13 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenQuote }) => {
         </div>
 
         {/* Quick CTA */}
-        <div className="mt-12 sm:mt-14 text-center">
+        <div className="mt-10 sm:mt-12 text-center">
           <button
             onClick={onOpenQuote}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3.5 rounded-xl bg-linear-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 text-white font-bold text-xs sm:text-sm shadow-[0_8px_20px_rgba(2,132,199,0.25)] hover:shadow-[0_12px_28px_rgba(2,132,199,0.35)] hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-sky-500 via-sky-600 to-emerald-500 hover:from-sky-400 hover:via-sky-500 hover:to-emerald-400 text-white font-extrabold text-xs sm:text-sm shadow-[0_8px_24px_rgba(2,132,199,0.35)] hover:shadow-[0_12px_32px_rgba(16,185,129,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer border border-white/20"
           >
             <span>Start Step 1: Request Your Free Quote</span>
-            <ArrowRight className="w-4 h-4 shrink-0" />
+            <ArrowRight className="w-4 h-4 text-emerald-100 shrink-0" />
           </button>
         </div>
       </div>

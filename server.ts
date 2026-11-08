@@ -1,5 +1,6 @@
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
@@ -13,7 +14,15 @@ const __dirname = path.dirname(__filename);
 
 async function startServer() {
   const app = express();
-  const PORT = process.env.PORT || 3000;
+  
+  // Support --port and --host CLI flags passed by dev runner
+  const portArgIndex = process.argv.indexOf('--port');
+  const portFromArg = portArgIndex !== -1 ? parseInt(process.argv[portArgIndex + 1], 10) : undefined;
+  // Dev server must listen on port 3000. Cloud Run sets PORT=8080 for Nginx, so avoid binding to 8080.
+  const PORT = portFromArg || (process.env.PORT && process.env.PORT !== '8080' ? parseInt(process.env.PORT, 10) : 3000);
+
+  const hostArgIndex = process.argv.indexOf('--host');
+  const HOST = hostArgIndex !== -1 ? process.argv[hostArgIndex + 1] : '0.0.0.0';
 
   app.use(express.json());
 
@@ -202,10 +211,27 @@ async function startServer() {
       appType: 'spa',
     });
     app.use(vite.middlewares);
+
+    // Fallback in dev mode for client-side SPA routing
+    app.use('*', async (req, res, next) => {
+      const url = req.originalUrl;
+      try {
+        const indexHtmlPath = path.resolve(__dirname, 'index.html');
+        let template = await fs.promises.readFile(indexHtmlPath, 'utf-8');
+        template = await vite.transformIndexHtml(url, template);
+        res.status(200).set({ 'Content-Type': 'text/html' }).end(template);
+      } catch (e) {
+        next(e);
+      }
+    });
   }
 
-  app.listen(Number(PORT), '0.0.0.0', () => {
-    console.log(`Server running on http://0.0.0.0:${PORT}`);
+  const server = app.listen(Number(PORT), HOST, () => {
+    console.log(`Server running on http://${HOST}:${PORT}`);
+  });
+
+  server.on('error', (err: any) => {
+    console.error('Server error:', err);
   });
 }
 

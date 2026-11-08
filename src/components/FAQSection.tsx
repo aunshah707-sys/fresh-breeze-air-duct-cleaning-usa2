@@ -75,15 +75,18 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
   };
 
   return (
-    <section id="faq" className="py-16 sm:py-24 bg-white dark:bg-slate-950 relative w-full max-w-full overflow-hidden transition-colors duration-200">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-full">
+    <section id="faq" className="py-16 sm:py-24 bg-linear-to-b from-white via-sky-50/40 to-white dark:from-slate-950 dark:via-slate-900/40 dark:to-slate-950 relative w-full max-w-full overflow-hidden transition-colors duration-200">
+      {/* Decorative atmospheric blur */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-sky-400/10 via-emerald-400/10 to-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-full relative z-10">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-sky-700 dark:text-sky-400 uppercase tracking-widest mb-2.5">
-            <HelpCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+          <div className="inline-flex items-center gap-2 glass-pill px-3.5 py-1.5 rounded-full text-xs font-bold text-sky-800 dark:text-sky-300 uppercase tracking-widest mb-3.5 shadow-2xs">
+            <HelpCircle className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
             <span>Frequently Asked Questions</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display text-balance">
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight font-display text-balance">
             Got Questions About Duct &amp; Vent Cleaning?
           </h2>
           <p className="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
@@ -98,10 +101,10 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
             return (
               <div
                 key={index}
-                className={`rounded-2xl border transition-all duration-300 overflow-hidden w-full max-w-full ${
+                className={`rounded-2xl transition-all duration-300 overflow-hidden w-full max-w-full ${
                   isOpen
-                    ? 'border-sky-300/90 dark:border-sky-500/60 bg-white dark:bg-slate-900 shadow-[0_8px_25px_rgba(2,132,199,0.1)] dark:shadow-[0_8px_25px_rgba(0,0,0,0.3)] -translate-y-0.5'
-                    : 'border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900/90 shadow-xs hover:shadow-[0_4px_16px_rgba(15,23,42,0.06)] hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700'
+                    ? 'glass-surface border border-sky-300/80 dark:border-sky-500/50 shadow-[0_12px_32px_rgba(2,132,199,0.12),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_12px_32px_rgba(0,0,0,0.4)] -translate-y-0.5'
+                    : 'bg-white/70 dark:bg-slate-900/60 backdrop-blur-md border border-white/80 dark:border-white/10 shadow-2xs hover:shadow-[0_6px_20px_rgba(15,23,42,0.06)] hover:-translate-y-0.5 hover:border-sky-200/80 dark:hover:border-slate-700'
                 }`}
               >
                 <button
@@ -115,7 +118,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
                   <div
                     className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${
                       isOpen
-                        ? 'bg-sky-600 text-white rotate-180'
+                        ? 'bg-linear-to-r from-sky-500 to-emerald-500 text-white rotate-180 shadow-xs'
                         : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
                     }`}
                   >
@@ -124,10 +127,10 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 sm:px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100/60 dark:border-slate-800/80 animate-in fade-in duration-200">
+                  <div className="px-5 sm:px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100/80 dark:border-white/10 animate-in fade-in duration-200">
                     <p>{faq.answer}</p>
                     {faq.serviceSlug && onNavigateToService && (
-                      <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/60 flex items-center">
+                      <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-white/10 flex items-center">
                         <button
                           type="button"
                           onClick={() => onNavigateToService(faq.serviceSlug!)}
@@ -146,7 +149,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
         </div>
 
         {/* FAQ Bottom Help Card */}
-        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+        <div className="mt-12 p-6 sm:p-8 rounded-3xl glass-surface border border-white/80 dark:border-white/10 shadow-[0_16px_40px_rgba(2,132,199,0.08),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_16px_40px_rgba(0,0,0,0.4)] flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
           <div>
             <h3 className="text-base font-bold text-slate-900 dark:text-white font-display">
               Have a specific question about your home?
@@ -159,7 +162,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto shrink-0">
             <a
               href={SMS_URL}
-              className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              className="glass-pill w-full sm:w-auto px-4 py-2.5 rounded-2xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
               aria-label="Text us at (737) 282-1351"
             >
               <MessageSquare className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
@@ -167,7 +170,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
             </a>
             <button
               onClick={onOpenQuote}
-              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold shadow-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+              className="btn-gradient-primary w-full sm:w-auto px-5 py-2.5 rounded-2xl text-white text-xs font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <span>GET A FREE QUOTE</span>
               <ArrowRight className="w-3.5 h-3.5" />

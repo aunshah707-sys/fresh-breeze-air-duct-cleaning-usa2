@@ -1,0 +1,240 @@
+import React, { useState, useEffect } from 'react';
+import { X, Sparkles, Tag, ArrowRight, ShieldCheck, CheckCircle2, Clock, Copy, Check } from 'lucide-react';
+import { useCountdown } from '../utils/useCountdown';
+import { PROMO_COUPON_CODE } from '../../lib/pricing';
+
+interface PromoModalProps {
+  onClaimOffer: (couponCode?: string) => void;
+}
+
+export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const countdown = useCountdown();
+
+  useEffect(() => {
+    // Check if user has already seen or closed the promo in this session
+    try {
+      const hasSeenPromo = sessionStorage.getItem('fresh_breeze_promo_shown');
+      if (hasSeenPromo) {
+        return;
+      }
+    } catch {
+      // Ignore sessionStorage errors in restricted environments
+    }
+
+    // Show after 2.5 second delay
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+      try {
+        sessionStorage.setItem('fresh_breeze_promo_shown', 'true');
+      } catch {
+        // Ignore
+      }
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleClaim = () => {
+    setIsOpen(false);
+    onClaimOffer(PROMO_COUPON_CODE);
+  };
+
+  const handleCopyCode = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(PROMO_COUPON_CODE);
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = PROMO_COUPON_CODE;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 bg-slate-950/50 backdrop-blur-md transition-opacity duration-300 animate-in fade-in overflow-y-auto w-full"
+      role="dialog"
+      aria-modal="true"
+      aria-label="November Special — 40% OFF"
+      onClick={handleClose}
+    >
+      <div 
+        className="relative w-full max-w-[calc(100vw-1.25rem)] sm:max-w-lg bg-white dark:bg-[#101A30] backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(2,132,199,0.3)] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.8)] border border-white/80 dark:border-slate-700/80 overflow-hidden transform transition-all duration-300 animate-in zoom-in-95 scale-100 text-left my-auto max-h-[90vh] flex flex-col"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Subtle decorative background breeze & airflow pattern */}
+        <div className="absolute top-0 right-0 left-0 h-44 sm:h-48 bg-linear-to-br from-sky-600 via-sky-700 to-emerald-700 pointer-events-none overflow-hidden">
+          {/* Airflow waves overlay */}
+          <svg 
+            className="absolute inset-0 w-full h-full opacity-20" 
+            viewBox="0 0 400 180" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+          >
+            <path d="M-20 60 C 80 20, 180 120, 320 50 C 370 20, 420 80, 450 60" stroke="#ffffff" strokeWidth="14" strokeLinecap="round" />
+            <path d="M-20 110 C 90 60, 200 160, 340 90 C 390 60, 440 120, 460 90" stroke="#ffffff" strokeWidth="10" strokeLinecap="round" />
+            <path d="M-20 150 C 100 100, 220 180, 360 120 C 400 100, 440 140, 470 120" stroke="#ffffff" strokeWidth="8" strokeLinecap="round" />
+          </svg>
+          {/* Subtle animated floating sparkle dots */}
+          <div className="absolute top-6 left-8 w-2 h-2 rounded-full bg-white/70 animate-ping" />
+          <div className="absolute top-12 right-16 w-1.5 h-1.5 rounded-full bg-emerald-200/80 animate-pulse" />
+        </div>
+
+        {/* Close Button */}
+        <button
+          onClick={handleClose}
+          aria-label="Close promotion dialog"
+          className="absolute top-3.5 right-3.5 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/25 hover:bg-black/40 text-white flex items-center justify-center transition-colors backdrop-blur-xs cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-white"
+        >
+          <X className="w-4 h-4 sm:w-5 sm:h-5" />
+        </button>
+
+        {/* Header content inside the colored banner */}
+        <div className="relative pt-5 sm:pt-6 px-4 sm:px-8 text-center text-white shrink-0">
+          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 sm:py-1 rounded-full bg-white/20 backdrop-blur-md text-sky-100 text-[11px] sm:text-xs font-bold uppercase tracking-wider shadow-inner mb-1 border border-white/20">
+            <Sparkles className="w-3.5 h-3.5 text-emerald-300 animate-spin" style={{ animationDuration: '6s' }} />
+            <span>NOVEMBER SPECIAL</span>
+          </div>
+
+          {/* Large, 3D-styled 40% OFF */}
+          <div className="py-0.5">
+            <span className="block text-4xl sm:text-6xl font-black tracking-tight font-display text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)]">
+              40% OFF
+            </span>
+          </div>
+
+          <p className="text-white/95 font-bold text-xs sm:text-base mt-0.5 tracking-tight drop-shadow-xs">
+            Save 40% on Your Cleaning Service
+          </p>
+
+          {/* Coupon Code Pill */}
+          <div className="mt-2 inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 text-xs text-white max-w-full flex-wrap justify-center">
+            <span className="text-white/80 font-medium text-[11px] sm:text-xs">Coupon Code:</span>
+            <span className="font-mono font-extrabold tracking-wider bg-white/25 px-2 py-0.5 rounded text-white text-xs sm:text-sm">
+              {PROMO_COUPON_CODE}
+            </span>
+            <button
+              onClick={handleCopyCode}
+              type="button"
+              className="ml-0.5 p-1 hover:bg-white/20 rounded transition-colors text-white/90 hover:text-white cursor-pointer"
+              title="Copy coupon code"
+              aria-label="Copy coupon code"
+            >
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-300" /> : <Copy className="w-3.5 h-3.5" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Card Body */}
+        <div className="relative bg-white dark:bg-[#101A30] pt-4 pb-5 sm:pb-7 px-4 sm:px-8 mt-2.5 rounded-t-3xl border-t border-slate-100 dark:border-slate-800 space-y-3.5 sm:space-y-4 overflow-y-auto grow min-w-0">
+          
+          {/* Live Countdown Display */}
+          <div className="p-3 sm:p-3.5 rounded-2xl border text-center transition-all bg-slate-50 dark:bg-[#17243A] border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white w-full">
+            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-xs font-bold uppercase tracking-wider mb-2">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-[10.5px] sm:text-[11px] font-extrabold border border-emerald-300 dark:border-emerald-700">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                ACTIVE OFFER
+              </span>
+              <div className="flex items-center gap-1 text-slate-800 dark:text-white font-bold text-[11px] sm:text-xs">
+                <Clock className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+                <span>November Promotion Ends In</span>
+              </div>
+            </div>
+
+            <div>
+              <div className="grid grid-cols-4 gap-1.5 sm:gap-2 max-w-xs mx-auto">
+                <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
+                  <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
+                    {countdown.days}
+                  </span>
+                  <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Days</span>
+                </div>
+                <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
+                  <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
+                    {String(countdown.hours).padStart(2, '0')}
+                  </span>
+                  <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Hours</span>
+                </div>
+                <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
+                  <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
+                    {String(countdown.minutes).padStart(2, '0')}
+                  </span>
+                  <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Mins</span>
+                </div>
+                <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
+                  <span className="block text-lg sm:text-xl font-black text-sky-600 dark:text-sky-400 font-mono">
+                    {String(countdown.seconds).padStart(2, '0')}
+                  </span>
+                  <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Secs</span>
+                </div>
+              </div>
+              <p className="text-[11px] text-slate-500 dark:text-[#CBD5E1] mt-2">
+                Expires November 30, 2026 at 11:59:59 PM EST (America/New_York)
+              </p>
+            </div>
+          </div>
+
+          {/* Value inclusions pill list */}
+          <div className="bg-sky-50/80 dark:bg-[#17243A] border border-sky-200/70 dark:border-slate-700 rounded-2xl p-3.5 space-y-2 text-xs sm:text-sm text-slate-800 dark:text-[#CBD5E1]">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>Valid on Air Duct ($149.40), Dryer Vent ($149.40) &amp; Chimney ($167.40)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>Free quote with zero obligation for homeowners</span>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="space-y-2.5 pt-1">
+            {/* Primary Claim Button */}
+            <button
+              onClick={handleClaim}
+              className="w-full py-4 px-6 rounded-2xl bg-linear-to-r from-emerald-600 via-emerald-600 to-sky-600 hover:from-emerald-700 hover:via-emerald-700 hover:to-sky-700 active:scale-[0.99] text-white font-extrabold text-base tracking-wide shadow-lg shadow-emerald-600/25 hover:shadow-xl hover:shadow-emerald-600/30 transition-all flex items-center justify-center gap-2.5 cursor-pointer border border-emerald-500/30"
+            >
+              <Tag className="w-5 h-5 text-emerald-200" />
+              <span>Claim Your Offer</span>
+              <ArrowRight className="w-4 h-4 text-emerald-100" />
+            </button>
+
+            {/* Second Option: Maybe Later */}
+            <button
+              onClick={handleClose}
+              className="w-full py-2 text-xs sm:text-sm font-semibold text-slate-500 dark:text-[#CBD5E1] hover:text-slate-800 dark:hover:text-white transition-colors text-center cursor-pointer"
+            >
+              Maybe Later
+            </button>
+          </div>
+
+          {/* Trust guarantee badge */}
+          <div className="pt-0.5 flex items-center justify-center gap-1.5 text-[11px] text-slate-500 dark:text-[#CBD5E1] text-center">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+            <span>Honest, upfront pricing for residential homeowners across the USA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

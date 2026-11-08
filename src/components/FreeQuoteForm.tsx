@@ -408,12 +408,12 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
         </div>
       ) : (
         /* The High-Converting Quote Form */
-        <form onSubmit={handleSubmit} className={isModal ? "space-y-4 w-full" : "p-4 sm:p-8 md:p-10 space-y-5 sm:space-y-6 w-full"}>
+        <form onSubmit={handleSubmit} className={isModal ? "space-y-4 w-full" : "p-5 sm:p-8 md:p-10 space-y-5 sm:space-y-6 w-full"}>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             {/* Name */}
             <div>
-              <label htmlFor={`${fieldIdPrefix}-name`} className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <label htmlFor={`${fieldIdPrefix}-name`} className="block text-xs font-bold text-slate-800 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                 <User className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Full Name *
               </label>
@@ -425,10 +425,10 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 placeholder="e.g. John Miller"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-[#CBD5E1] ${
+                className={`w-full px-4 py-3 rounded-2xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#CBD5E1] shadow-2xs ${
                   errors.name
-                    ? 'border-red-300 dark:border-red-500/80 focus:ring-red-400 bg-red-50/40 dark:bg-red-950/30'
-                    : 'border-slate-300 dark:border-[#475569] focus:ring-sky-500 focus:border-transparent'
+                    ? 'border-red-400 dark:border-red-500/80 focus:ring-red-400 bg-red-50/60 dark:bg-red-950/40'
+                    : 'border-white/90 dark:border-slate-700 focus:ring-sky-400/30 focus:border-sky-500'
                 }`}
               />
               {errors.name && (
@@ -438,7 +438,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
             {/* Phone Number */}
             <div>
-              <label htmlFor={`${fieldIdPrefix}-phone`} className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <label htmlFor={`${fieldIdPrefix}-phone`} className="block text-xs font-bold text-slate-800 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                 <Phone className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Phone Number *
               </label>
@@ -450,10 +450,10 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 placeholder="(555) 123-4567"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-[#CBD5E1] ${
+                className={`w-full px-4 py-3 rounded-2xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#CBD5E1] shadow-2xs ${
                   errors.phone
-                    ? 'border-red-300 dark:border-red-500/80 focus:ring-red-400 bg-red-50/40 dark:bg-red-950/30'
-                    : 'border-slate-300 dark:border-[#475569] focus:ring-sky-500 focus:border-transparent'
+                    ? 'border-red-400 dark:border-red-500/80 focus:ring-red-400 bg-red-50/60 dark:bg-red-950/40'
+                    : 'border-white/90 dark:border-slate-700 focus:ring-sky-400/30 focus:border-sky-500'
                 }`}
               />
               {errors.phone && (
@@ -463,7 +463,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
             {/* Email */}
             <div>
-              <label htmlFor={`${fieldIdPrefix}-email`} className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <label htmlFor={`${fieldIdPrefix}-email`} className="block text-xs font-bold text-slate-800 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                 <Mail className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Email Address *
               </label>
@@ -475,10 +475,10 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 placeholder="john@example.com"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-[#CBD5E1] ${
+                className={`w-full px-4 py-3 rounded-2xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#CBD5E1] shadow-2xs ${
                   errors.email
-                    ? 'border-red-300 dark:border-red-500/80 focus:ring-red-400 bg-red-50/40 dark:bg-red-950/30'
-                    : 'border-slate-300 dark:border-[#475569] focus:ring-sky-500 focus:border-transparent'
+                    ? 'border-red-400 dark:border-red-500/80 focus:ring-red-400 bg-red-50/60 dark:bg-red-950/40'
+                    : 'border-white/90 dark:border-slate-700 focus:ring-sky-400/30 focus:border-sky-500'
                 }`}
               />
               {errors.email && (
@@ -488,7 +488,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
             {/* City / State */}
             <div>
-              <label htmlFor={`${fieldIdPrefix}-cityState`} className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <label htmlFor={`${fieldIdPrefix}-cityState`} className="block text-xs font-bold text-slate-800 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 City / State or ZIP *
               </label>
@@ -500,10 +500,10 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 placeholder="e.g. Austin, TX or 78701"
                 value={formData.cityState}
                 onChange={(e) => setFormData({ ...formData, cityState: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-[#CBD5E1] ${
+                className={`w-full px-4 py-3 rounded-2xl border text-sm transition-all focus:outline-hidden focus:ring-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#CBD5E1] shadow-2xs ${
                   errors.cityState
-                    ? 'border-red-300 dark:border-red-500/80 focus:ring-red-400 bg-red-50/40 dark:bg-red-950/30'
-                    : 'border-slate-300 dark:border-[#475569] focus:ring-sky-500 focus:border-transparent'
+                    ? 'border-red-400 dark:border-red-500/80 focus:ring-red-400 bg-red-50/60 dark:bg-red-950/40'
+                    : 'border-white/90 dark:border-slate-700 focus:ring-sky-400/30 focus:border-sky-500'
                 }`}
               />
               {errors.cityState && (
@@ -513,7 +513,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
             {/* Service Needed Dropdown */}
             <div>
-              <label htmlFor={`${fieldIdPrefix}-serviceNeeded`} className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <label htmlFor={`${fieldIdPrefix}-serviceNeeded`} className="block text-xs font-bold text-slate-800 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                 <Wrench className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Service Needed *
               </label>
@@ -523,7 +523,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 aria-label="Service Needed"
                 value={formData.serviceNeeded}
                 onChange={(e) => setFormData({ ...formData, serviceNeeded: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-[#475569] text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white font-medium"
+                className="w-full px-4 py-3 rounded-2xl border border-white/90 dark:border-slate-700 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-400/30 focus:border-sky-500 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white font-medium shadow-2xs"
               >
                 <option value="Air Duct Cleaning" className="bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white">Air Duct Cleaning ($249)</option>
                 <option value="Dryer Vent Cleaning" className="bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white">Dryer Vent Cleaning ($249)</option>
@@ -535,7 +535,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
             {/* Preferred Date */}
             <div>
-              <label htmlFor={`${fieldIdPrefix}-preferredDate`} className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <label htmlFor={`${fieldIdPrefix}-preferredDate`} className="block text-xs font-bold text-slate-800 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 Preferred Date
               </label>
@@ -545,16 +545,16 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 name="preferredDate"
                 value={formData.preferredDate}
                 onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-[#475569] text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white dark:[color-scheme:dark]"
+                className="w-full px-4 py-3 rounded-2xl border border-white/90 dark:border-slate-700 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-400/30 focus:border-sky-500 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white dark:[color-scheme:dark] shadow-2xs"
               />
             </div>
           </div>
 
           {/* Pricing & Coupon Section */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700/80 bg-slate-50 dark:bg-[#17243A] p-4 sm:p-5 space-y-4">
+          <div className="rounded-3xl glass-surface p-4 sm:p-5 space-y-4 border border-white/80 dark:border-white/10 shadow-xs">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <div>
-                <span className="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider block">
+                <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider block">
                   Upfront Pricing &amp; Promotion
                 </span>
                 <span className="text-[11px] text-slate-600 dark:text-[#CBD5E1]">
@@ -563,10 +563,10 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
               </div>
 
               {/* Live Countdown Badge */}
-              <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${
+              <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md ${
                 countdown.isExpired 
-                  ? 'bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-200 border border-rose-300 dark:border-rose-700' 
-                  : 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700'
+                  ? 'bg-rose-100/90 dark:bg-rose-950/80 text-rose-800 dark:text-rose-200 border border-rose-300 dark:border-rose-700' 
+                  : 'bg-emerald-100/90 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700'
               }`}>
                 <Clock className="w-3.5 h-3.5" />
                 <span>
@@ -597,24 +597,24 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                           handleApplyCoupon();
                         }
                       }}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 dark:border-[#475569] text-xs sm:text-sm font-mono uppercase bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-[#CBD5E1] focus:outline-hidden focus:ring-2 focus:ring-sky-500"
+                      className="w-full pl-10 pr-4 py-3 rounded-2xl border border-white/90 dark:border-slate-700 text-xs sm:text-sm font-mono uppercase bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#CBD5E1] focus:outline-hidden focus:ring-2 focus:ring-sky-400/30 focus:border-sky-500 shadow-2xs"
                     />
                   </div>
                   <button
                     type="button"
                     onClick={handleApplyCoupon}
                     disabled={isValidatingCoupon || !couponInput.trim()}
-                    className="px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-sky-600 hover:bg-slate-800 dark:hover:bg-sky-500 disabled:opacity-50 text-white text-xs sm:text-sm font-bold transition-colors cursor-pointer shrink-0"
+                    className="btn-gradient-primary px-6 py-3 rounded-2xl disabled:opacity-50 text-white text-xs sm:text-sm font-bold shadow-sm transition-colors cursor-pointer shrink-0"
                   >
                     {isValidatingCoupon ? 'Checking...' : 'Apply Code'}
                   </button>
                 </div>
               ) : (
-                <div className="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-300 dark:border-emerald-700 text-emerald-950 dark:text-emerald-100 text-xs sm:text-sm animate-in fade-in min-w-0">
+                <div className="flex flex-wrap items-center justify-between gap-2 p-3.5 rounded-2xl bg-emerald-50/90 dark:bg-emerald-950/80 backdrop-blur-md border border-emerald-300 dark:border-emerald-700 text-emerald-950 dark:text-emerald-100 text-xs sm:text-sm animate-in fade-in min-w-0 shadow-2xs">
                   <div className="flex items-center gap-2 min-w-0">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     <div className="min-w-0 flex flex-wrap items-center gap-1.5">
-                      <span className="font-extrabold font-mono text-emerald-900 dark:text-white bg-emerald-200 dark:bg-emerald-900/90 px-2 py-0.5 rounded text-xs border border-emerald-300 dark:border-emerald-600 shrink-0">
+                      <span className="font-extrabold font-mono text-emerald-900 dark:text-white bg-emerald-200 dark:bg-emerald-900/90 px-2 py-0.5 rounded-lg text-xs border border-emerald-300 dark:border-emerald-600 shrink-0">
                         {appliedCoupon}
                       </span>
                       <span className="font-semibold text-emerald-900 dark:text-emerald-200 break-words">
@@ -625,7 +625,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                   <button
                     type="button"
                     onClick={handleRemoveCoupon}
-                    className="text-slate-600 hover:text-slate-900 dark:text-[#CBD5E1] dark:hover:text-white text-xs font-bold px-2 py-1 hover:bg-emerald-100 dark:hover:bg-emerald-900/70 rounded-lg cursor-pointer transition-colors shrink-0 ml-auto"
+                    className="text-slate-600 hover:text-slate-900 dark:text-[#CBD5E1] dark:hover:text-white text-xs font-bold px-2.5 py-1 hover:bg-emerald-100 dark:hover:bg-emerald-900/70 rounded-lg cursor-pointer transition-colors shrink-0 ml-auto"
                     title="Remove coupon"
                   >
                     Remove
@@ -635,7 +635,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
               {/* Error display (e.g. October offer has expired) */}
               {couponError && (
-                <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/80 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-xs flex items-center gap-2 animate-in fade-in">
+                <div className="p-3.5 rounded-2xl bg-rose-50/90 dark:bg-rose-950/80 backdrop-blur-md border border-rose-300 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-xs flex items-center gap-2 animate-in fade-in">
                   <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0" />
                   <span className="font-medium">{couponError}</span>
                 </div>
@@ -643,20 +643,20 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
             </div>
 
             {/* Strict Pricing Display */}
-            <div className="pt-2 border-t border-slate-200 dark:border-slate-700 space-y-1.5 text-xs sm:text-sm">
+            <div className="pt-2 border-t border-slate-200/80 dark:border-white/10 space-y-1.5 text-xs sm:text-sm">
               {appliedCoupon && isDiscountActive ? (
                 <>
                   <div className="flex items-center justify-between text-slate-600 dark:text-[#CBD5E1]">
                     <span>Regular Price</span>
-                    <span className="line-through text-slate-600 dark:text-slate-300 font-semibold">${currentRegularPrice.toFixed(2)}</span>
+                    <span className="line-through text-slate-500 dark:text-slate-400 font-semibold">${currentRegularPrice.toFixed(2)}</span>
                   </div>
                   <div className="flex items-center justify-between text-emerald-700 dark:text-emerald-400 font-bold">
                     <span>November Discount (40%)</span>
                     <span>-${currentDiscountAmount.toFixed(2)}</span>
                   </div>
-                  <div className="flex items-center justify-between text-slate-900 dark:text-white font-extrabold text-sm sm:text-base pt-1.5 border-t border-dashed border-slate-300 dark:border-slate-600">
+                  <div className="flex items-center justify-between text-slate-900 dark:text-white font-extrabold text-sm sm:text-base pt-2 border-t border-dashed border-slate-300 dark:border-slate-700">
                     <span>Your Price</span>
-                    <span className="text-emerald-700 dark:text-emerald-400 text-lg sm:text-xl font-display font-black">
+                    <span className="text-emerald-700 dark:text-emerald-400 text-lg sm:text-2xl font-display font-black">
                       ${currentFinalPrice.toFixed(2)}
                     </span>
                   </div>
@@ -665,7 +665,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 /* Before applying the coupon, show ONLY the regular price */
                 <div className="flex items-center justify-between text-slate-900 dark:text-white font-bold text-sm sm:text-base">
                   <span className="text-slate-700 dark:text-[#CBD5E1]">Regular Price</span>
-                  <span className="text-slate-900 dark:text-white text-base sm:text-lg font-display font-bold">
+                  <span className="text-slate-900 dark:text-white text-base sm:text-lg font-display font-black">
                     ${currentRegularPrice.toFixed(2)}
                   </span>
                 </div>
@@ -675,7 +675,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
           {/* Message */}
           <div>
-            <label htmlFor={`${fieldIdPrefix}-message`} className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+            <label htmlFor={`${fieldIdPrefix}-message`} className="block text-xs font-bold text-slate-800 dark:text-[#CBD5E1] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
               <MessageSquare className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
               Message / Home Details (Optional)
             </label>
@@ -686,14 +686,14 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
               placeholder="Tell us about your home (e.g. approximate square footage, number of vents, last cleaned date, or specific symptoms like dusty vents)..."
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-[#475569] text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-[#CBD5E1]"
+              className="w-full px-4 py-3 rounded-2xl border border-white/90 dark:border-slate-700 text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-400/30 focus:border-sky-500 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#CBD5E1] shadow-2xs"
             />
           </div>
 
           {/* Submit Button */}
           <div className="pt-2 space-y-3">
             {submitError && (
-              <div className="p-3.5 rounded-xl bg-red-50 dark:bg-red-950/80 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200 text-xs flex items-center gap-2.5 animate-in fade-in">
+              <div className="p-3.5 rounded-2xl bg-red-50/90 dark:bg-red-950/80 backdrop-blur-md border border-red-300 dark:border-red-800 text-red-800 dark:text-red-200 text-xs flex items-center gap-2.5 animate-in fade-in">
                 <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 shrink-0" />
                 <span>{submitError}</span>
               </div>
@@ -702,7 +702,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 px-6 rounded-xl bg-linear-to-r from-sky-600 via-sky-700 to-emerald-600 hover:from-sky-700 hover:to-emerald-700 text-white font-extrabold text-base shadow-[0_8px_20px_rgba(2,132,199,0.25)] hover:shadow-[0_12px_28px_rgba(2,132,199,0.35)] hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75"
+              className="btn-gradient-primary w-full py-4 px-6 rounded-2xl text-white font-extrabold text-base shadow-[0_8px_20px_rgba(2,132,199,0.25)] hover:shadow-[0_12px_28px_rgba(2,132,199,0.35)] hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75"
             >
               {isSubmitting ? (
                 <span className="flex items-center gap-2">
@@ -716,7 +716,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
                 </>
               )}
             </button>
-            <div className="flex items-center justify-center gap-4 mt-3 text-[11px] text-slate-600 dark:text-[#CBD5E1] font-medium">
+            <div className="flex items-center justify-center gap-4 mt-3 text-[11px] text-slate-500 dark:text-[#CBD5E1] font-medium">
               <span>🔒 100% Privacy Protected</span>
               <span>·</span>
               <span>No Obligation</span>
@@ -734,23 +734,23 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
 
     return (
       <div 
-        className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-slate-950/50 backdrop-blur-md overflow-y-auto animate-in fade-in duration-300 w-full"
+        className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-slate-950/40 backdrop-blur-md overflow-y-auto animate-in fade-in duration-300 w-full"
         onClick={onClose}
       >
         <div 
-          className="relative w-full max-w-[calc(100vw-1.25rem)] sm:max-w-2xl bg-white dark:bg-[#101A30] backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(15,23,42,0.35),0_1px_2px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.8)] border border-slate-200 dark:border-slate-700/80 overflow-hidden my-auto max-h-[90vh] flex flex-col transform transition-all duration-300 animate-in zoom-in-95 text-left"
+          className="relative w-full max-w-[calc(100vw-1.25rem)] sm:max-w-2xl glass-surface backdrop-blur-2xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(2,132,199,0.25),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.8)] border border-white/80 dark:border-white/10 overflow-hidden my-auto max-h-[90vh] flex flex-col transform transition-all duration-300 animate-in zoom-in-95 text-left"
           role="dialog"
           aria-modal="true"
           aria-labelledby="quote-modal-title"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="bg-linear-to-r from-sky-600/92 via-sky-700/92 to-emerald-700/92 backdrop-blur-md px-4 sm:px-6 py-4 sm:py-5 pr-12 text-white relative shrink-0 border-b border-white/20 shadow-xs">
+          <div className="bg-gradient-to-r from-sky-600/90 via-sky-700/90 to-emerald-700/90 backdrop-blur-md px-5 sm:px-6 py-4 sm:py-5 pr-12 text-white relative shrink-0 border-b border-white/20 shadow-xs">
             {onClose && (
               <button 
                 onClick={onClose}
                 aria-label="Close dialog"
-                className="absolute top-3.5 right-3.5 p-2 rounded-xl text-white hover:text-white bg-white/15 hover:bg-white/25 backdrop-blur-xs transition-colors cursor-pointer"
+                className="absolute top-3.5 right-3.5 p-2 rounded-2xl text-white hover:text-white bg-white/15 hover:bg-white/25 backdrop-blur-md transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -776,17 +776,20 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
   }
 
   return (
-    <section id="quote-form" className="py-16 sm:py-24 bg-white dark:bg-slate-950 relative w-full max-w-full overflow-hidden scroll-mt-10 transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-full">
+    <section id="quote-form" className="py-16 sm:py-24 bg-linear-to-b from-white via-sky-50/40 to-white dark:from-slate-950 dark:via-slate-900/40 dark:to-slate-950 relative w-full max-w-full overflow-hidden scroll-mt-10 transition-colors duration-200">
+      {/* Ambient background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-r from-sky-400/10 via-emerald-400/10 to-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-full relative z-10">
         <div className="max-w-4xl mx-auto w-full max-w-full">
           {/* Section Header */}
           <div className="text-center mb-12 sm:mb-14">
-            <div className="inline-flex items-center gap-2 text-xs font-bold text-sky-700 dark:text-sky-400 uppercase tracking-widest mb-2.5">
-              <Sparkles className="w-4 h-4 text-emerald-500" />
+            <div className="inline-flex items-center gap-2 glass-pill px-3.5 py-1.5 rounded-full text-xs font-bold text-sky-800 dark:text-sky-300 uppercase tracking-widest mb-3.5 shadow-2xs">
+              <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
               <span>Free, No-Obligation Estimate</span>
-              <Sparkles className="w-4 h-4 text-emerald-500" />
+              <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display text-balance">
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight font-display text-balance">
               Request Your Free Air Duct Quote
             </h2>
             <p className="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-[#CBD5E1] max-w-xl mx-auto leading-relaxed">
@@ -795,7 +798,7 @@ export const FreeQuoteForm: React.FC<FreeQuoteFormProps> = ({
           </div>
 
           {/* Form Card or Success Screen */}
-          <div className="bg-white dark:bg-[#101A30] rounded-3xl border border-slate-200 dark:border-slate-800 shadow-[0_20px_50px_rgba(15,23,42,0.1),0_1px_3px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden transition-shadow duration-300 w-full max-w-full min-w-0">
+          <div className="glass-surface rounded-3xl border border-white/80 dark:border-white/10 shadow-[0_24px_60px_-12px_rgba(2,132,199,0.12),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.6)] overflow-hidden transition-shadow duration-300 w-full max-w-full min-w-0">
             {formContent}
           </div>
         </div>

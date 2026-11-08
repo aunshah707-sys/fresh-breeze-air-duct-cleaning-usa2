@@ -33,13 +33,13 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({
   }, []);
 
   return (
-    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-200">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-linear-to-b from-sky-50/40 via-white to-sky-50/40 dark:from-slate-950 dark:via-slate-900/60 dark:to-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-200">
       {/* Top Header */}
-      <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 w-full max-w-full">
+      <header className="sticky top-0 z-40 glass-surface border-b border-white/80 dark:border-white/10 backdrop-blur-xl w-full max-w-full shadow-2xs">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <button
             onClick={onBackToHome}
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-sky-700 dark:hover:text-sky-400 transition-colors cursor-pointer"
+            className="glass-pill inline-flex items-center gap-2 px-3 py-1.5 rounded-2xl text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-sky-700 dark:hover:text-sky-400 transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Home</span>
@@ -58,7 +58,7 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
-        <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-10 md:p-12 space-y-8">
+        <div className="glass-surface rounded-3xl border border-white/80 dark:border-white/10 shadow-[0_24px_60px_-12px_rgba(2,132,199,0.1),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.6)] p-6 sm:p-10 md:p-12 space-y-8">
           {/* Header */}
           <div className="border-b border-slate-200 dark:border-slate-800 pb-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 text-xs font-semibold mb-3 border border-sky-100 dark:border-sky-800/80">

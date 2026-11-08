@@ -238,20 +238,20 @@ export const ServicePage: React.FC<ServicePageProps> = ({
   };
 
   return (
-    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-200 flex flex-col">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-linear-to-b from-sky-50/40 via-white to-sky-50/40 dark:from-slate-950 dark:via-slate-900/60 dark:to-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-200 flex flex-col">
       {/* Top Sticky Navigation */}
-      <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 w-full max-w-full">
+      <header className="sticky top-0 z-40 glass-surface border-b border-white/80 dark:border-white/10 backdrop-blur-xl w-full max-w-full shadow-2xs">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-2 sm:gap-4 min-w-0">
           <div className="flex items-center gap-2 sm:gap-4 min-w-0">
             <button
               onClick={onBackToHome}
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-sky-700 dark:hover:text-sky-400 transition-colors cursor-pointer shrink-0"
+              className="glass-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-2xl text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-sky-700 dark:hover:text-sky-400 transition-colors cursor-pointer shrink-0"
             >
               <ArrowLeft className="w-4 h-4" />
               <span className="hidden sm:inline">Back to Home</span>
               <span className="sm:hidden">Back</span>
             </button>
-            <div className="hidden sm:block h-4 w-px bg-slate-200 dark:bg-slate-800 shrink-0" />
+            <div className="hidden sm:block h-4 w-px bg-slate-300 dark:bg-slate-700 shrink-0" />
             <a href="/" onClick={(e) => { e.preventDefault(); onBackToHome(); }} className="shrink min-w-0">
               <Logo size="sm" />
             </a>
@@ -263,7 +263,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
             )}
             <a
               href={SMS_URL}
-              className="hidden md:inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-sky-700 dark:hover:text-white bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-all cursor-pointer"
+              className="glass-pill hidden md:inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-sky-700 dark:hover:text-white transition-all cursor-pointer shadow-2xs"
               aria-label="Text us at (737) 282-1351"
             >
               <MessageSquare className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
@@ -271,7 +271,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
             </a>
             <button
               onClick={() => onOpenQuote(service.title)}
-              className="inline-flex items-center gap-1 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold text-white bg-linear-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 shadow-sm transition-all cursor-pointer shrink-0 whitespace-nowrap"
+              className="btn-gradient-primary inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl text-[11px] sm:text-xs font-bold text-white shadow-md hover:shadow-lg transition-all cursor-pointer shrink-0 whitespace-nowrap"
             >
               <span>FREE QUOTE</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -294,16 +294,16 @@ export const ServicePage: React.FC<ServicePageProps> = ({
         </nav>
 
         {/* Hero Section */}
-        <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-10 overflow-hidden">
+        <section className="glass-surface rounded-3xl border border-white/80 dark:border-white/10 shadow-[0_20px_50px_rgba(2,132,199,0.08),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-6 sm:p-10 overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-4 text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950/80 text-sky-800 dark:text-sky-300 text-xs font-semibold border border-sky-100 dark:border-sky-800/80">
+              <div className="inline-flex items-center gap-2 glass-pill px-3.5 py-1.5 rounded-full text-sky-800 dark:text-sky-300 text-xs font-semibold shadow-2xs">
                 {getIcon()}
                 <span>Fresh Breeze Residential Cleaning</span>
               </div>
 
               {/* H1 Heading */}
-              <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display">
+              <h1 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight font-display">
                 {seo.h1}
               </h1>
 
@@ -313,10 +313,10 @@ export const ServicePage: React.FC<ServicePageProps> = ({
 
               {/* Price & Promo Highlight */}
               <div className="pt-2 flex flex-wrap items-center gap-3">
-                <div className="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-800 dark:text-slate-200">
+                <div className="px-3.5 py-1.5 rounded-2xl glass-surface border border-white/80 dark:border-white/10 text-xs font-bold text-slate-800 dark:text-slate-200 shadow-2xs">
                   Regular Price: ${regularPrice}
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800 text-xs font-bold text-emerald-800 dark:text-emerald-300">
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl bg-emerald-50/90 dark:bg-emerald-950/80 backdrop-blur-md border border-emerald-300 dark:border-emerald-700 text-xs font-bold text-emerald-800 dark:text-emerald-300 shadow-2xs">
                   <Tag className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   <span>November Special: 40% OFF with code {PROMO_COUPON_CODE}</span>
                 </div>
@@ -326,14 +326,14 @@ export const ServicePage: React.FC<ServicePageProps> = ({
               <div className="pt-4 flex flex-col sm:flex-row items-center gap-3">
                 <button
                   onClick={() => onOpenQuote(service.title)}
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="btn-gradient-primary w-full sm:w-auto px-6 py-3.5 rounded-2xl text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>GET A FREE QUOTE ON THIS SERVICE</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 <a
                   href={SMS_URL}
-                  className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs sm:text-sm border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="glass-pill w-full sm:w-auto px-5 py-3.5 rounded-2xl text-slate-800 dark:text-slate-200 font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
                   aria-label="Text us at (737) 282-1351"
                 >
                   <MessageSquare className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
@@ -363,7 +363,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
         </section>
 
         {/* Detailed Service Scope Section */}
-        <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-10 space-y-6 text-left">
+        <section className="glass-surface rounded-3xl border border-white/80 dark:border-white/10 shadow-sm p-6 sm:p-10 space-y-6 text-left">
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-display">
               What Our {service.title} Service Includes
@@ -377,7 +377,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
             {service.whatIncluded.map((item, idx) => (
               <div 
                 key={idx} 
-                className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 flex items-start gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200"
+                className="p-4 rounded-2xl bg-white/70 dark:bg-slate-800/60 backdrop-blur-md border border-white/80 dark:border-white/10 flex items-start gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 shadow-2xs"
               >
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" />
                 <span className="leading-relaxed">{item}</span>
@@ -389,7 +389,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
         {/* Warning Signs & Homeowner Benefits */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
           {/* Warning Signs */}
-          <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
+          <section className="glass-surface rounded-3xl border border-white/80 dark:border-white/10 shadow-sm p-6 sm:p-8 space-y-4">
             <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
               <ShieldAlert className="w-5 h-5" />
               <h2 className="text-lg font-bold text-slate-900 dark:text-white font-display">
@@ -398,7 +398,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
             </div>
             <div className="space-y-2.5">
               {service.warningSigns.map((sign, idx) => (
-                <div key={idx} className="p-3 rounded-xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/30 text-xs sm:text-sm text-slate-700 dark:text-slate-200 flex items-start gap-2.5">
+                <div key={idx} className="p-3.5 rounded-2xl bg-amber-50/70 dark:bg-amber-950/30 backdrop-blur-md border border-amber-200/80 dark:border-amber-900/40 text-xs sm:text-sm text-slate-800 dark:text-slate-200 flex items-start gap-2.5 shadow-2xs">
                   <span className="text-amber-600 dark:text-amber-400 font-bold">•</span>
                   <span>{sign}</span>
                 </div>
@@ -407,7 +407,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
           </section>
 
           {/* Benefits */}
-          <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-4">
+          <section className="glass-surface rounded-3xl border border-white/80 dark:border-white/10 shadow-sm p-6 sm:p-8 space-y-4">
             <div className="flex items-center gap-2 text-sky-600 dark:text-sky-400">
               <Sparkles className="w-5 h-5" />
               <h2 className="text-lg font-bold text-slate-900 dark:text-white font-display">
@@ -416,7 +416,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
             </div>
             <div className="space-y-2.5">
               {service.homeownerBenefits.map((benefit, idx) => (
-                <div key={idx} className="p-3 rounded-xl bg-sky-50/50 dark:bg-sky-950/20 border border-sky-200/60 dark:border-sky-900/30 text-xs sm:text-sm text-slate-700 dark:text-slate-200 flex items-start gap-2.5">
+                <div key={idx} className="p-3.5 rounded-2xl bg-sky-50/70 dark:bg-sky-950/30 backdrop-blur-md border border-sky-200/80 dark:border-sky-900/40 text-xs sm:text-sm text-slate-800 dark:text-slate-200 flex items-start gap-2.5 shadow-2xs">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" />
                   <span>{benefit}</span>
                 </div>
@@ -426,7 +426,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
         </div>
 
         {/* Service-Specific FAQ Section */}
-        <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 sm:p-10 space-y-6 text-left">
+        <section className="glass-surface rounded-3xl border border-white/80 dark:border-white/10 shadow-sm p-6 sm:p-10 space-y-6 text-left">
           <div className="flex items-center gap-2 text-sky-600 dark:text-sky-400">
             <HelpCircle className="w-5 h-5" />
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-display">
@@ -436,7 +436,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
 
           <div className="space-y-4">
             {seo.faqs.map((faq, idx) => (
-              <div key={idx} className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2">
+              <div key={idx} className="p-5 rounded-2xl bg-white/70 dark:bg-slate-800/60 backdrop-blur-md border border-white/80 dark:border-white/10 space-y-2 shadow-2xs">
                 <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
                   {faq.question}
                 </h3>
@@ -449,7 +449,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
         </section>
 
         {/* Internal Linking: Explore Other Cleaning Services */}
-        <section className="bg-slate-100/70 dark:bg-slate-900/70 rounded-3xl p-6 sm:p-8 space-y-4 text-left border border-slate-200 dark:border-slate-800">
+        <section className="glass-surface rounded-3xl p-6 sm:p-8 space-y-4 text-left border border-white/80 dark:border-white/10 shadow-sm">
           <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white font-display">
             Explore Other Professional Cleaning Services
           </h2>
@@ -458,7 +458,7 @@ export const ServicePage: React.FC<ServicePageProps> = ({
               <button
                 key={other.id}
                 onClick={() => onNavigateToService(other.id)}
-                className="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-sky-300 dark:hover:border-sky-500 text-left transition-all group cursor-pointer shadow-2xs hover:shadow-xs"
+                className="p-4 rounded-2xl bg-white/70 dark:bg-slate-800/70 backdrop-blur-md border border-white/80 dark:border-white/10 hover:border-sky-300 dark:hover:border-sky-500 text-left transition-all group cursor-pointer shadow-2xs hover:shadow-xs"
               >
                 <h3 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 flex items-center justify-between">
                   <span>{other.title}</span>
@@ -473,8 +473,8 @@ export const ServicePage: React.FC<ServicePageProps> = ({
         </section>
 
         {/* Bottom Conversion Banner */}
-        <div className="p-8 sm:p-10 rounded-3xl bg-linear-to-r from-sky-600 via-sky-700 to-emerald-700 text-white text-center space-y-4 shadow-lg">
-          <h2 className="text-2xl sm:text-3xl font-extrabold font-display">
+        <div className="p-8 sm:p-10 rounded-3xl bg-linear-to-r from-sky-600 via-sky-700 to-emerald-700 text-white text-center space-y-4 shadow-xl border border-white/20">
+          <h2 className="text-2xl sm:text-3xl font-black font-display">
             Ready to Schedule Your {service.title}?
           </h2>
           <p className="text-xs sm:text-sm text-sky-100 max-w-xl mx-auto">
@@ -483,13 +483,13 @@ export const ServicePage: React.FC<ServicePageProps> = ({
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
             <button
               onClick={() => onOpenQuote(service.title)}
-              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-white text-sky-800 hover:bg-sky-50 font-bold text-xs sm:text-sm shadow-sm transition-all cursor-pointer"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white text-sky-800 hover:bg-sky-50 font-bold text-xs sm:text-sm shadow-md transition-all cursor-pointer"
             >
               REQUEST A FREE QUOTE
             </button>
             <a
               href={SMS_URL}
-              className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-5 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer backdrop-blur-md"
               aria-label="Text us at (737) 282-1351"
             >
               <MessageSquare className="w-4 h-4 text-emerald-300" />

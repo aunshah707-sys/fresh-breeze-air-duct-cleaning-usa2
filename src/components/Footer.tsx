@@ -32,9 +32,12 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800 w-full max-w-full overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 pb-12 border-b border-slate-800 w-full">
+    <footer className="bg-slate-950/95 dark:bg-slate-950 text-slate-300 pt-16 pb-[calc(7rem+env(safe-area-inset-bottom,0px))] md:pb-12 border-t border-white/10 w-full max-w-full overflow-hidden relative backdrop-blur-xl">
+      {/* Top subtle glow line */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/30 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-full relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 pb-12 border-b border-white/10 w-full">
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-4">
             <a href="#home" className="inline-block">
@@ -54,7 +57,7 @@ export const Footer: React.FC<FooterProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackContactClick('instagram', 'Instagram Profile', 'Footer')}
-                className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-gradient-to-tr hover:from-purple-600 hover:to-pink-500 text-slate-300 hover:text-white flex items-center justify-center transition-all shadow-xs"
+                className="w-10 h-10 rounded-2xl bg-white/10 hover:bg-gradient-to-tr hover:from-purple-600 hover:to-pink-500 text-slate-300 hover:text-white flex items-center justify-center transition-all shadow-xs border border-white/10 backdrop-blur-md"
                 aria-label="Visit Fresh Breeze on Instagram"
               >
                 <Instagram className="w-4 h-4" />
@@ -64,7 +67,7 @@ export const Footer: React.FC<FooterProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackContactClick('facebook', 'Facebook Page', 'Footer')}
-                className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-[#1877F2] text-slate-300 hover:text-white flex items-center justify-center transition-all shadow-xs"
+                className="w-10 h-10 rounded-2xl bg-white/10 hover:bg-[#1877F2] text-slate-300 hover:text-white flex items-center justify-center transition-all shadow-xs border border-white/10 backdrop-blur-md"
                 aria-label="Visit Fresh Breeze on Facebook"
               >
                 <Facebook className="w-4 h-4" />
@@ -237,7 +240,7 @@ export const Footer: React.FC<FooterProps> = ({
                     trackCtaClick('GET A FREE QUOTE', 'Footer');
                     onOpenQuote();
                   }}
-                  className="w-full py-2.5 px-3 rounded-xl bg-linear-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 text-white font-bold text-xs text-center transition-all shadow-sm cursor-pointer"
+                  className="btn-gradient-primary w-full py-3 px-3 rounded-2xl text-white font-bold text-xs text-center transition-all shadow-md cursor-pointer"
                 >
                   GET A FREE QUOTE
                 </button>

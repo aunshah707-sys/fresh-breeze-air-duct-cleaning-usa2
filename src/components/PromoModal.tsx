@@ -72,72 +72,52 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 bg-slate-950/50 backdrop-blur-md transition-opacity duration-300 animate-in fade-in overflow-y-auto w-full"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/35 dark:bg-slate-950/60 backdrop-blur-xs transition-opacity duration-300 animate-in fade-in overflow-y-auto w-full"
       role="dialog"
       aria-modal="true"
       aria-label="November Special — 40% OFF"
       onClick={handleClose}
     >
       <div 
-        className="relative w-full max-w-[calc(100vw-1.25rem)] sm:max-w-lg bg-white dark:bg-[#101A30] backdrop-blur-xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(2,132,199,0.3)] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.8)] border border-white/80 dark:border-slate-700/80 overflow-hidden transform transition-all duration-300 animate-in zoom-in-95 scale-100 text-left my-auto max-h-[90vh] flex flex-col"
+        className="relative w-[90vw] max-w-[380px] max-h-[75dvh] bg-white/85 dark:bg-slate-900/90 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(2,132,199,0.25),inset_0_1px_1px_rgba(255,255,255,0.95)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] border border-white/90 dark:border-white/10 overflow-hidden transform transition-all duration-300 animate-in zoom-in-95 scale-100 text-left my-auto flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Subtle decorative background breeze & airflow pattern */}
-        <div className="absolute top-0 right-0 left-0 h-44 sm:h-48 bg-linear-to-br from-sky-600 via-sky-700 to-emerald-700 pointer-events-none overflow-hidden">
-          {/* Airflow waves overlay */}
-          <svg 
-            className="absolute inset-0 w-full h-full opacity-20" 
-            viewBox="0 0 400 180" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
+        {/* Top Liquid Glass Gradient Header */}
+        <div className="relative pt-4 pb-3 px-5 text-center bg-gradient-to-br from-sky-500/90 via-sky-600/90 to-emerald-600/90 text-white shrink-0 border-b border-white/20">
+          {/* Close Button */}
+          <button
+            onClick={handleClose}
+            aria-label="Close promotion dialog"
+            className="absolute top-3 right-3 z-10 w-7 h-7 rounded-full bg-black/20 hover:bg-black/35 text-white flex items-center justify-center transition-colors backdrop-blur-xs cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-white"
           >
-            <path d="M-20 60 C 80 20, 180 120, 320 50 C 370 20, 420 80, 450 60" stroke="#ffffff" strokeWidth="14" strokeLinecap="round" />
-            <path d="M-20 110 C 90 60, 200 160, 340 90 C 390 60, 440 120, 460 90" stroke="#ffffff" strokeWidth="10" strokeLinecap="round" />
-            <path d="M-20 150 C 100 100, 220 180, 360 120 C 400 100, 440 140, 470 120" stroke="#ffffff" strokeWidth="8" strokeLinecap="round" />
-          </svg>
-          {/* Subtle animated floating sparkle dots */}
-          <div className="absolute top-6 left-8 w-2 h-2 rounded-full bg-white/70 animate-ping" />
-          <div className="absolute top-12 right-16 w-1.5 h-1.5 rounded-full bg-emerald-200/80 animate-pulse" />
-        </div>
+            <X className="w-4 h-4" />
+          </button>
 
-        {/* Close Button */}
-        <button
-          onClick={handleClose}
-          aria-label="Close promotion dialog"
-          className="absolute top-3.5 right-3.5 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/25 hover:bg-black/40 text-white flex items-center justify-center transition-colors backdrop-blur-xs cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-white"
-        >
-          <X className="w-4 h-4 sm:w-5 sm:h-5" />
-        </button>
-
-        {/* Header content inside the colored banner */}
-        <div className="relative pt-5 sm:pt-6 px-4 sm:px-8 text-center text-white shrink-0">
-          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 sm:py-1 rounded-full bg-white/20 backdrop-blur-md text-sky-100 text-[11px] sm:text-xs font-bold uppercase tracking-wider shadow-inner mb-1 border border-white/20">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-300 animate-spin" style={{ animationDuration: '6s' }} />
+          {/* Special Pill Badge */}
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-white text-[10.5px] font-extrabold uppercase tracking-wider mb-1 border border-white/30">
+            <Sparkles className="w-3 h-3 text-emerald-300 animate-spin" style={{ animationDuration: '6s' }} />
             <span>NOVEMBER SPECIAL</span>
           </div>
 
-          {/* Large, 3D-styled 40% OFF */}
-          <div className="py-0.5">
-            <span className="block text-4xl sm:text-6xl font-black tracking-tight font-display text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)]">
-              40% OFF
-            </span>
+          {/* 40% OFF */}
+          <div className="text-3xl sm:text-4xl font-black tracking-tight font-display text-white drop-shadow-sm leading-none py-0.5">
+            40% OFF
           </div>
 
-          <p className="text-white/95 font-bold text-xs sm:text-base mt-0.5 tracking-tight drop-shadow-xs">
+          <p className="text-white/95 font-bold text-xs mt-0.5 drop-shadow-xs">
             Save 40% on Your Cleaning Service
           </p>
 
           {/* Coupon Code Pill */}
-          <div className="mt-2 inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 text-xs text-white max-w-full flex-wrap justify-center">
-            <span className="text-white/80 font-medium text-[11px] sm:text-xs">Coupon Code:</span>
-            <span className="font-mono font-extrabold tracking-wider bg-white/25 px-2 py-0.5 rounded text-white text-xs sm:text-sm">
+          <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 text-xs text-white">
+            <span className="text-white/80 font-medium text-[11px]">Code:</span>
+            <span className="font-mono font-extrabold tracking-wider bg-white/25 px-1.5 py-0.5 rounded text-white text-xs">
               {PROMO_COUPON_CODE}
             </span>
             <button
               onClick={handleCopyCode}
               type="button"
-              className="ml-0.5 p-1 hover:bg-white/20 rounded transition-colors text-white/90 hover:text-white cursor-pointer"
+              className="p-1 hover:bg-white/20 rounded transition-colors text-white/90 hover:text-white cursor-pointer"
               title="Copy coupon code"
               aria-label="Copy coupon code"
             >
@@ -146,92 +126,81 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
           </div>
         </div>
 
-        {/* Card Body */}
-        <div className="relative bg-white dark:bg-[#101A30] pt-4 pb-5 sm:pb-7 px-4 sm:px-8 mt-2.5 rounded-t-3xl border-t border-slate-100 dark:border-slate-800 space-y-3.5 sm:space-y-4 overflow-y-auto grow min-w-0">
+        {/* Scrollable Content Body with Compact Spacing */}
+        <div className="p-4 space-y-3 overflow-y-auto grow min-w-0 bg-white/60 dark:bg-slate-900/60">
           
-          {/* Live Countdown Display */}
-          <div className="p-3 sm:p-3.5 rounded-2xl border text-center transition-all bg-slate-50 dark:bg-[#17243A] border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white w-full">
-            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-xs font-bold uppercase tracking-wider mb-2">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-[10.5px] sm:text-[11px] font-extrabold border border-emerald-300 dark:border-emerald-700">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                ACTIVE OFFER
-              </span>
-              <div className="flex items-center gap-1 text-slate-800 dark:text-white font-bold text-[11px] sm:text-xs">
-                <Clock className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
-                <span>November Promotion Ends In</span>
-              </div>
+          {/* Compact Live Countdown Display */}
+          <div className="p-2.5 rounded-2xl bg-sky-50/70 dark:bg-slate-800/60 border border-sky-100 dark:border-slate-700/80 text-center">
+            <div className="flex items-center justify-center gap-1.5 text-[10.5px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1.5">
+              <Clock className="w-3 h-3 text-sky-600 dark:text-sky-400" />
+              <span>Offer Ends In</span>
             </div>
 
-            <div>
-              <div className="grid grid-cols-4 gap-1.5 sm:gap-2 max-w-xs mx-auto">
-                <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
-                  <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
-                    {countdown.days}
-                  </span>
-                  <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Days</span>
-                </div>
-                <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
-                  <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
-                    {String(countdown.hours).padStart(2, '0')}
-                  </span>
-                  <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Hours</span>
-                </div>
-                <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
-                  <span className="block text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono">
-                    {String(countdown.minutes).padStart(2, '0')}
-                  </span>
-                  <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Mins</span>
-                </div>
-                <div className="bg-white dark:bg-[#1E293B] rounded-xl p-2 shadow-xs border border-slate-200 dark:border-[#475569]">
-                  <span className="block text-lg sm:text-xl font-black text-sky-600 dark:text-sky-400 font-mono">
-                    {String(countdown.seconds).padStart(2, '0')}
-                  </span>
-                  <span className="block text-[10px] font-bold text-slate-600 dark:text-[#CBD5E1] uppercase">Secs</span>
-                </div>
+            <div className="grid grid-cols-4 gap-1.5 max-w-[240px] mx-auto text-center">
+              <div className="bg-white/90 dark:bg-slate-800 rounded-lg py-1 px-1 border border-slate-200/80 dark:border-slate-700 shadow-2xs">
+                <span className="block text-sm font-black text-slate-900 dark:text-white font-mono leading-none">
+                  {countdown.days}
+                </span>
+                <span className="block text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase mt-0.5">Days</span>
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-[#CBD5E1] mt-2">
-                Expires November 30, 2026 at 11:59:59 PM EST (America/New_York)
-              </p>
+              <div className="bg-white/90 dark:bg-slate-800 rounded-lg py-1 px-1 border border-slate-200/80 dark:border-slate-700 shadow-2xs">
+                <span className="block text-sm font-black text-slate-900 dark:text-white font-mono leading-none">
+                  {String(countdown.hours).padStart(2, '0')}
+                </span>
+                <span className="block text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase mt-0.5">Hours</span>
+              </div>
+              <div className="bg-white/90 dark:bg-slate-800 rounded-lg py-1 px-1 border border-slate-200/80 dark:border-slate-700 shadow-2xs">
+                <span className="block text-sm font-black text-slate-900 dark:text-white font-mono leading-none">
+                  {String(countdown.minutes).padStart(2, '0')}
+                </span>
+                <span className="block text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase mt-0.5">Mins</span>
+              </div>
+              <div className="bg-white/90 dark:bg-slate-800 rounded-lg py-1 px-1 border border-slate-200/80 dark:border-slate-700 shadow-2xs">
+                <span className="block text-sm font-black text-sky-600 dark:text-sky-400 font-mono leading-none">
+                  {String(countdown.seconds).padStart(2, '0')}
+                </span>
+                <span className="block text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase mt-0.5">Secs</span>
+              </div>
             </div>
           </div>
 
-          {/* Value inclusions pill list */}
-          <div className="bg-sky-50/80 dark:bg-[#17243A] border border-sky-200/70 dark:border-slate-700 rounded-2xl p-3.5 space-y-2 text-xs sm:text-sm text-slate-800 dark:text-[#CBD5E1]">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-              <span>Valid on Air Duct ($149.40), Dryer Vent ($149.40) &amp; Chimney ($167.40)</span>
+          {/* Value Inclusions */}
+          <div className="bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/40 rounded-xl p-2.5 space-y-1.5 text-[11px] text-slate-700 dark:text-slate-200">
+            <div className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>Air Duct ($149.40), Dryer ($149.40) &amp; Chimney ($167.40)</span>
             </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-              <span>Free quote with zero obligation for homeowners</span>
+            <div className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>100% Free upfront quote &amp; zero obligation</span>
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="space-y-2.5 pt-1">
-            {/* Primary Claim Button */}
+          <div className="space-y-1.5 pt-1">
+            {/* Primary Claim Button (Cyan to Emerald gradient) */}
             <button
               onClick={handleClaim}
-              className="w-full py-4 px-6 rounded-2xl bg-linear-to-r from-emerald-600 via-emerald-600 to-sky-600 hover:from-emerald-700 hover:via-emerald-700 hover:to-sky-700 active:scale-[0.99] text-white font-extrabold text-base tracking-wide shadow-lg shadow-emerald-600/25 hover:shadow-xl hover:shadow-emerald-600/30 transition-all flex items-center justify-center gap-2.5 cursor-pointer border border-emerald-500/30"
+              className="w-full py-3 px-4 rounded-full bg-gradient-to-r from-sky-500 via-sky-600 to-emerald-500 hover:from-sky-400 hover:via-sky-500 hover:to-emerald-400 active:scale-[0.99] text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_4px_16px_rgba(2,132,199,0.35)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.45)] transition-all flex items-center justify-center gap-2 cursor-pointer border border-white/20"
             >
-              <Tag className="w-5 h-5 text-emerald-200" />
+              <Tag className="w-4 h-4 text-emerald-100" />
               <span>Claim Your Offer</span>
-              <ArrowRight className="w-4 h-4 text-emerald-100" />
+              <ArrowRight className="w-3.5 h-3.5 text-emerald-100" />
             </button>
 
-            {/* Second Option: Maybe Later */}
+            {/* Maybe Later */}
             <button
               onClick={handleClose}
-              className="w-full py-2 text-xs sm:text-sm font-semibold text-slate-500 dark:text-[#CBD5E1] hover:text-slate-800 dark:hover:text-white transition-colors text-center cursor-pointer"
+              className="w-full py-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors text-center cursor-pointer"
             >
               Maybe Later
             </button>
           </div>
 
-          {/* Trust guarantee badge */}
-          <div className="pt-0.5 flex items-center justify-center gap-1.5 text-[11px] text-slate-500 dark:text-[#CBD5E1] text-center">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-            <span>Honest, upfront pricing for residential homeowners across the USA</span>
+          {/* Guarantee */}
+          <div className="flex items-center justify-center gap-1.5 text-[10px] text-slate-500 dark:text-slate-400 text-center pt-0.5">
+            <ShieldCheck className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+            <span>Honest, upfront residential pricing across the USA</span>
           </div>
         </div>
       </div>
