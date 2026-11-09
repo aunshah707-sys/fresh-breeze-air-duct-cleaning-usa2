@@ -92,6 +92,11 @@ export const Footer: React.FC<FooterProps> = ({
                 </a>
               </li>
               <li>
+                <a href="#customer-feedback" className="hover:text-white transition-colors">
+                  Customer Reviews
+                </a>
+              </li>
+              <li>
                 <a href="#why-us" className="hover:text-white transition-colors">
                   Why Fresh Breeze
                 </a>

@@ -10,12 +10,14 @@ interface ServicesSectionProps {
   onLearnMore: (serviceId: string) => void;
   onSelectServiceForQuote: (serviceTitle: string) => void;
   onClaimOffer?: (couponCode?: string) => void;
+  onViewAllReviews?: () => void;
 }
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({
   onLearnMore,
   onSelectServiceForQuote,
   onClaimOffer,
+  onViewAllReviews,
 }) => {
   // Service images matching approved reference
   const getReferenceCardImage = (id: string) => {
@@ -204,13 +206,15 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             </h3>
           </div>
 
-          <a
-            href="#why-us"
-            className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 transition-colors"
+          <button
+            type="button"
+            onClick={onViewAllReviews}
+            className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 transition-colors cursor-pointer"
+            aria-label="View all customer reviews gallery"
           >
             <span>View All Reviews</span>
             <ArrowRight className="w-3.5 h-3.5" />
-          </a>
+          </button>
         </div>
 
       </div>

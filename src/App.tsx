@@ -7,6 +7,8 @@ import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ServicesSection } from './components/ServicesSection';
+import { CustomerFeedback } from './components/CustomerFeedback';
+import { ReviewsGalleryModal } from './components/ReviewsGalleryModal';
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { HowItWorks } from './components/HowItWorks';
 import { ServiceArea } from './components/ServiceArea';
@@ -48,6 +50,7 @@ export default function App() {
   const [currentServiceSlug, setCurrentServiceSlug] = useState<string>('air-duct-cleaning');
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
+  const [isReviewsGalleryOpen, setIsReviewsGalleryOpen] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState<string | null>(null);
   const [selectedQuoteService, setSelectedQuoteService] = useState<string>('Air Duct Cleaning');
   const [selectedQuoteLocation, setSelectedQuoteLocation] = useState<string>('');
@@ -367,9 +370,16 @@ export default function App() {
           onLearnMore={(serviceId) => navigateToService(serviceId)}
           onSelectServiceForQuote={(serviceTitle) => openQuoteModal(serviceTitle)}
           onClaimOffer={(code) => handleClaimPromo(code)}
+          onViewAllReviews={() => setIsReviewsGalleryOpen(true)}
         />
 
-        {/* 4. Why Choose Fresh Breeze */}
+        {/* 4. Customer Feedback Section (What Our Customers Say) */}
+        <CustomerFeedback 
+          onOpenQuote={() => openQuoteModal()} 
+          onViewAllReviews={() => setIsReviewsGalleryOpen(true)}
+        />
+
+        {/* 5. Why Choose Fresh Breeze */}
         <WhyChooseUs onOpenQuote={() => openQuoteModal()} />
 
         {/* 5. How It Works */}
@@ -434,6 +444,16 @@ export default function App() {
         onSelectForQuote={(serviceTitle) => {
           setSelectedServiceId(null);
           openQuoteModal(serviceTitle);
+        }}
+      />
+
+      {/* Customer Reviews Gallery Modal showing all 10 verified customer chat screenshots */}
+      <ReviewsGalleryModal
+        isOpen={isReviewsGalleryOpen}
+        onClose={() => setIsReviewsGalleryOpen(false)}
+        onOpenQuote={() => {
+          setIsReviewsGalleryOpen(false);
+          openQuoteModal();
         }}
       />
 

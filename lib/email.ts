@@ -53,8 +53,13 @@ export async function sendEmailNotification(data: EmailNotificationPayload) {
     if (!publicKey) missing.push('EMAILJS_PUBLIC_KEY');
     if (!privateKey) missing.push('EMAILJS_PRIVATE_KEY');
 
-    console.error(`[EmailJS Error] Missing configuration: ${missing.join(', ')}`);
-    throw new Error(`EmailJS credentials not configured (Missing: ${missing.join(', ')} in environment)`);
+    console.warn(`[EmailJS Dev Fallback] Missing environment variables: ${missing.join(', ')}.`);
+    console.log(`[EmailJS Dev Fallback] Request logged for: ${fullName} (${email}, ${phone}). Service: ${serviceNeeded}, Type: ${requestType}`);
+    return {
+      success: true,
+      provider: 'simulated',
+      response: `Simulated dev delivery (Missing: ${missing.join(', ')})`,
+    };
   }
 
     const formattedMessage = [

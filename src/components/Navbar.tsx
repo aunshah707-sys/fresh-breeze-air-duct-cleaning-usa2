@@ -31,6 +31,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navLinks: { label: string; href?: string; onClick?: () => void }[] = [
     { label: 'Home', href: '#home' },
     { label: 'Our Services', href: '#services' },
+    { label: 'Reviews', href: '#customer-feedback' },
     { label: 'Why Fresh Breeze', href: '#why-us' },
     { label: 'How It Works', href: '#how-it-works' },
     { label: 'Service Areas', href: '#service-area' },
