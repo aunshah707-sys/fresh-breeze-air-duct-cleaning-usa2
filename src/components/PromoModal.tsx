@@ -4,44 +4,33 @@ import { useCountdown } from '../utils/useCountdown';
 import { PROMO_COUPON_CODE } from '../../lib/pricing';
 
 interface PromoModalProps {
+  isOpen?: boolean;
+  onClose?: () => void;
   onClaimOffer: (couponCode?: string) => void;
 }
 
-export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const PromoModal: React.FC<PromoModalProps> = ({ 
+  isOpen: controlledIsOpen, 
+  onClose: controlledOnClose, 
+  onClaimOffer 
+}) => {
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
   const [copied, setCopied] = useState(false);
   const countdown = useCountdown();
 
-  useEffect(() => {
-    // Check if user has already seen or closed the promo in this session
-    try {
-      const hasSeenPromo = sessionStorage.getItem('fresh_breeze_promo_shown');
-      if (hasSeenPromo) {
-        return;
-      }
-    } catch {
-      // Ignore sessionStorage errors in restricted environments
-    }
-
-    // Show after 2.5 second delay
-    const timer = setTimeout(() => {
-      setIsOpen(true);
-      try {
-        sessionStorage.setItem('fresh_breeze_promo_shown', 'true');
-      } catch {
-        // Ignore
-      }
-    }, 2500);
-
-    return () => clearTimeout(timer);
-  }, []);
+  // Automatic popup on page load is disabled per user request
 
   const handleClose = () => {
-    setIsOpen(false);
+    if (controlledOnClose) {
+      controlledOnClose();
+    } else {
+      setInternalIsOpen(false);
+    }
   };
 
   const handleClaim = () => {
-    setIsOpen(false);
+    handleClose();
     onClaimOffer(PROMO_COUPON_CODE);
   };
 
@@ -168,7 +157,7 @@ export const PromoModal: React.FC<PromoModalProps> = ({ onClaimOffer }) => {
           <div className="bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/40 rounded-xl p-2.5 space-y-1.5 text-[11px] text-slate-700 dark:text-slate-200">
             <div className="flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-              <span>Air Duct ($149.40), Dryer ($149.40) &amp; Chimney ($167.40)</span>
+              <span>Air Duct ($215.40), Dryer ($149.40) &amp; Chimney ($167.40)</span>
             </div>
             <div className="flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />

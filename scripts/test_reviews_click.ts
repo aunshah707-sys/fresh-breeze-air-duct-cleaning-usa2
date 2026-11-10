@@ -108,7 +108,7 @@ async function runTests() {
   // Verify modal title
   const modalHeading = modal.querySelector('h3');
   console.log(`✓ Modal heading verified: "${modalHeading?.textContent?.trim()}"`);
-  if (!modalHeading?.textContent?.includes('All 10 Customer Chat Reviews')) {
+  if (!modalHeading?.textContent?.includes('Customer Feedback')) {
     throw new Error('FAIL: Modal heading mismatch');
   }
 

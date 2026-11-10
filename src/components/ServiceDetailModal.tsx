@@ -188,7 +188,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/40 backdrop-blur-md overflow-y-auto">
+    <div className="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-4 bg-slate-950/40 backdrop-blur-md overflow-y-auto">
       <div 
         className="relative w-full max-w-[calc(100vw-1.25rem)] sm:max-w-2xl max-h-[90vh] flex flex-col glass-surface backdrop-blur-2xl rounded-3xl shadow-[0_24px_60px_-12px_rgba(2,132,199,0.25),0_0_0_1px_rgba(255,255,255,0.9)_inset] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.8)] border border-white/80 dark:border-white/10 overflow-hidden my-auto animate-in fade-in zoom-in-95 duration-200 text-left"
         role="dialog"

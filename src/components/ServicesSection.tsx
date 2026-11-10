@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Calendar, Star, Wind } from 'lucide-react';
+import { ArrowRight, Calendar, Wind } from 'lucide-react';
 import { SERVICES_DATA } from './ServiceDetailModal';
 import airDuctVentImg from '../assets/images/service_card_air_duct_1794168553947.jpg';
 import dryerVentImg from '../assets/images/service_card_dryer_1794168554771.jpg';
@@ -142,7 +142,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 <div className="absolute inset-0 bg-gradient-to-t from-sky-900/20 via-transparent to-transparent pointer-events-none" />
                 <div className="absolute bottom-2.5 left-3 right-3 text-white text-[11px] font-bold flex items-center gap-1.5 drop-shadow-xs">
                   <Wind className="w-3.5 h-3.5 text-sky-200" />
-                  <span>Pure Airflow • Zero Dust</span>
+                  <span>Dust &amp; Debris Removal</span>
                 </div>
               </div>
             </div>
@@ -195,26 +195,6 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             </div>
 
           </div>
-        </div>
-
-        {/* WHAT HOMEOWNERS SAY (Matching approved reference image) */}
-        <div className="pt-2 flex items-center justify-between gap-3 text-left">
-          <div className="flex items-center gap-2">
-            <Star className="w-5 h-5 text-emerald-500 fill-emerald-500" />
-            <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white font-display">
-              What Homeowners Say
-            </h3>
-          </div>
-
-          <button
-            type="button"
-            onClick={onViewAllReviews}
-            className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 transition-colors cursor-pointer"
-            aria-label="View all customer reviews gallery"
-          >
-            <span>View All Reviews</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
         </div>
 
       </div>

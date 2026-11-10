@@ -307,7 +307,7 @@ export const CustomerFeedback: React.FC<CustomerFeedbackProps> = ({
       {/* LIGHTBOX MODAL: Enlarged Screenshot View */}
       {enlargedReview && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-in fade-in duration-200"
+          className="fixed inset-0 z-[80] flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-in fade-in duration-200"
           role="dialog"
           aria-modal="true"
           aria-label="Enlarged customer review"
@@ -403,10 +403,10 @@ export const CustomerFeedback: React.FC<CustomerFeedbackProps> = ({
       {/* FULL GALLERY MODAL: View All 10 Reviews */}
       {isGalleryOpen && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-in fade-in duration-200"
+          className="fixed inset-0 z-[80] flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-in fade-in duration-200"
           role="dialog"
           aria-modal="true"
-          aria-label="All 10 customer feedback reviews"
+          aria-label="Customer feedback reviews gallery"
           onClick={() => setIsGalleryOpen(false)}
         >
           <div 
@@ -421,8 +421,11 @@ export const CustomerFeedback: React.FC<CustomerFeedbackProps> = ({
                   <span>Customer Reviews Gallery</span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white font-display">
-                  All 10 Customer Chat Reviews
+                  Customer Feedback
                 </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Feedback shared by our customers
+                </p>
               </div>
 
               {/* Close Button */}
@@ -510,7 +513,7 @@ export const CustomerFeedback: React.FC<CustomerFeedbackProps> = ({
             {/* Gallery Footer CTA */}
             <div className="pt-3 border-t border-slate-200/80 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
               <p className="text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
-                100% genuine feedback from real residential service appointments.
+                Customer feedback shared from residential service appointments.
               </p>
               <button
                 type="button"

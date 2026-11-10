@@ -108,10 +108,10 @@ export const ReviewsGalleryModal: React.FC<ReviewsGalleryModalProps> = ({
               <span>Customer Reviews Gallery</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white font-display">
-              All 10 Customer Chat Reviews
+              Customer Feedback
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 hidden sm:block mt-0.5">
-              Original screenshots of verified customer feedback across Instagram, Facebook, and Messages.
+              Feedback shared by our customers
             </p>
           </div>
 
@@ -208,7 +208,7 @@ export const ReviewsGalleryModal: React.FC<ReviewsGalleryModalProps> = ({
         {/* Gallery Footer */}
         <div className="pt-3 border-t border-slate-200/80 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
           <p className="text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
-            100% genuine feedback from real residential service appointments.
+            Customer feedback shared from residential service appointments.
           </p>
           <button
             type="button"

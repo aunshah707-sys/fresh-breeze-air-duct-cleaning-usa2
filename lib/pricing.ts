@@ -16,7 +16,7 @@ export const EXPIRED_MESSAGE = 'November offer has expired.';
 
 // Standard Regular Service Prices
 export const SERVICE_REGULAR_PRICES: Record<string, number> = {
-  'Air Duct Cleaning': 249.00,
+  'Air Duct Cleaning': 359.00,
   'Dryer Vent Cleaning': 249.00,
   'Chimney Cleaning': 279.00,
   'HVAC Cleaning': 249.00,
@@ -24,11 +24,11 @@ export const SERVICE_REGULAR_PRICES: Record<string, number> = {
 };
 
 export function getServiceRegularPrice(serviceName: string): number {
-  if (!serviceName) return 249.00;
+  if (!serviceName) return 359.00;
   const lower = serviceName.toLowerCase().trim();
   if (lower.includes('chimney')) return 279.00;
   if (lower.includes('dryer')) return 249.00;
-  if (lower.includes('duct')) return 249.00;
+  if (lower.includes('duct')) return 359.00;
   if (lower.includes('hvac')) return 249.00;
   return 249.00;
 }

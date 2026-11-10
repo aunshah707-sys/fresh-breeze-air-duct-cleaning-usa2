@@ -97,25 +97,29 @@ async function startServer() {
     }
   });
 
-  // API endpoint for quote form submission
+    // API endpoint for quote form submission
   app.post('/api/quote', async (req, res) => {
     try {
-      const { fullName, name, phone, email, cityState, serviceNeeded, preferredDate, message, quoteReferenceId, couponCode } = req.body;
+      const { fullName, name, phone, email, cityState, zipCode, serviceNeeded, preferredDate, message, quoteReferenceId, couponCode } = req.body;
       const customerName = (fullName || name || '').trim();
+      const location = (zipCode || cityState || '').trim();
 
-      if (!customerName || !phone || !email || !serviceNeeded || !cityState) {
+      if (!customerName || !phone || !serviceNeeded || !location) {
         return res.status(400).json({
           success: false,
-          error: 'Please fill in all required fields (Full Name, Phone, Email, Location, and Service).',
+          error: 'Please fill in all required fields (Full Name, Phone, ZIP Code, and Service).',
         });
       }
 
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        return res.status(400).json({
-          success: false,
-          error: 'Please provide a valid email address.',
-        });
+      const emailTrimmed = (email || '').trim();
+      if (emailTrimmed) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailTrimmed)) {
+          return res.status(400).json({
+            success: false,
+            error: 'Please provide a valid email address.',
+          });
+        }
       }
 
       // Clean service name if legacy format had promo in string
@@ -146,8 +150,8 @@ async function startServer() {
       const delivery = await sendEmailNotification({
         fullName: customerName,
         phone: phone.trim(),
-        email: email.trim(),
-        cityState: cityState.trim(),
+        email: emailTrimmed,
+        cityState: location,
         serviceNeeded: cleanService,
         preferredDate: preferredDate?.trim(),
         message: message?.trim(),

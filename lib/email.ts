@@ -67,6 +67,9 @@ export async function sendEmailNotification(data: EmailNotificationPayload) {
       data.pricingBreakdown ? `\n[Server Pricing Breakdown]\n${data.pricingBreakdown}` : '',
     ].filter(Boolean).join('\n');
 
+    const customerEmail = email && email.trim() ? email.trim() : '';
+    const safeFromEmail = customerEmail || RECIPIENT_EMAIL;
+
     const templateParams: Record<string, string> = {
       to_email: RECIPIENT_EMAIL,
       recipient_email: RECIPIENT_EMAIL,
@@ -74,10 +77,10 @@ export async function sendEmailNotification(data: EmailNotificationPayload) {
       name: fullName,
       user_name: fullName,
       customer_name: fullName,
-      from_email: email,
-      user_email: email,
-      email: email,
-      reply_to: email,
+      from_email: safeFromEmail,
+      user_email: customerEmail || 'Not provided',
+      email: customerEmail || 'Not provided',
+      reply_to: safeFromEmail,
       phone: phone,
       user_phone: phone,
       service: serviceNeeded,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, ShieldCheck, Zap, Star, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Zap, CheckCircle2 } from 'lucide-react';
 import { trackContactClick } from '../utils/analytics';
 import heroHomeImg from '../assets/images/hero_residential_home_1794168553732.jpg';
 import heroTechnicianImg from '../assets/images/hero_air_duct_technician.webp';
@@ -46,10 +46,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote }) => {
 
               {/* Main Headline */}
               <h1 className="text-lg sm:text-3xl lg:text-[2.75rem] font-extrabold text-slate-900 dark:text-white leading-[1.15] tracking-tight font-display text-balance">
-                Professional Air Duct Cleaning Services{' '}
-                <span className="text-sky-600 dark:text-sky-400 font-black block sm:inline">
-                  Fresh Breeze.
-                </span>
+                Professional Air Duct &amp; Dryer Vent Cleaning
               </h1>
 
               {/* Subheadline & description */}
@@ -62,7 +59,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote }) => {
                 </p>
               </div>
 
-              {/* Translucent Glass Benefit Badges (matching approved reference) */}
+              {/* Translucent Glass Benefit Badges */}
               <div className="flex flex-wrap items-center gap-1.5 sm:gap-2.5 pt-0.5">
                 {/* 1. Licensed & Insured */}
                 <div className="inline-flex items-center gap-1 sm:gap-1.5 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-white/90 dark:border-white/10 shadow-2xs text-[10px] sm:text-xs font-bold text-slate-800 dark:text-slate-100">
@@ -74,12 +71,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote }) => {
                 <div className="inline-flex items-center gap-1 sm:gap-1.5 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-white/90 dark:border-white/10 shadow-2xs text-[10px] sm:text-xs font-bold text-slate-800 dark:text-slate-100">
                   <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                   <span>Same-Day Service</span>
-                </div>
-
-                {/* 3. 5-Star Service */}
-                <div className="inline-flex items-center gap-1 sm:gap-1.5 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-white/90 dark:border-white/10 shadow-2xs text-[10px] sm:text-xs font-bold text-slate-800 dark:text-slate-100">
-                  <Star className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-600 dark:text-emerald-400 shrink-0 fill-emerald-600/20" />
-                  <span>5-Star Service</span>
                 </div>
               </div>
             </div>
