@@ -18,6 +18,7 @@ import { Logo } from './Logo';
 import { ThemeToggle } from './ThemeToggle';
 import { updateDocumentSEO, setPageStructuredData, CANONICAL_DOMAIN } from '../utils/seo';
 import { SERVICES_DATA, ServiceDetail, getServiceSrcSet } from './ServiceDetailModal';
+import { EquipmentSection } from './EquipmentSection';
 import { getServiceRegularPrice, PROMO_COUPON_CODE } from '../../lib/pricing';
 import { SMS_URL, SMS_PHONE_FORMATTED } from '../utils/constants';
 
@@ -447,6 +448,9 @@ export const ServicePage: React.FC<ServicePageProps> = ({
             ))}
           </div>
         </section>
+
+        {/* Equipment Explained Section (Air Duct & Dryer Vent) */}
+        <EquipmentSection serviceId={service.id} />
 
         {/* Internal Linking: Explore Other Cleaning Services */}
         <section className="glass-surface rounded-3xl p-6 sm:p-8 space-y-4 text-left border border-white/80 dark:border-white/10 shadow-sm">

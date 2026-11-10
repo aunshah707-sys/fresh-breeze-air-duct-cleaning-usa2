@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ServicesSection } from './components/ServicesSection';
+import { WorkGallery } from './components/WorkGallery';
 import { CustomerFeedback } from './components/CustomerFeedback';
 import { ReviewsGalleryModal } from './components/ReviewsGalleryModal';
 import { WhyChooseUs } from './components/WhyChooseUs';
@@ -372,6 +373,9 @@ export default function App() {
           onClaimOffer={(code) => handleClaimPromo(code)}
           onViewAllReviews={() => setIsReviewsGalleryOpen(true)}
         />
+
+        {/* 3.5 Work Gallery (A CLOSER LOOK - Before/After Slider & Field Photography) */}
+        <WorkGallery onOpenQuote={() => openQuoteModal()} />
 
         {/* 4. Customer Feedback Section (What Our Customers Say) */}
         <CustomerFeedback 

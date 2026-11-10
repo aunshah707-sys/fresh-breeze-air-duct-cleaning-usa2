@@ -8,6 +8,7 @@ import hvacImg from '../assets/images/hero_air_duct_technician.webp';
 import hvacSmImg from '../assets/images/hero_air_duct_technician_mobile.webp';
 import chimneyImg from '../assets/images/service_chimney_cleaning.webp';
 import chimneySmImg from '../assets/images/service_chimney_cleaning_sm.webp';
+import { EquipmentSection } from './EquipmentSection';
 
 export interface ServiceDetail {
   id: string;
@@ -291,6 +292,9 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceI
               ))}
             </div>
           </div>
+
+          {/* Equipment Explained (for Air Duct & Dryer Vent) */}
+          <EquipmentSection serviceId={service.id} isCompactModal={true} />
         </div>
 
         {/* Modal Footer CTA */}

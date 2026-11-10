@@ -4,6 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
+    <!-- Ignore harmless WebSocket/HMR disconnect errors in iframe preview environment -->
+    <script>
+      window.addEventListener('unhandledrejection', function(event) {
+        if (event.reason && (
+          (event.reason.message && (event.reason.message.includes('WebSocket') || event.reason.message.includes('ws'))) ||
+          (typeof event.reason === 'string' && (event.reason.includes('WebSocket') || event.reason.includes('ws')))
+        )) {
+          event.preventDefault();
+        }
+      });
+      window.addEventListener('error', function(event) {
+        if (event.message && (event.message.includes('WebSocket') || event.message.includes('ws'))) {
+          event.preventDefault();
+        }
+      });
+    </script>
+
     <!-- Google Analytics 4 (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9D64M7DQJ7"></script>
     <script>
